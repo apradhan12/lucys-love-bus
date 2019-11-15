@@ -7,9 +7,11 @@
 
 <script>
 import TheNavigation from './components/TheNavigation.vue';
+import store from './store/store';
 
 export default {
   name: 'App',
+  store,
   components: {
     TheNavigation,
   },

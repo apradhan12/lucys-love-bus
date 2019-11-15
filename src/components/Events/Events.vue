@@ -1,6 +1,22 @@
 <template>
     <div>
-        <h1>Events</h1>
-        <img src="../../../assets/events.png" width="1200" height="800">
+        <h1>Our Upcoming Events</h1>
+        <TheEventsList />
     </div>
 </template>
+
+<script>
+import TheEventsList from './TheEventsList.vue';
+
+export default {
+  name: 'Events',
+  components: {
+    TheEventsList,
+  },
+};
+
+</script>
+
+<style>
+
+</style>
