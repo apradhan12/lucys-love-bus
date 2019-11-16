@@ -12,27 +12,27 @@ const moduleEventsList = {
         description: 'aaa',
       },
       {
-        id: 0,
+        id: 1,
         name: 'B',
         description: 'bbb',
       },
       {
-        id: 0,
+        id: 2,
         name: 'C',
         description: 'ccc',
       },
       {
-        id: 0,
+        id: 3,
         name: 'D',
         description: 'ddd',
       },
       {
-        id: 0,
+        id: 4,
         name: 'E',
         description: 'eee',
       },
       {
-        id: 0,
+        id: 5,
         name: 'F',
         description: 'fff',
       },

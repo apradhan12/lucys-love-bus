@@ -1,14 +1,22 @@
 <template>
-    <div>
-        <button v-on:click='incrementCurrentPage'>increment</button>
-        <button v-on:click='decrementCurrentPage'>decrement</button>
-        <ul>
-            <Event
-                v-for='event in pageOfEvents'
-                v-bind:key='event.id'
-                v-bind:name='event.name'
-                v-bind:description='event.description' />
-        </ul>
+    <div class="events-list__container">
+        <div class='pagination-wrapper'>
+          <button
+            class='pagination__btn'
+            v-on:click='decrementCurrentPage'>decrement</button>
+
+          <h4>Week</h4>
+          <button
+            class='pagination__btn'
+            v-on:click='incrementCurrentPage'>increment</button>
+        </div>
+          <Event
+              v-for='event in pageOfEvents'
+              v-bind:key='event.id'
+              v-bind:name='event.name'
+              v-bind:description='event.description'
+              v-bind:id='event.id' />
+        <h6>Page {{ currentPage + 1}} of {{ maxPage + 1 }}</h6>
     </div>
 </template>
 
@@ -31,7 +39,7 @@ export default {
       return this.$store.getters.getPageOfEvents(this.currentPage, this.eventsPerPage);
     },
     maxPage() {
-      return Math.ceil(this.$store.getters.numOfEvents / this.eventsPerPage);
+      return Math.floor(this.$store.getters.numOfEvents / this.eventsPerPage);
     },
   },
   methods: {
@@ -50,5 +58,20 @@ export default {
 </script>
 
 <style>
+  .events-list__container {
+    margin: 0 auto;
+    max-width: 90vw;
+    border: 2px solid red;
+  }
 
+  .pagination-wrapper {
+    display: flex;
+    justify-content: center;
+    border: 2px solid red;
+  }
+
+  .pagination__btn {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
 </style>
