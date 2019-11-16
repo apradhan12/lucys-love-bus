@@ -45,6 +45,7 @@ const moduleEventsList = {
       // slice truncates any out-of-bounds indices, so that's not a concern here
       return state.events.slice(firstEvent, lastEvent);
     },
+    numOfEvents: state => state.events.length,
   },
 };
 
