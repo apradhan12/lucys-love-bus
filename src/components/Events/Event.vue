@@ -27,7 +27,6 @@ export default {
 
 <style>
     .event__container {
-        border: 2px solid purple;
         display: grid;
         grid-template-areas: 'id content btns';
         grid-template-columns: 1fr 4fr 1fr;

@@ -36,10 +36,41 @@ const moduleEventsList = {
         name: 'F',
         description: 'fff',
       },
+      {
+        id: 6,
+        name: 'F',
+        description: 'fff',
+      },
+      {
+        id: 7,
+        name: 'F',
+        description: 'fff',
+      },
+      {
+        id: 8,
+        name: 'F',
+        description: 'fff',
+      },
+      {
+        id: 9,
+        name: 'F',
+        description: 'fff',
+      },
+      {
+        id: 10,
+        name: 'F',
+        description: 'fff',
+      },
+      {
+        id: 11,
+        name: 'F',
+        description: 'fff',
+      },
     ],
   },
   getters: {
     getPageOfEvents: state => (currentPage, eventsPerPage) => {
+      // pages are 0-indexed
       const firstEvent = currentPage * eventsPerPage;
       const lastEvent = firstEvent + eventsPerPage;
       // slice truncates any out-of-bounds indices, so that's not a concern here

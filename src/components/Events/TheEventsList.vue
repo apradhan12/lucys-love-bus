@@ -10,13 +10,12 @@
             class='pagination__btn'
             v-on:click='incrementCurrentPage'>increment</button>
         </div>
-          <Event
-              v-for='event in pageOfEvents'
-              v-bind:key='event.id'
-              v-bind:name='event.name'
-              v-bind:description='event.description'
-              v-bind:id='event.id' />
-        <h6>Page {{ currentPage + 1}} of {{ maxPage + 1 }}</h6>
+        <Event
+            v-for='event in pageOfEvents'
+            v-bind:key='event.id'
+            v-bind:id='event.id'
+            v-bind:name='event.name'
+            v-bind:description='event.description' />
     </div>
 </template>
 
@@ -35,21 +34,23 @@ export default {
     };
   },
   computed: {
+    // list of a single page's worth of items
     pageOfEvents() {
       return this.$store.getters.getPageOfEvents(this.currentPage, this.eventsPerPage);
     },
+    // page number of the last page
     maxPage() {
       return Math.floor(this.$store.getters.numOfEvents / this.eventsPerPage);
     },
   },
   methods: {
     incrementCurrentPage() {
-      if (this.currentPage !== this.maxPage) {
+      if (this.currentPage < this.maxPage) {
         this.currentPage += 1;
       }
     },
     decrementCurrentPage() {
-      if (this.currentPage !== 0) {
+      if (this.currentPage > 0) {
         this.currentPage -= 1;
       }
     },
@@ -60,14 +61,13 @@ export default {
 <style>
   .events-list__container {
     margin: 0 auto;
+    width: 65rem;
     max-width: 90vw;
-    border: 2px solid red;
   }
 
   .pagination-wrapper {
     display: flex;
     justify-content: center;
-    border: 2px solid red;
   }
 
   .pagination__btn {
