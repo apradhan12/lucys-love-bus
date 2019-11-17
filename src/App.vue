@@ -1,17 +1,22 @@
 <template>
   <div id="app">
-    <the-navigation />
-    <router-view />
+    <div id="content">
+      <the-navigation />
+      <router-view />
+    </div>
+    <the-footer />
   </div>
 </template>
 
 <script>
 import TheNavigation from './components/TheNavigation.vue';
+import TheFooter from '.components/TheFooter.vue';
 
 export default {
   name: 'App',
   components: {
     TheNavigation,
+    TheFooter,
   },
 };
 </script>
@@ -37,5 +42,9 @@ html{
   width: 100%;
   height: 100vh;
   background-color: var(--body-color);
+  flex: 1 0 auto;
+}
+#content {
+  min-height: 100%;
 }
 </style>
