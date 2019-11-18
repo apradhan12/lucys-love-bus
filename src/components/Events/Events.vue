@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="events-list__container">
+        <div class="events-container">
           <h1>Our Upcoming Events</h1>
           <div class='pagination-wrapper'>
             <button
@@ -63,7 +63,7 @@ export default {
 </script>
 
 <style>
-  .events-list__container {
+  .events-container {
     margin: 0 auto;
     width: 65rem;
     max-width: 90vw;
