@@ -39,11 +39,12 @@ export default {
   computed: {
     // list of a single page's worth of items
     pageOfEvents() {
-      return this.$store.getters.getPageOfEvents(this.currentPage, this.eventsPerPage);
+      const getPageOfEvents = this.$store.getters['events/getPageOfEvents'];
+      return getPageOfEvents(this.currentPage, this.eventsPerPage);
     },
     // page number of the last page
     maxPage() {
-      return Math.floor(this.$store.getters.numOfEvents / this.eventsPerPage);
+      return Math.floor(this.$store.getters['events/numOfEvents'] / this.eventsPerPage);
     },
   },
   methods: {
