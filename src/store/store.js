@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-const moduleEventsList = {
+const eventsList = {
   state: {
     events: [
       {
@@ -80,8 +80,5 @@ const moduleEventsList = {
   },
 };
 
-export default new Vuex.Store({
-  modules: {
-    eventsList: moduleEventsList,
-  },
-});
+module.exports = eventsList;
+
