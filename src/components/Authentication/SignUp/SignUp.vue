@@ -13,7 +13,7 @@
       <button @click="signup"> Signup </button>
     </div>
     <ul class="error">
-      <li v-for="(err, index) in inputError" :key="index" v-show="err"> {{err}} </li>
+      <li v-for="(err, index) in inputError" :key="index"> {{err}} </li>
       <li v-if="this.serverError"> {{this.serverError}} </li>
     </ul>
   </div>
@@ -28,7 +28,7 @@ export default {
       lastName: '',
       email: '',
       password: ['', ''],
-      inputError: ['', '', ''],
+      inputError: [],
       serverError: '',
     };
   },
@@ -38,10 +38,11 @@ export default {
       this.lastName = '';
       this.email = '';
       this.password = ['', ''];
-      this.inputError = ['', '', ''];
+      this.inputError = [];
       this.serverError = '';
     },
     validate() {
+      this.inputError = [];
       const err1 = this.validateUser();
       const err2 = this.validateEmail();
       const err3 = this.validatePassword();
@@ -49,9 +50,8 @@ export default {
     },
     validateUser() {
       if (!this.firstName || !this.lastName[1]) {
-        this.inputError.splice(0, 1, 'Name cannot be empty');
+        this.inputError.push('Name cannot be empty');
       } else {
-        this.inputError.splice(0, 1, '');
         return true;
       }
       return false;
@@ -60,22 +60,20 @@ export default {
       // eslint-disable-next-line no-useless-escape
       const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       if (!this.email) {
-        this.inputError.splice(1, 1, 'Email cannot be empty');
+        this.inputError.push('Email cannot be empty');
       } else if (!emailRegex.test(this.email)) {
-        this.inputError.splice(1, 1, 'Invalid Email');
+        this.inputError.push('Invalid Email');
       } else {
-        this.inputError.splice(1, 1, '');
         return true;
       }
       return false;
     },
     validatePassword() {
       if (!this.password[0] && !this.password[1]) {
-        this.inputError.splice(2, 1, 'Password cannot be empty');
+        this.inputError.push('Password cannot be empty');
       } else if (this.password[0] !== this.password[1]) {
-        this.inputError.splice(2, 1, 'Passwords do not match');
+        this.inputError.push('Passwords do not match');
       } else {
-        this.inputError.splice(2, 1, '');
         return true;
       }
       return false;
@@ -95,7 +93,11 @@ export default {
           this.resetInput();
           this.$router.push('/home');
         } catch (error) {
-          this.serverError = error.error_message;
+          if (error.status === 409) {
+            this.serverError = 'Email has already been registered.';
+          } else {
+            this.serverError = 'Bad Request.';
+          }
         }
       }
     },
