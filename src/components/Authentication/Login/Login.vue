@@ -9,7 +9,7 @@
       <input v-model="password" @focus="resetSubmit" type="password" placeholder="Password"/>
       <button @click="submit"> Login </button>
       <label for="keepSignedIn"> Keep me signed in </label>
-      <input type="checkbox" id="keepSignedIn" v-model="keepSignedIn">
+      <input type="checkbox" id="rememberMe" v-model="rememberMe">
       <router-link to="sign-up" tag="a"> Don't have an account? Sign up here! </router-link>
     </div>
     <div class="error">
@@ -26,7 +26,7 @@ export default {
     return {
       email: '',
       password: '',
-      keepSignedIn: '',
+      rememberMe: '',
       submitted: false,
       inputValid: false,
       error: '',
@@ -52,18 +52,21 @@ export default {
         const user = {
           email: this.email,
           password: this.password,
-          remember_me: this.keepSignedIn,
+          remember_me: this.rememberMe,
         };
         try {
           await this.$store.dispatch('login', user);
           this.resetInput();
           this.$router.push('/');
         } catch (error) {
-          this.error = `Incorrect Email/Password: ${error.message}`;
+          if (error.status === 401) {
+            this.error = `Incorrect Email/Password: ${error.message}.`;
+          } else {
+            this.error = 'Bad request.';
+          }
         }
       }
     },
   },
 };
 </script>
-  
