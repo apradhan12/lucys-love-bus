@@ -1,8 +1,8 @@
-<template>
+<template functional>
   <div class="welcome">
-    <img :src="familyImg"/>
+    <img :src="props.familyImg"/>
     <div>
-      <span class="title">Welcome, the {{ name }} Family!</span>
+      <span class="title">Welcome, the {{ props.name }} Family!</span>
       <p>Lorem ipsum...</p>
     </div>
   </div>

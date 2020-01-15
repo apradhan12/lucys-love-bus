@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>My Profile</h1>
-    <Welcome :name="name" :familyImg="familyImg"/>
+    <Welcome :name="user.name" :familyImg="user.img"/>
     <div class='three-buttons'>
       <div class='button'>
         <router-link to='/events'>
@@ -10,13 +10,13 @@
         </router-link>
       </div>
       <div class='button'>
-        <router-link :to='eventsLink'>
+        <router-link :to='{name: "my-events", params: {username: username}}'>
           <img src='https://static5.depositphotos.com/1037987/476/i/450/depositphotos_4767995-stock-photo-couple-giving-two-young-children.jpg'/>
           <span>My Events</span>
         </router-link>
       </div>
       <div class='button'>
-        <router-link :to='accountLink'>
+        <router-link :to='{name: "account", params: {username: username}}'>
           <img src='https://static.thenounproject.com/png/17337-200.png'/>
           <span>Account Info</span>
         </router-link>
@@ -59,22 +59,6 @@ export default {
 
     user() {
       return this.users.find(user => user.username === this.username);
-    },
-
-    name() {
-      return this.user.name;
-    },
-
-    familyImg() {
-      return this.user.img;
-    },
-
-    eventsLink() {
-      return `/${this.username}/my-events`;
-    },
-
-    accountLink() {
-      return `/${this.username}/account`;
     },
   },
 };
