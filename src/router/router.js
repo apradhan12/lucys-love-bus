@@ -58,11 +58,13 @@ export default new Router({
       path: '/:username/my-events',
       name: 'my-events',
       component: MyEvents,
+      props: true,
     },
     {
       path: '/:username/account',
       name: 'account',
       component: Account,
+      props: true,
     },
     {
       path: '*',

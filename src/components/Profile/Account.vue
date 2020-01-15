@@ -9,10 +9,8 @@
 export default {
   name: 'Account',
 
-  computed: {
-    username() {
-      return this.$route.params.username;
-    },
+  props: {
+    username: String,
   },
 };
 </script>
