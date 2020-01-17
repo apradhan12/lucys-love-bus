@@ -8,7 +8,7 @@
         <p>{{ this.description }}</p>
       </div>
       <div class="event-btns">
-          <button class="event-btn">Learn More</button>
+          <button class="event-btn">Learn More</button><br />
           <button>Register</button>
       </div>
   </div>
@@ -60,5 +60,6 @@ export default {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
+        flex-direction: column;
     }
 </style>

@@ -1,22 +1,23 @@
 <template>
     <div>
-        <div class="events-container">
-          <div class='pagination-wrapper'>
-            <button
-              class='pagination__btn'
-              v-on:click='decrementCurrentPage'>decrement</button>
-
-            <h4>Week</h4>
-            <button
-              class='pagination__btn'
-              v-on:click='incrementCurrentPage'>increment</button>
-          </div>
+        <span v-if="noEvents">{{ noEventsMsg }}</span>
+        <div v-else class="events-container">
           <Event
               v-for='event in pageOfEvents'
               :key='event.id'
               :id='event.id'
               :name='event.name'
               :description='event.description' />
+        </div>
+        <div class='pagination-wrapper'>
+          <button
+            class='pagination__btn'
+            v-on:click='decrementCurrentPage'>Prev</button>
+
+          <h4>Page {{ currentPage }} of {{ maxPage }} </h4>
+          <button
+            class='pagination__btn'
+            v-on:click='incrementCurrentPage'>Next</button>
         </div>
     </div>
 </template>
@@ -37,6 +38,7 @@ export default {
   },
   props: {
     events: Array,
+    noEventsMsg: String, // msg to display if there are no relevant events
   },
   computed: {
     // list of a single page's worth of items
@@ -50,6 +52,10 @@ export default {
     // page number of the last page
     maxPage() {
       return Math.floor(this.events.length / this.eventsPerPage);
+    },
+    // there are no events to display
+    noEvents() {
+      return this.events.length === 0;
     },
   },
   methods: {
