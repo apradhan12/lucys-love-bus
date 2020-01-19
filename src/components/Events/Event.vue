@@ -8,7 +8,7 @@
         <p>{{ this.description }}</p>
       </div>
       <div class="event-btns">
-          <button class="event-btn">Learn More</button><br />
+          <button class="event-btn">Learn More</button>
           <button>Register</button>
       </div>
   </div>
