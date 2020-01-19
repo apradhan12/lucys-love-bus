@@ -24,7 +24,7 @@ export default {
   computed: {
     myEvents() {
       const events = this.$store.getters['events/getEvents'];
-      return events.filter(e => e.id % 2 === 0); // arbitrary implementation for testing
+      return events.filter(e => e.users.includes(this.username));
     },
   },
 };
