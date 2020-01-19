@@ -34,9 +34,11 @@ const userState = (() => {
   }
 
   function getUserAccountStatus() {
-    const payload = jwtUtils.getTokenPayload(tokenService.getAccessToken);
-    if (payload !== null) {
-      return payload.accountStatus;
+    if (getIsSignedin()) {
+      const payload = jwtUtils.getTokenPayload(tokenService.getAccessToken);
+      if (payload !== null) {
+        return payload.accountStatus;
+      }
     }
     return -1;
   }
