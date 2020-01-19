@@ -1,13 +1,13 @@
 <template>
   <div class="header">
     <div class="title">
-      <router-link to="home" tag="h3">[LOGO]</router-link>
+      <router-link to="/" tag="h3">[LOGO]</router-link>
     </div>
 
     <div class="navlinks">
-      <router-link to="about-us" tag="button">About Us</router-link>
-      <router-link to="events" tag="button">Events</router-link>
-      <router-link to="login" tag="button">Log In</router-link>
+      <router-link to="/about-us" tag="button">About Us</router-link>
+      <router-link to="/events" tag="button">Events</router-link>
+      <router-link to="/authentication" tag="button">Log In</router-link>
     </div>
   </div>
 </template>
@@ -26,8 +26,9 @@
   }
   .navlinks {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 25%;
+    white-space: nowrap;
     button {
       display: block;
       width: 5em;
