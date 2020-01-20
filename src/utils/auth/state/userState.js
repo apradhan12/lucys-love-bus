@@ -1,5 +1,6 @@
 import tokenService from '../tokenService';
 import jwtUtils from '../jwtUtils';
+import userApi from '../../../api/userApi';
 
 /**
  * MODULE SUMMARY
@@ -17,6 +18,7 @@ const userState = (() => {
     isSignedin = false;
     tokenService.removeAccessToken();
     tokenService.removeRefreshToken();
+    userApi.deleteAccessTokenHeader(); // I'm not sure this is necessary.
   }
 
   function getIsSignedin() {
