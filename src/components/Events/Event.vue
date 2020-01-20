@@ -30,7 +30,7 @@ export default {
     .event__container {
         display: grid;
         grid-template-areas: 'img content btns';
-        grid-template-columns: 2fr 4fr 1fr;
+        grid-template-columns: 1fr 4fr 1fr;
         grid-template-rows: 1fr;
         justify-content: space-between;
         margin-bottom: 40px;
@@ -44,7 +44,7 @@ export default {
     }
 
     .event-img img {
-        width: 50%;
+        width: 80%;
     }
 
     .event-content {
@@ -54,7 +54,7 @@ export default {
     }
 
     .event-content > h3 {
-        margin-bottom: 40px;
+        margin-bottom: 20px;
         width: 100%;
     }
 
@@ -69,6 +69,7 @@ export default {
 
     .event-btn {
         margin-bottom: 20px;
+        width: 100%;
         background-color: black;
         color: #EEEEEE;
         border: none;
