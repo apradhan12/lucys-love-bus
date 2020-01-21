@@ -96,7 +96,7 @@ export default {
     margin-right: 1rem;
     background-color: black;
     color: #EEEEEE;
-    padding: 6px 18px 6px 18px;
+    padding: 1em 3em 1em 3em;
     border-radius: 4px;
     border: none;
     cursor: pointer;

@@ -33,7 +33,7 @@ export default {
         grid-template-columns: 1fr 4fr 1fr;
         grid-template-rows: 1fr;
         justify-content: space-between;
-        margin-bottom: 40px;
+        margin-bottom: 2em;
     }
 
     .event-img {
@@ -54,7 +54,7 @@ export default {
     }
 
     .event-content > h3 {
-        margin-bottom: 20px;
+        margin-bottom: 2em;
         width: 100%;
     }
 
@@ -68,12 +68,12 @@ export default {
     }
 
     .event-btn {
-        margin-bottom: 20px;
+        margin-bottom: 1em;
         width: 100%;
         background-color: black;
         color: #EEEEEE;
         border: none;
-        padding: 8px 24px 8px 24px;
+        padding: 1em 3em 1em 3em;
         border-radius: 4px;
         cursor: pointer;
     }
