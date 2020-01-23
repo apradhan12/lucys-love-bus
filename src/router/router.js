@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Home from '../components/Home/Home.vue';
 import AboutUs from '../components/AboutUs/AboutUs.vue';
 import Events from '../components/Events/Events.vue';
+import SingleEvent from '../components/Events/SingleEvent.vue';
 import Authentication from '../components/Authentication/Authentication.vue';
 import Login from '../components/Authentication/Login/Login.vue';
 import SignUp from '../components/Authentication/SignUp/SignUp.vue';
@@ -30,6 +31,13 @@ export default new Router({
       path: '/events',
       name: 'events',
       component: Events,
+      props: true,
+    },
+    {
+      path: '/single-event',
+      name: 'single-event',
+      component: SingleEvent,
+      props: true,
     },
     {
       path: '/authentication',

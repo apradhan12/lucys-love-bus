@@ -8,8 +8,10 @@
         <p>{{ this.description }}</p>
       </div>
       <div class="event-btns">
-          <button class="event-btn">Learn More</button>
-          <button class="event-btn">Register</button>
+          <router-link :to="{ name: 'single-event', params: { Event: this }}">
+              <button class="event-btn">Learn More</button>
+          </router-link>
+          <button>Register</button>
       </div>
   </div>
 </template>
@@ -20,6 +22,8 @@ export default {
   props: {
     id: Number,
     name: String,
+    location: String,
+    time: String,
     description: String,
     img: String,
   },
