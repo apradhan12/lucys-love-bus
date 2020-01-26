@@ -10,7 +10,7 @@ export default {
     roles: { type: Array, default: () => [] },
     role: { type: String, default: '' },
     component_user_id: { type: Number, default: -2 },
-    user_id: { type: String, default: -1 },
+    user_id: { type: Number, default: -1 },
   },
   computed: {
     hasRole() {
