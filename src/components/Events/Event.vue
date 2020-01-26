@@ -11,7 +11,7 @@
           <router-link :to="{ name: 'single-event', params: { eventID: this.id }}">
               <button class="event-btn">Learn More</button>
           </router-link>
-          <button>Register</button>
+          <button class="event-btn">Register</button>
       </div>
   </div>
 </template>
