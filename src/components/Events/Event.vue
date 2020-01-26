@@ -8,7 +8,7 @@
         <p>{{ this.description }}</p>
       </div>
       <div class="event-btns">
-          <router-link :to="{ name: 'single-event', params: { Event: this }}">
+          <router-link :to="{ name: 'single-event', params: { eventID: this.id }}">
               <button class="event-btn">Learn More</button>
           </router-link>
           <button>Register</button>

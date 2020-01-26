@@ -34,7 +34,7 @@ export default new Router({
       props: true,
     },
     {
-      path: '/single-event',
+      path: '/:eventID',
       name: 'single-event',
       component: SingleEvent,
       props: true,
