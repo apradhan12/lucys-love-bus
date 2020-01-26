@@ -4,7 +4,7 @@ export default {
     events: [
       {
         id: 0,
-        name: 'Lorem Ipsum',
+        name: 'Event 0',
         location: 'Lorem Ipsum',
         time: 'Lorem Ipsum',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a',
@@ -14,7 +14,7 @@ export default {
       },
       {
         id: 1,
-        name: 'Lorem Ipsum',
+        name: 'Event 1',
         location: 'Lorem Ipsum',
         time: 'Lorem Ipsum',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a',
@@ -24,7 +24,7 @@ export default {
       },
       {
         id: 2,
-        name: 'Lorem Ipsum',
+        name: 'Event 2',
         location: 'Lorem Ipsum',
         time: 'Lorem Ipsum',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a',
@@ -34,7 +34,7 @@ export default {
       },
       {
         id: 3,
-        name: 'Lorem Ipsum',
+        name: 'Event 3',
         location: 'Lorem Ipsum',
         time: 'Lorem Ipsum',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a',
@@ -44,7 +44,7 @@ export default {
       },
       {
         id: 4,
-        name: 'Lorem Ipsum',
+        name: 'Event 4',
         location: 'Lorem Ipsum',
         time: 'Lorem Ipsum',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a',
@@ -54,7 +54,7 @@ export default {
       },
       {
         id: 5,
-        name: 'Lorem Ipsum',
+        name: 'Event 5',
         location: 'Lorem Ipsum',
         time: 'Lorem Ipsum',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a',
@@ -64,7 +64,7 @@ export default {
       },
       {
         id: 6,
-        name: 'Lorem Ipsum',
+        name: 'Event 6',
         location: 'Lorem Ipsum',
         time: 'Lorem Ipsum',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a',
@@ -74,7 +74,7 @@ export default {
       },
       {
         id: 7,
-        name: 'Lorem Ipsum',
+        name: 'Event 7',
         location: 'Lorem Ipsum',
         time: 'Lorem Ipsum',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a',
@@ -84,7 +84,7 @@ export default {
       },
       {
         id: 8,
-        name: 'Lorem Ipsum',
+        name: 'Event 8',
         location: 'Lorem Ipsum',
         time: 'Lorem Ipsum',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a',
@@ -94,7 +94,7 @@ export default {
       },
       {
         id: 9,
-        name: 'Lorem Ipsum',
+        name: 'Event 9',
         location: 'Lorem Ipsum',
         time: 'Lorem Ipsum',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a',
@@ -104,7 +104,7 @@ export default {
       },
       {
         id: 10,
-        name: 'Lorem Ipsum',
+        name: 'Event 10',
         location: 'Lorem Ipsum',
         time: 'Lorem Ipsum',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a',
@@ -114,7 +114,7 @@ export default {
       },
       {
         id: 11,
-        name: 'Lorem Ipsum',
+        name: 'Event 11',
         location: 'Lorem Ipsum',
         time: 'Lorem Ipsum',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a',
