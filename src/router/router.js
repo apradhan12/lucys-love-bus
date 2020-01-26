@@ -6,10 +6,12 @@ import Events from '../components/Events/Events.vue';
 import Authentication from '../components/Authentication/Authentication.vue';
 import Login from '../components/Authentication/Login/Login.vue';
 import SignUp from '../components/Authentication/SignUp/SignUp.vue';
+import AccessControlDemonstration from '../components/Authentication/AccessControl/AccessControlDemonstration.vue';
 import NotFound from '../components/NotFound.vue';
 import Profile from '../components/Profile/Profile.vue';
 import MyEvents from '../components/Profile/MyEvents.vue';
 import Account from '../components/Profile/Account.vue';
+
 
 Vue.use(Router);
 
@@ -30,6 +32,11 @@ export default new Router({
       path: '/events',
       name: 'events',
       component: Events,
+    },
+    {
+      path: '/acl',
+      name: 'acl',
+      component: AccessControlDemonstration,
     },
     {
       path: '/authentication',
