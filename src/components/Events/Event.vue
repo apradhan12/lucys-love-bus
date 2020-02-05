@@ -1,7 +1,7 @@
 <template>
   <div class="event__container">
-      <div class="event-id">
-          <h3>{{ this.id }}</h3>
+      <div class="event-img">
+          <img :src="img" />
       </div>
       <div class="event-content">
         <h3>{{ this.name }}</h3>
@@ -9,7 +9,7 @@
       </div>
       <div class="event-btns">
           <button class="event-btn">Learn More</button>
-          <button>Register</button>
+          <button class="event-btn">Register</button>
       </div>
   </div>
 </template>
@@ -21,6 +21,7 @@ export default {
     id: Number,
     name: String,
     description: String,
+    img: String,
   },
 };
 </script>
@@ -28,30 +29,32 @@ export default {
 <style>
     .event__container {
         display: grid;
-        grid-template-areas: 'id content btns';
+        grid-template-areas: 'img content btns';
         grid-template-columns: 1fr 4fr 1fr;
         grid-template-rows: 1fr;
         justify-content: space-between;
+        margin-bottom: 2em;
     }
 
-    .event-id {
-        grid-area: id;
+    .event-img {
+        grid-area: img;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #D3D3D3;
+    }
+
+    .event-img img {
+        width: 80%;
     }
 
     .event-content {
         padding-left: 1rem;
         grid-area: content;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-start;
+        text-align: left;
     }
 
     .event-content > h3 {
-        text-align: left;
+        margin-bottom: 2em;
         width: 100%;
     }
 
@@ -61,5 +64,17 @@ export default {
         flex-wrap: wrap;
         align-items: center;
         flex-direction: column;
+        justify-content: center;
+    }
+
+    .event-btn {
+        margin-bottom: 1em;
+        width: 100%;
+        background-color: black;
+        color: #EEEEEE;
+        border: none;
+        padding: 1em 3em 1em 3em;
+        border-radius: 4px;
+        cursor: pointer;
     }
 </style>

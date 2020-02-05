@@ -7,6 +7,7 @@
               :key='event.id'
               :id='event.id'
               :name='event.name'
+              :img='event.img'
               :description='event.description' />
         </div>
         <div class='pagination-wrapper'>
@@ -14,7 +15,7 @@
             class='pagination__btn'
             v-on:click='decrementCurrentPage'>Prev</button>
 
-          <h4>Page {{ currentPage }} of {{ maxPage }} </h4>
+          <span><b>Page {{ currentPage + 1 }} of {{ maxPage + 1 }}</b></span>
           <button
             class='pagination__btn'
             v-on:click='incrementCurrentPage'>Next</button>
@@ -86,8 +87,18 @@ export default {
     justify-content: center;
   }
 
+  .pagination-wrapper span {
+    display: block;
+  }
+
   .pagination__btn {
     margin-left: 1rem;
     margin-right: 1rem;
+    background-color: black;
+    color: #EEEEEE;
+    padding: 1em 3em 1em 3em;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
   }
 </style>
