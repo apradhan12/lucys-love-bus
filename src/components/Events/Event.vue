@@ -60,5 +60,6 @@ export default {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
+        flex-direction: column;
     }
 </style>

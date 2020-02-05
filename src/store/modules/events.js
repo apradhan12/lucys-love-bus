@@ -72,6 +72,7 @@ export default {
       // slice truncates any out-of-bounds indices, so that's not a concern here
       return state.events.slice(firstEvent, lastEvent);
     },
+    getEvents: state => state.events,
     numOfEvents: state => state.events.length,
   },
 };
