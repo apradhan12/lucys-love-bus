@@ -1,6 +1,5 @@
 import tokenService from '../tokenService';
 import jwtUtils from '../jwtUtils';
-import userApi from '../../../api/userApi';
 
 /**
  * MODULE SUMMARY
@@ -8,26 +7,35 @@ import userApi from '../../../api/userApi';
  *
  * Integer getters for priviledge level and account status will return -1 if they cannot be found.
  */
-const userState = (() => {
-  let isSignedin = false;
+class UserState {
+  isSignedin;
 
-  function login() {
-    isSignedin = true;
+  constructor() {
+    this.isSignedin = false;
   }
-  function logout() {
-    isSignedin = false;
+
+  login(accessToken, refreshToken) {
+    this.isSignedin = true;
+    tokenService.setAccessToken(accessToken);
+    tokenService.setRefreshToken(refreshToken);
+  }
+
+  logout() {
+    this.isSignedin = false;
     tokenService.removeAccessToken();
     tokenService.removeRefreshToken();
-    userApi.deleteAccessTokenHeader(); // I'm not sure this is necessary.
   }
 
-  function getIsSignedin() {
-    return isSignedin && (tokenService.getAccessToken !== null);
+  getIsSignedIn() {
+    return this.isSignedin && (tokenService.getAccessToken !== null);
   }
 
-  function getUserAdminLevel() {
-    if (getIsSignedin()) {
-      const payload = jwtUtils.getTokenPayload(tokenService.getAccessToken);
+  /**
+   * Will retrieve the current user's admin level as specfied in the access token.
+   */
+  getUserAdminLevel() {
+    if (this.getIsSignedIn()) {
+      const payload = jwtUtils.getTokenPayload(tokenService.getAccessToken());
       if (payload !== null) {
         return payload.adminLevel;
       }
@@ -35,9 +43,12 @@ const userState = (() => {
     return -1;
   }
 
-  function getUserAccountStatus() {
-    if (getIsSignedin()) {
-      const payload = jwtUtils.getTokenPayload(tokenService.getAccessToken);
+  /**
+   * Will retrieve the current user's accountStatus as specified in the access token.
+   */
+  getUserAccountStatus() {
+    if (this.getIsSignedIn()) {
+      const payload = jwtUtils.getTokenPayload(tokenService.getAccessToken());
       if (payload !== null) {
         return payload.accountStatus;
       }
@@ -45,13 +56,20 @@ const userState = (() => {
     return -1;
   }
 
-  return {
-    login: login(),
-    logout: logout(),
-    getIsSignedin: getIsSignedin(),
-    getUserAdminLevel: getUserAdminLevel(),
-    getUserAccountStatus: getUserAccountStatus(),
-  };
-});
+  /**
+  * Will retrieve the current user's userId as specified in the access token.
+  */
+  getUserId() {
+    if (this.getIsSignedIn()) {
+      const payload = jwtUtils.getTokenPayload(tokenService.getAccessToken());
+      if (payload !== null) {
+        return payload.userId;
+      }
+    }
+    return -1;
+  }
+}
+
+const userState = new UserState();
 
 export default userState;
