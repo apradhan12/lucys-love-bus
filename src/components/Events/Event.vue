@@ -9,7 +9,8 @@
       </div>
       <div class="event-btns">
           <button class="event-btn">Learn More</button>
-          <button class="event-btn">Register</button>
+          <button v-if="myEvents" class="event-btn">Cancel</button>
+          <button v-else class="event-btn">Register</button>
       </div>
   </div>
 </template>
@@ -22,6 +23,7 @@ export default {
     name: String,
     description: String,
     img: String,
+    myEvents: Boolean, // if true, show Cancel button on events; otherwise, show Register buttons
   },
 };
 </script>

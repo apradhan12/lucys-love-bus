@@ -1,6 +1,9 @@
 <template>
     <div>
-        <span v-if="noEvents">{{ noEventsMsg }}</span>
+        <span v-if="noEvents">
+          <span v-if="myEvents">You aren't registered for any events.</span>
+          <span v-else>There aren't any events right now. Check back later!</span>
+        </span>
         <div v-else class="events-container">
           <Event
               v-for='event in pageOfEvents'
@@ -8,7 +11,8 @@
               :id='event.id'
               :name='event.name'
               :img='event.img'
-              :description='event.description' />
+              :description='event.description'
+              :myEvents="myEvents" />
         </div>
         <div class='pagination-wrapper'>
           <button
@@ -40,6 +44,7 @@ export default {
   props: {
     events: Array,
     noEventsMsg: String, // msg to display if there are no relevant events
+    myEvents: Boolean, // true if "my events" page, false otherwise; used to determine buttons
   },
   computed: {
     // list of a single page's worth of items
