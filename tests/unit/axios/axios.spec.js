@@ -5,7 +5,6 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { refreshToken, createRequestInterceptor, createResponseInterceptor } from '../../../src/utils/auth/axios/axiosUtils';
-import { API_USER } from '../../../src/api/endpoints';
 
 describe('axios interceptor tests', () => {
   // init axios instance
@@ -13,6 +12,7 @@ describe('axios interceptor tests', () => {
   createRequestInterceptor(testAxios);
   createResponseInterceptor(testAxios, refreshToken);
   let mock;
+  const API_USER = 'a/fake/endpoint';
 
   beforeEach(() => {
     mock = new MockAdapter(testAxios);
