@@ -52,18 +52,14 @@ export default {
         const user = {
           email: this.email,
           password: this.password,
-          remember_me: this.rememberMe,
+          rememberMe: this.rememberMe,
         };
         try {
           await this.$store.dispatch('login', user);
           this.resetInput();
           this.$router.push('/');
         } catch (error) {
-          if (error.status === 401) {
-            this.error = `Incorrect Email/Password: ${error.message}.`;
-          } else {
-            this.error = 'Bad request.';
-          }
+          this.error = error.message;
         }
       }
     },

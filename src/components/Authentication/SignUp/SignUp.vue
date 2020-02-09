@@ -83,8 +83,8 @@ export default {
       this.serverError = '';
       if (this.validate()) {
         const user = {
-          first_name: this.firstName,
-          last_name: this.lastName,
+          firstName: this.firstName,
+          lastName: this.lastName,
           email: this.email,
           password: this.password[0],
         };
