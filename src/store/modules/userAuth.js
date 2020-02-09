@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-shadow */
 import jwtUtils from '../../utils/auth/jwtUtils';
+import authApi from '../../api/authApi';
+import userState from '../../utils/auth/state/userState';
 import tokenService from '../../utils/auth/tokenService';
-import userApi from '../../api/userApi';
 
 const state = {
 };
@@ -15,41 +16,40 @@ const mutations = {
 
 const actions = {
   /**
-   * Called in Loginform.vue
+   * Called in Login.vue
    * Used to login the user and retrieve access & refresh tokens.
    * @param {*} context required vuex actions parameter.
    * @param {*} user object containing {username, password, rememberMe} properties.
    */
   async login(context, user) {
     try {
-      const response = await userApi.login(user);
+      const response = await authApi.login(user);
       if (response.status === 201) {
-        tokenService.setAccessToken(response.data.access_token);
-        tokenService.setRefreshToken(response.data.refresh_token);
-        userApi.setAccessTokenHeader(response.data.access_token);
-        context.dispatch('getUser');
+        userState.login(response.data.accessToken, response.data.refreshToken);
       } else {
-        throw new Error(`Login failed with response status ${response.status}`);
+        const error = new Error(`Login failed with response status ${response.status}`);
+        error.code = response.status;
+        throw error;
       }
     } catch (error) {
       throw error;
     }
   },
   /**
-   * Called in Signupform.vue
+   * Called in SignUp.vue
    * Used to sign a user up and retrieve access & refresh tokens.
    * @param {*} context required vuex actions parameter.
    * @param {*} user object containing {username, password, email} properties.
    */
   async signup(context, user) {
     try {
-      const response = await userApi.signup(user);
+      const response = await authApi.signup(user);
       if (response.status === 201) {
-        tokenService.setAccessToken(response.data.access_token);
-        tokenService.setRefreshToken(response.data.refresh_token);
-        userApi.setAccessTokenHeader(response.data.access_token);
+        userState.login(response.data.accessToken, response.data.refreshToken);
       } else {
-        throw new Error(`Signup failed with response status ${response.status}`);
+        const error = new Error(`Signup failed with response status ${response.status}`);
+        error.code = response.status;
+        throw error;
       }
     } catch (error) {
       throw error;
@@ -57,14 +57,18 @@ const actions = {
   },
   /**
    * Called in TheNavigation.vue
-   * used to logout a user. Sends access & refresh tokens to backend for invalidation.
+   * Used to logout the current user. Sends access & refresh tokens to backend for invalidation.
+   * Removes access and refresh token headers from axios.
+   * Calls logout from userState Singleton.
    * @param {*} context required vuex actions parameter.
    */
   async logout(context) {
     try {
       context.commit('logout');
-      const response = await userApi.logout(tokenService.getAccessToken(),
-        tokenService.getRefreshToken());
+      const response = await authApi.logout(tokenService.getRefreshToken());
+      authApi.deleteAccessTokenHeader();
+      authApi.deleteRefreshTokenHeader();
+      userState.logout();
       if (response.status !== 204) {
         throw new Error(`Logout failed with response status ${response.status}`);
       }
@@ -84,24 +88,13 @@ const actions = {
 
     if (!jwtUtils.isJWTValid(access) && jwtUtils.isJWTValid(refresh)) {
       try {
-        const { data } = await userApi.refresh(refresh);
-        tokenService.setAccessToken(data.access_token);
-        userApi.setAccessTokenHeader(data.access_token);
+        const { data } = await authApi.refresh(refresh);
+        tokenService.setAccessToken(data.accessToken);
+        authApi.setAccessTokenHeader(data.accessToken);
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error(error);
       }
-    }
-  },
-  /**
-   * BUM FUNCTION USED FOR TESTING! DOESN"T DO ANYTHING YET.
-   */
-  async getUser() {
-    try {
-      await userApi.getUser();
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error('Could not retrieve user');
     }
   },
 };
