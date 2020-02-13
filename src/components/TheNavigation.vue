@@ -13,6 +13,8 @@
 </template>
 
 <style lang="less" scoped>
+@import '../../assets/color-constants.less';
+
 .header {
   display: flex;
   justify-content: space-around;
@@ -42,7 +44,7 @@
       font-family: var(--main-font);
     }
     button:hover {
-      color: white;
+      color: @button-hover-color;
     }
   }
 }
