@@ -26,7 +26,9 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less">
+    @import '../../../assets/color-constants.less';
+
     .event__container {
         display: grid;
         grid-template-areas: 'img content btns';
@@ -70,8 +72,8 @@ export default {
     .event-btn {
         margin-bottom: 1em;
         width: 100%;
-        background-color: black;
-        color: #EEEEEE;
+        background-color: @button-bg;
+        color: @button-color;
         border: none;
         padding: 1em 3em 1em 3em;
         border-radius: 4px;
