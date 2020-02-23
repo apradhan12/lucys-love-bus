@@ -75,7 +75,9 @@ export default {
 
 </script>
 
-<style>
+<style lang="less">
+  @import '../../../assets/color-constants.less';
+
   .events-container {
     margin: 0 auto;
     width: 65rem;
@@ -94,8 +96,8 @@ export default {
   .pagination__btn {
     margin-left: 1rem;
     margin-right: 1rem;
-    background-color: black;
-    color: #EEEEEE;
+    background-color: @button-bg;
+    color: @button-color;
     padding: 1em 3em 1em 3em;
     border-radius: 4px;
     border: none;

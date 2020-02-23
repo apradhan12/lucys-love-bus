@@ -17,18 +17,20 @@ export default {
 </script>
 
 <style lang="less">
+@import '../assets/color-constants.less';
+
 :root {
   --main-font: "Montserrat", sans-serif;
-  --header-color: #ddabff;
-  --body-color: white;
-  --notes-form-color: #c4d2ff;
+  --header-color: @header-color;
+  --body-color: @body-color;
+  --notes-form-color: @notes-form-color;
 }
-html{
+html {
   overflow-y: scroll;
   body {
     margin: 0;
     padding: 0;
-}
+  }
 }
 
 #app {
