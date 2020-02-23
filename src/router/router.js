@@ -11,6 +11,7 @@ import NotFound from '../components/NotFound.vue';
 import Profile from '../components/Profile/Profile.vue';
 import MyEvents from '../components/Profile/MyEvents.vue';
 import Account from '../components/Profile/Account.vue';
+import CreateEvent from '../components/Events/CreateEvent.vue';
 
 Vue.use(Router);
 
@@ -31,6 +32,11 @@ export default new Router({
       path: '/events',
       name: 'events',
       component: Events,
+    },
+    {
+      path: '/create-event',
+      name: 'create-event',
+      component: CreateEvent,
     },
     {
       path: '/:eventID',
