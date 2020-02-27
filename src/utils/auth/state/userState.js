@@ -14,18 +14,28 @@ class UserState {
     this.isSignedin = false;
   }
 
+  /**
+   * Logs the user in with the given a refresh and access token.
+   */
   login(accessToken, refreshToken) {
     this.isSignedin = true;
     tokenService.setAccessToken(accessToken);
     tokenService.setRefreshToken(refreshToken);
   }
 
+  /**
+   * Changes state and removes tokens.
+   */
   logout() {
     this.isSignedin = false;
     tokenService.removeAccessToken();
     tokenService.removeRefreshToken();
   }
 
+  /**
+   * Will return true if the access token exists and
+   * the internal state indicates the user has signed in success.
+   */
   getIsSignedIn() {
     return this.isSignedin && (tokenService.getAccessToken !== null);
   }
