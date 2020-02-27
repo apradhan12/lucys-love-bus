@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import axiosInstance from '../utils/auth/axios/axiosInstance';
+import { publicResourceAxios, protectedResourceAxios } from '../utils/auth/axios/axiosInstance';
 import {
   API_LOGIN, API_SIGNUP, API_REFRESH_TOKEN,
 } from './endpoints';
@@ -9,41 +9,50 @@ import {
  * Used as a wrapper around user authentication api calls. Exposes certain functions that can
  * be looked at as routes. These functions should be called in Vuex Modules.
  *
- * One of these files should be made for every group of api calls (e.g. notesApi.js)
+ * One of these files should be made for every group of api calls (e.g. authApi.js, eventsApi.js)
  */
 
 function setAccessTokenHeader(access_token) {
-  axiosInstance.defaults.headers['X-Access-Token'] = access_token;
+  protectedResourceAxios.defaults.headers['X-Access-Token'] = access_token;
 }
 
 function setRefreshTokenHeader(refresh_token) {
-  axiosInstance.defaults['X-Refresh-Token'] = refresh_token;
+  protectedResourceAxios.defaults['X-Refresh-Token'] = refresh_token;
 }
 
 function deleteAccessTokenHeader() {
-  delete axiosInstance.defaults.headers['X-Access-Token'];
+  delete protectedResourceAxios.defaults.headers['X-Access-Token'];
 }
 
 function deleteRefreshTokenHeader() {
-  delete axiosInstance.defaults['X-Refresh-Token'];
+  delete protectedResourceAxios.defaults['X-Refresh-Token'];
 }
 
+/**
+ * Uses publicResourceAxios instance to avoid duplicating requests.
+ * @param {Object} user contains fields username, password, and rememberMe.
+ * Makes a request to the backend api.
+ */
 function login(user) {
-  return axiosInstance.post(API_LOGIN, user);
+  return publicResourceAxios.post(API_LOGIN, user);
 }
 
+/**
+ * @param {Object} user contains fields username, password, firstName, and lastName
+ * Makes a request to the backend api.
+ */
 function signup(user) {
-  return axiosInstance.post(API_SIGNUP, user);
+  return protectedResourceAxios.post(API_SIGNUP, user);
 }
 
 function logout(refresh_token) {
   setRefreshTokenHeader(refresh_token);
-  return axiosInstance.delete(API_LOGIN);
+  return protectedResourceAxios.delete(API_LOGIN);
 }
 
 function refresh(refresh_token) {
   setRefreshTokenHeader(refresh_token);
-  return axiosInstance.post(API_REFRESH_TOKEN);
+  return protectedResourceAxios.post(API_REFRESH_TOKEN);
 }
 
 
