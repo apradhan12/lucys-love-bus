@@ -9,12 +9,13 @@ import {
 import { refreshToken, createRequestInterceptor, createResponseInterceptor } from './axiosUtils';
 
 /** MODULE SUMMARY:
- * This is used to construct a global axios instance that should be used for all
- * secure API calls (at least).
- * This instance should only be used in the src/api folder.
+ * This is used to construct two global axios instances that should be used for all api calls.
+ * - publicResourceAxios is used for login.
+ * - protectedResourceAxios is used for everything else. It includes interceptor functionality.
+ * These instances should ONLY be used in the src/api folder.
  */
 
-const axiosInstance = axios.create({
+const protectedResourceAxios = axios.create({
   baseURL: API_DOMAIN,
   timeout: 5000,
   headers: {
@@ -22,8 +23,16 @@ const axiosInstance = axios.create({
   },
 });
 
-// init
-createRequestInterceptor(axiosInstance);
-createResponseInterceptor(axiosInstance, refreshToken);
+const publicResourceAxios = axios.create({
+  baseURL: API_DOMAIN,
+  timeout: 5000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
 
-export default axiosInstance;
+// initialization
+createRequestInterceptor(protectedResourceAxios);
+createResponseInterceptor(protectedResourceAxios, refreshToken);
+
+export { publicResourceAxios, protectedResourceAxios };
