@@ -20,6 +20,9 @@
 </template>
 
 <script>
+
+import authService from '../../../utils/service/authService';
+
 export default {
   name: 'SignupForm',
   data() {
@@ -89,9 +92,9 @@ export default {
           password: this.password[0],
         };
         try {
-          await this.$store.dispatch('signup', user);
+          await authService.actions.signup(user);
           this.resetInput();
-          this.$router.push('/home');
+          this.$router.push({ name: 'events' });
         } catch (error) {
           if (error.status === 409) {
             this.serverError = 'Email has already been registered.';
