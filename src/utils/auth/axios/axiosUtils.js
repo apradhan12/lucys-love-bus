@@ -29,7 +29,6 @@ export async function refreshToken(instance, pastRequest) {
     pastRequest.response.config.headers['X-Access-Token'] = data.access_token;
     return Promise.resolve();
   } catch (error) {
-    // force user logout. Should this make an api call to backend?
     userState.logout();
     throw new Error('Original request failed. Refresh attempted and failed');
   }
