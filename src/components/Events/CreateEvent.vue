@@ -1,34 +1,91 @@
 <template>
+    <form @submit.prevent="onSubmit">
     <div class="container">
-        <input class="event-name" placeholder="Name of Event">
+        <input v-validate="'required|max:80'" v-model="name"
+        name="name" class="event-name" placeholder="Name of Event">
+        <span class="form-errors" v-show="errors.has('name')">{{ errors.first('name') }}</span>
         <div class="form">
             <div class="form-element">
-                <input type="date" id="date" size="50" placeholder="Day/Month/Year">
-                <input type="text" id="location" size="60" placeholder="Location" >
+                <input v-validate="'required'" v-model="date"
+                name="date" type="date" size="50">
+                <input v-validate="'required|max:80'" v-model="location"
+                name="location" type="text" size="60" placeholder="Location">
+            </div>
+            <div class="form-errors">
+                <span v-show="errors.has('date')">{{ errors.first('date') }}</span>
+                <span v-show="errors.has('location')">{{ errors.first('location') }}</span>
             </div>
             <div class="form-element">
-                <input type="text" id="start-time" size="30" placeholder="Start Time">
+                <input v-validate="'required'" v-model="startTime"
+                name="start time" type="time" step="300" size="30">
                 <p>to</p>
-                <input type="text" id="end-time" size="30" placeholder="End Time">
+                <input v-validate="'required|after:start time'" v-model="endTime"
+                name="end time" type="time" step="300" size="30">
+            </div>
+            <div class="form-errors">
+                <span v-show="errors.has('start time')">{{ errors.first('start time') }}</span>
+                <span v-show="errors.has('end time')">{{ errors.first('end time') }}</span>
             </div>
             <div class="form-element">
-                <textarea id="description" rows="10" cols="100"
-                placeholder="Description"></textarea>
+                <textarea v-validate="'required'" v-model="description" rows="10" cols="100"
+                name="description" placeholder="Description"></textarea>
+            </div>
+            <div class="form-errors">
+                <span v-show="errors.has('description')">{{ errors.first('description') }}</span>
             </div>
             <div class="form-element">
-                <textarea id="what-to-bring" rows="7" cols="100"
-                placeholder="What to Bring"></textarea>
+                <textarea v-validate="'required'" v-model="whatToBring" rows="7" cols="100"
+                name="what to bring" placeholder="What to Bring"></textarea>
+            </div>
+            <div class="form-errors">
+                <span v-show="errors.has('what to bring')">
+                    {{ errors.first('what to bring') }}
+                </span>
             </div>
         </div>
         <div class="buttons">
-            <button id="create-button">Create</button>
+            <input type="submit" class="button" value="Create">
         </div>
     </div>
+    </form>
 </template>
 
+<script>
+import Vue from 'vue';
+import VeeValidate from 'vee-validate';
+
+Vue.use(VeeValidate);
+export default {
+  name: 'NewEvent',
+  data() {
+    return {
+      event: {
+        name: '',
+        date: '',
+        startTime: '',
+        endTime: '',
+        description: '',
+        whatToBring: '',
+      },
+    };
+  },
+  methods: {
+    onSubmit() {
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          // add http post request
+          // eslint-disable-next-line
+          alert('create event successful');
+          this.$router.push('/events');
+        }
+      });
+    },
+  },
+};
+</script>
 
 <style scoped>
-
+@import '../../../assets/color-constants.less';
 .container {
     margin: 3rem;
     display: flex;
@@ -37,9 +94,10 @@
 }
 
 .event-name {
-    margin-bottom: 16px;
+    margin: 12px;
+    padding: 12px;
     font-size: 30pt;
-    font-family: 'Raleway';
+    font-family: 'Quicksand';
 }
 
 .form {
@@ -47,23 +105,40 @@
     flex-direction: column;
     align-self: flex-start;
     border: 1px solid #ccc;
-    padding: 12px;
+    margin: 12px;
 }
 
 .form-element {
     display: flex;
     flex-direction: row;
+    margin-top: 5px;
     margin-right: 10px;
     font-family: 'Montserrat';
 }
 
-input[type=text], input[type=date], textarea {
-  padding: 12px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  margin: 12px;
-  font-family: 'Montserrat';
-  font-size: 15px;
+input[type=text], input[type=date], input[type=time], textarea {
+    margin: 12px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-family: 'Montserrat';
+    font-size: 15px;
+}
+
+.button {
+    margin: 12px;
+    font-family: 'Raleway';
+    font-size: 20px;
+    border-radius: 6px;
+    background-color: black;
+    color: #eeeeee;
+}
+
+span {
+    margin: 12px;
+    font-family: 'Montserrat';
+    color: red;
+
 }
 
 </style>
