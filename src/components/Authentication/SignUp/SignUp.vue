@@ -96,11 +96,7 @@ export default {
           this.resetInput();
           this.$router.push({ name: 'events' });
         } catch (error) {
-          if (error.status === 409) {
-            this.serverError = 'Email has already been registered.';
-          } else {
-            this.serverError = 'Bad Request.';
-          }
+          this.serverError = error.message;
         }
       }
     },
