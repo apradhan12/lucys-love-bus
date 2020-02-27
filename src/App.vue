@@ -7,6 +7,7 @@
 
 <script>
 import TheNavigation from './components/TheNavigation.vue';
+import authService from './utils/service/authService';
 
 export default {
   name: 'App',
@@ -14,7 +15,7 @@ export default {
     TheNavigation,
   },
   beforeCreate() {
-    this.$store.dispatch('persistUser');
+    authService.actions.persistUser();
   },
 };
 </script>
