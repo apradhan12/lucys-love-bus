@@ -6,8 +6,8 @@
         <span class="form-errors" v-show="errors.has('name')">{{ errors.first('name') }}</span>
         <div class="form">
             <div class="form-element">
-                <input v-validate="'required'" v-model="date"
-                name="date" type="date" size="50">
+                <input v-validate="'required'"
+                v-model="date" name="date" type="date" size="50">
                 <input v-validate="'required|max:80'" v-model="location"
                 name="location" type="text" size="60" placeholder="Location">
             </div>
@@ -19,7 +19,7 @@
                 <input v-validate="'required'" v-model="startTime"
                 name="start time" type="time" step="300" size="30">
                 <p>to</p>
-                <input v-validate="'required|after:start time'" v-model="endTime"
+                <input v-validate="'required'" v-model="endTime"
                 name="end time" type="time" step="300" size="30">
             </div>
             <div class="form-errors">
