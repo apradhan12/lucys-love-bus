@@ -15,7 +15,7 @@
             <button class="event-btn">Register</button>
           </access-control>
       </div>
-      <div class="event-btns--admin">
+      <div class="event-btns--user">
         <access-control :roles="['admin']" role="admin">
                 <button class="event-btn">Edit</button>
                 <button class="event-btn">Announce</button>
