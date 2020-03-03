@@ -8,16 +8,16 @@
         <p>{{ this.description }}</p>
       </div>
        <div class="event-btns--user">
-          <access-control :roles="['user']" role="">
-            <button class="event-btn">Learn More</button>
-            <button class="event-btn">Register</button>
-          </access-control>
+        <access-control :roles="['user']" role="">
+          <button class="event-btn">Learn More</button>
+          <button class="event-btn">Register</button>
+        </access-control>
       </div>
-      <div class="event-btns--user">
-        <access-control :roles="['admin']" role="admin">
-                <button class="event-btn">Edit</button>
-                <button class="event-btn">Announce</button>
-                <button class="event-btn">Check RSVP</button>
+      <div class="event-btns--admin_container">
+        <access-control :roles="['admin']" role="admin" :_class="['event-btns--admin_wrapper']">
+          <button class="event-btn">Edit</button>
+          <button class="event-btn">Announce</button>
+          <button class="event-btn">Check RSVP</button>
         </access-control>
       </div>
   </div>
@@ -46,17 +46,14 @@ export default {
     .event__container {
         display: grid;
         grid-template-areas: "img content userbtns"
-                             "admin admin admin";
+                             "X admin admin";
         grid-template-columns: 1fr 4fr 1fr;
-        grid-template-rows: 4fr 1fr;
+        grid-template-rows: 3fr 1fr;
         margin-bottom: 2em;
     }
 
     .event-img {
         grid-area: img;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
 
     .event-img img {
@@ -64,8 +61,8 @@ export default {
     }
 
     .event-content {
-        padding-left: 1rem;
         grid-area: content;
+        padding-left: 1rem;
         text-align: left;
     }
 
@@ -82,16 +79,22 @@ export default {
         justify-content: center;
     }
 
-    .event-btns--admin {
+    .event-btns--admin_container {
         grid-area: admin;
+        display: block;
+        padding: 0rem 1rem;
+    }
+
+    .event-btns--admin_wrapper {
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
 
     .event-btn {
+        width: 12rem;
+        display: inline-block;
         margin-bottom: 1em;
-        width: 100%;
         background-color: @button-bg;
         color: @button-color;
         border: none;
