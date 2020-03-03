@@ -1,5 +1,5 @@
 <template>
-  <div v-if="hasRole">
+  <div v-if="hasRole" :class="_class">
     <slot />
   </div>
 </template>
@@ -9,8 +9,9 @@ export default {
   props: {
     roles: { type: Array, default: () => [] },
     role: { type: String, default: '' },
-    component_user_id: { type: Number, default: -2 },
-    user_id: { type: Number, default: -1 },
+    component_user_id: { type: Number, default: -1 },
+    user_id: { type: Number, default: -2 },
+    _class: { type: Array, default: () => [] },
   },
   computed: {
     hasRole() {
