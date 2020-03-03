@@ -10,7 +10,8 @@
        <div class="event-btns--user">
         <access-control :roles="['user']" role="">
           <button class="event-btn">Learn More</button>
-          <button class="event-btn">Register</button>
+          <button v-if="myEvents" class="event-btn">Cancel</button>
+          <button v-else class="event-btn">Register</button>
         </access-control>
       </div>
       <div class="event-btns--admin_container">
@@ -36,6 +37,7 @@ export default {
     name: String,
     description: String,
     img: String,
+    myEvents: Boolean, // if true, show Cancel button on events; otherwise, show Register buttons
   },
 };
 </script>
