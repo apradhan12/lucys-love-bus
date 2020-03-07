@@ -8,9 +8,9 @@
         <p>{{ this.description }}</p>
       </div>
       <div class="event-btns">
-          <button class="event-btn">Learn More</button>
-          <button v-if="myEvents" class="event-btn">Cancel</button>
-          <button v-else class="event-btn">Register</button>
+          <button class="event-btn btn--primary">Learn More</button>
+          <button v-if="myEvents" class="event-btn btn--secondary">Cancel</button>
+          <button v-else class="event-btn btn--secondary">Register</button>
       </div>
   </div>
 </template>
@@ -75,11 +75,22 @@ export default {
         margin-bottom: 1em;
         width: 8rem;
         height: 2rem;
-        background-color: @button-bg;
         color: @button-color;
         border: none;
         padding: 1rem;
         border-radius: 4px;
         cursor: pointer;
+    }
+
+    .btn--primary {
+        color: white;
+        background-color: @green-apple;
+    }
+
+    .btn--secondary {
+        color: @tangerine;
+        background-color: white;
+        border: 1px solid @tangerine;
+        border-radius: 4px;
     }
 </style>
