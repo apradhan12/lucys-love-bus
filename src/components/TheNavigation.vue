@@ -8,6 +8,7 @@
       <router-link to="/about-us" tag="button">About Us</router-link>
       <router-link to="/events" tag="button">Events</router-link>
       <router-link to="/authentication" tag="button">Log In</router-link>
+      <router-link to="/checkout" tag="button">Checkout</router-link>
     </div>
   </div>
 </template>
