@@ -29,7 +29,6 @@ export default {
 <style>
   .component-container {
     margin: 0 auto;
-    padding: 1rem;
     display: grid;
     grid-template-areas: 'events payment'
                          'events codes'
@@ -37,14 +36,14 @@ export default {
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 2fr 1fr 1fr;
     grid-gap: 1rem;
-    width: 50vw;
+    width: 60vw;
     height: 40rem;
-    border: 1px solid red;
   }
 
   .events {
     grid-area: events;
-    background-color: lightgreen;
+    display: flex;
+    flex-direction: column;
     overflow-x: hidden;
   }
 

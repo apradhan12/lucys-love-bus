@@ -36,7 +36,8 @@ export default {
   @import '../../../assets/color-constants.less';
 
   .scroll-container {
-    max-height: 100%;
+    position: relative;
     overflow-x: hidden;
+    overflow-y: auto;
   }
 </style>
