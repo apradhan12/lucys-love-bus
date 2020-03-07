@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1>Events</h1>
+  <div class="events-container">
+    <h1 v-if="isPaginate">Events</h1>
     <events-list v-if="isPaginate" :events="events"></events-list>
     <EventsListScroll v-if="isScroll" :events="events"></EventsListScroll>
   </div>
@@ -35,3 +35,10 @@ export default {
   },
 };
 </script>
+
+<style lang="less">
+  .events-container {
+    margin: 0;
+    max-width: 100%;
+  }
+</style>

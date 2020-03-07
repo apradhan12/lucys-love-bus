@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="scroll-container">
         <span v-if="noEvents">
           <span v-if="myEvents">You aren't registered for any events.</span>
           <span v-else>There aren't any events right now. Check back later!</span>
@@ -35,11 +35,8 @@ export default {
 <style lang="less">
   @import '../../../assets/color-constants.less';
 
-  .events-container {
-    margin: 0 auto;
-    width: 65rem;
-    max-width: 90vw;
-    max-height: 30rem;
-    overflow-y: scroll;
+  .scroll-container {
+    max-height: 100%;
+    overflow-x: hidden;
   }
 </style>

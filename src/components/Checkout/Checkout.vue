@@ -3,7 +3,9 @@
     <h1>My Cart</h1>
     <h3>You signed up for the following events:</h3>
     <div class="component-container">
-      <div class="events"></div>
+      <div class="events">
+        <events :style="scroll" />
+      </div>
       <div class="payment"></div>
       <div class="codes"></div>
     </div>
@@ -13,11 +15,13 @@
 
 <script>
 import TheFooter from '../TheFooter.vue';
+import Events from '../Events/Events.vue';
 
 export default {
   name: 'Checkout',
   components: {
     TheFooter,
+    Events,
   },
 };
 </script>
@@ -41,6 +45,7 @@ export default {
   .events {
     grid-area: events;
     background-color: lightgreen;
+    overflow-x: hidden;
   }
 
   .payment {

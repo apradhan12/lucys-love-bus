@@ -38,6 +38,7 @@ export default {
         grid-template-rows: 1fr;
         justify-content: space-between;
         margin-bottom: 2em;
+        max-width: 90%;
     }
 
     .event-img {
