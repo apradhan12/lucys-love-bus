@@ -2,7 +2,7 @@
   <div class="events-container">
     <h1 v-if="isPaginate">Events</h1>
     <events-list v-if="isPaginate" :events="events"></events-list>
-    <EventsListScroll v-if="isScroll" :events="events"></EventsListScroll>
+    <events-list-scroll v-else :events="events"></events-list-scroll>
   </div>
 </template>
 
@@ -17,20 +17,14 @@ export default {
     EventsListScroll,
   },
   props: {
-    style: { type: String, default: 'scroll' },
+    paginate: { type: Boolean, default: false },
   },
   computed: {
     events() {
       return this.$store.getters['events/getEvents'];
     },
     isPaginate() {
-      return this.style === 'paginate';
-    },
-    isScroll() {
-      return this.style === 'scroll';
-    },
-    validStyle() {
-      return (this.style === 'paginate' || this.style === 'scroll');
+      return this.paginate;
     },
   },
 };

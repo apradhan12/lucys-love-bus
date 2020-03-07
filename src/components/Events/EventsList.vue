@@ -4,16 +4,6 @@
           <span v-if="myEvents">You aren't registered for any events.</span>
           <span v-else>There aren't any events right now. Check back later!</span>
         </span>
-        <div v-else class="events-container">
-          <Event
-              v-for='event in pageOfEvents'
-              :key='event.id'
-              :id='event.id'
-              :name='event.name'
-              :img='event.img'
-              :description='event.description'
-              :myEvents="myEvents" />
-        </div>
         <div class='pagination-wrapper'>
           <button
             class='pagination__btn'
@@ -23,6 +13,16 @@
           <button
             class='pagination__btn'
             v-on:click='incrementCurrentPage'>Next</button>
+        </div>
+        <div v-if="!noEvents" class="events-container">
+          <Event
+              v-for='event in pageOfEvents'
+              :key='event.id'
+              :id='event.id'
+              :name='event.name'
+              :img='event.img'
+              :description='event.description'
+              :myEvents="myEvents" />
         </div>
     </div>
 </template>

@@ -4,7 +4,7 @@
     <h3>You signed up for the following events:</h3>
     <div class="component-container">
       <div class="events component-wrapper">
-        <events :style="scroll" />
+        <events />
       </div>
       <div class="payment component-wrapper"></div>
       <div class="codes component-wrapper"></div>
@@ -26,7 +26,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less">
 @import '../../../assets/color-constants.less';
 
   .component-container {
@@ -43,7 +43,7 @@ export default {
   }
 
   .component-wrapper {
-    border: 1px solid grey;
+    border: 1px solid @notes-form-color;
     padding: 1rem;
   }
 
@@ -52,19 +52,13 @@ export default {
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
-    border-right: 2px solid grey;
-    /* a scrollbar cuts 1px off a border. So, specify
-       a border for the right side of the div that's 1px
-       thicker than the other borders to account for this */
   }
 
   .payment {
     grid-area: payment;
-    background-color: lightcoral;
   }
 
   .codes {
     grid-area: codes;
-    background-color: lightseagreen;
   }
 </style>
