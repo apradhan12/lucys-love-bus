@@ -36,9 +36,6 @@ export default {
         grid-template-areas: 'img content btns';
         grid-template-columns: 1fr 4fr 1fr;
         grid-template-rows: 1fr;
-        justify-content: space-between;
-        margin-bottom: 2em;
-        max-width: 90%;
     }
 
     .event-img {
@@ -73,12 +70,15 @@ export default {
     }
 
     .event-btn {
+        text-align: center;
+        line-height: 0rem; // vertically centers text despite height
         margin-bottom: 1em;
-        width: 100%;
+        width: 8rem;
+        height: 2rem;
         background-color: @button-bg;
         color: @button-color;
         border: none;
-        padding: 1em 3em 1em 3em;
+        padding: 1rem;
         border-radius: 4px;
         cursor: pointer;
     }

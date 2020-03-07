@@ -3,11 +3,11 @@
     <h1>My Cart</h1>
     <h3>You signed up for the following events:</h3>
     <div class="component-container">
-      <div class="events">
+      <div class="events component-wrapper">
         <events :style="scroll" />
       </div>
-      <div class="payment"></div>
-      <div class="codes"></div>
+      <div class="payment component-wrapper"></div>
+      <div class="codes component-wrapper"></div>
     </div>
     <the-footer />
   </div>
@@ -27,6 +27,8 @@ export default {
 </script>
 
 <style>
+@import '../../../assets/color-constants.less';
+
   .component-container {
     margin: 0 auto;
     display: grid;
@@ -40,11 +42,20 @@ export default {
     height: 40rem;
   }
 
+  .component-wrapper {
+    border: 1px solid grey;
+    padding: 1rem;
+  }
+
   .events {
     grid-area: events;
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
+    border-right: 2px solid grey;
+    /* a scrollbar cuts 1px off a border. So, specify
+       a border for the right side of the div that's 1px
+       thicker than the other borders to account for this */
   }
 
   .payment {

@@ -21,7 +21,8 @@
   justify-content: space-around;
   align-items: center;
   min-height: 8vh;
-  background-color: var(--header-color);
+  background-color: @header-color;
+  background: linear-gradient(90deg, rgba(61,168,72,0.92) 0%, rgba(151,244,86,0.83) 100%);
   font-family: var(--main-font);
   .title {
     text-transform: uppercase;
