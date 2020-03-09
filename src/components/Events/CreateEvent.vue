@@ -94,8 +94,8 @@ export default {
 }
 
 .event-name {
-    margin: 12px;
-    padding: 12px;
+    margin: 1rem;
+    padding: 1rem;
     font-size: 30pt;
     font-family: 'Quicksand';
 }
@@ -105,37 +105,37 @@ export default {
     flex-direction: column;
     align-self: flex-start;
     border: 1px solid #ccc;
-    margin: 12px;
+    margin: 1rem;
 }
 
 .form-element {
     display: flex;
     flex-direction: row;
-    margin-top: 5px;
-    margin-right: 10px;
+    margin-top: 0.4rem;
+    margin-right: 1rem;
     font-family: 'Montserrat';
 }
 
 input[type=text], input[type=date], input[type=time], textarea {
-    margin: 12px;
-    padding: 12px;
-    border: 1px solid #ccc;
+    margin: 0.8rem;
+    padding: 0.8rem;
+    border: 0.1rem solid #ccc;
     box-sizing: border-box;
     font-family: 'Montserrat';
-    font-size: 15px;
+    font-size: 12pt;
 }
 
 .button {
-    margin: 12px;
+    margin: 1rem;
     font-family: 'Raleway';
-    font-size: 20px;
-    border-radius: 6px;
+    font-size: 18pt;
+    border-radius: 6pt;
     background-color: black;
     color: #eeeeee;
 }
 
 span {
-    margin: 12px;
+    margin: 1rem;
     font-family: 'Montserrat';
     color: red;
 
