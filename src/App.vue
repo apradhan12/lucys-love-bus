@@ -2,6 +2,7 @@
   <div id="app">
     <the-navigation />
     <router-view />
+    <the-footer />
   </div>
 </template>
 
