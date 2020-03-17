@@ -4,8 +4,10 @@
           <img :src="img" />
       </div>
       <div class="event-content">
-        <h3>{{ this.name }}</h3>
-        <p>{{ this.description }}</p>
+          <div class="content-wrapper">
+              <h3>{{ this.name }}</h3>
+              <p>{{ this.description }}</p>
+          </div>
       </div>
       <div class="event-btns">
           <button class="event-btn btn--primary">Learn More</button>
@@ -53,6 +55,12 @@ export default {
         padding-left: 1rem;
         grid-area: content;
         text-align: left;
+        .content-wrapper {
+            /* Serves to adjust how close an event's title and description are to one another.
+               Without this wrapper, css-grid reaches in and spaces out the title and description
+               text to fill the grid-area space. The content-wrapper div fixes that.
+             */
+        }
     }
 
     .event-content > h3 {

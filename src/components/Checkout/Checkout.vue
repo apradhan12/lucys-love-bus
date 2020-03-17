@@ -9,18 +9,15 @@
       <div class="payment component-wrapper"></div>
       <div class="codes component-wrapper"></div>
     </div>
-    <the-footer />
   </div>
 </template>
 
 <script>
-import TheFooter from '../TheFooter.vue';
 import Events from '../Events/Events.vue';
 
 export default {
   name: 'Checkout',
   components: {
-    TheFooter,
     Events,
   },
 };

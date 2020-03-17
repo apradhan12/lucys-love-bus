@@ -1,7 +1,7 @@
 <template>
   <div class="events-container">
     <h1 v-if="isPaginate">Events</h1>
-    <events-list v-if="isPaginate" :events="events"></events-list>
+    <events-list v-if="paginate" :events="events"></events-list>
     <events-list-scroll v-else :events="events"></events-list-scroll>
   </div>
 </template>
@@ -22,9 +22,6 @@ export default {
   computed: {
     events() {
       return this.$store.getters['events/getEvents'];
-    },
-    isPaginate() {
-      return this.paginate;
     },
   },
 };
