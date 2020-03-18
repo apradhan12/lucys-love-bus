@@ -14,6 +14,7 @@ import MyEvents from '../components/Profile/MyEvents.vue';
 import Account from '../components/Profile/Account.vue';
 import CreateEvent from '../components/Events/CreateEvent.vue';
 
+import Checkout from '../components/Checkout/Checkout.vue';
 
 Vue.use(Router);
 
@@ -50,6 +51,11 @@ export default new Router({
       path: '/acl',
       name: 'acl',
       component: AccessControlDemonstration,
+    },
+    {
+      path: '/checkout',
+      name: 'checkout',
+      component: Checkout,
     },
     {
       path: '/authentication',
