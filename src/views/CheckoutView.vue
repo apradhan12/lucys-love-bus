@@ -6,24 +6,29 @@
       <div class="events component-wrapper">
         <events-list-scroll :events="registeredEvents" />
       </div>
-      <div class="payment component-wrapper"></div>
-      <div class="codes component-wrapper"></div>
+      <payment-summary class="payment component-wrapper"></payment-summary>
+      <promo-code class="codes component-wrapper"></promo-code>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import EventsListScroll from '../components/Events/EventsListScroll.vue';
+import PaymentSummary from '../components/Checkout/PaymentSummary.vue';
+import PromoCode from '../components/Checkout/PromoCode.vue';
 
 export default {
   name: 'Checkout',
   components: {
     EventsListScroll,
+    PaymentSummary,
+    PromoCode,
   },
   computed: {
-    registeredEvents() {
-      return [];
-    },
+    ...mapState('cart', {
+      registeredEvents: 'registeredEvents',
+    }),
   },
 };
 </script>

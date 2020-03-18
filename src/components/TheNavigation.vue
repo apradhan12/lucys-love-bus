@@ -30,8 +30,8 @@
   }
   .navlinks {
     display: flex;
-    justify-content: space-between;
-    width: 25%;
+    justify-content: space-evenly;
+    width: 40%;
     white-space: nowrap;
     button {
       display: block;
