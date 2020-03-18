@@ -9,17 +9,31 @@
               <p>{{ this.description }}</p>
           </div>
       </div>
-      <div class="event-btns">
-          <button class="event-btn btn--primary">Learn More</button>
-          <button v-if="myEvents" class="event-btn btn--secondary">Cancel</button>
-          <button v-else class="event-btn btn--secondary">Register</button>
+       <div class="event-btns--user">
+        <access-control :roles="['user']" role="">
+          <button class="event-btn">Learn More</button>
+          <button v-if="myEvents" class="event-btn">Cancel</button>
+          <button v-else class="event-btn">Register</button>
+        </access-control>
+      </div>
+      <div class="event-btns--admin_container">
+        <access-control :roles="['admin']" role="admin" :_class="['event-btns--admin_wrapper']">
+          <button class="event-btn">Edit</button>
+          <button class="event-btn">Announce</button>
+          <button class="event-btn">Check RSVP</button>
+        </access-control>
       </div>
   </div>
 </template>
 
 <script>
+import AccessControl from '../Authentication/AccessControl/AccessControl.vue';
+
 export default {
   name: 'Event',
+  components: {
+    AccessControl,
+  },
   props: {
     id: Number,
     name: String,
@@ -35,16 +49,15 @@ export default {
 
     .event__container {
         display: grid;
-        grid-template-areas: 'img content btns';
+        grid-template-areas: "img content userbtns"
+                             "X admin admin";
         grid-template-columns: 1fr 4fr 1fr;
-        grid-template-rows: 1fr;
+        grid-template-rows: 3fr 1fr;
+        margin-bottom: 2em;
     }
 
     .event-img {
         grid-area: img;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
 
     .event-img img {
@@ -52,8 +65,8 @@ export default {
     }
 
     .event-content {
-        padding-left: 1rem;
         grid-area: content;
+        padding-left: 1rem;
         text-align: left;
         .content-wrapper {
             /* Serves to adjust how close an event's title and description are to one another.
@@ -68,21 +81,31 @@ export default {
         width: 100%;
     }
 
-    .event-btns {
-        grid-area: btns;
+    .event-btns--user {
+        grid-area: userbtns;
         display: flex;
-        flex-wrap: wrap;
         align-items: center;
         flex-direction: column;
         justify-content: center;
     }
 
+    .event-btns--admin_container {
+        grid-area: admin;
+        display: block;
+        padding: 0rem 1rem;
+    }
+
+    .event-btns--admin_wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
     .event-btn {
-        text-align: center;
-        line-height: 0rem; // vertically centers text despite height
+        width: 12rem;
+        display: inline-block;
         margin-bottom: 1em;
-        width: 8rem;
-        height: 2rem;
+        background-color: @button-bg;
         color: @button-color;
         border: none;
         padding: 1rem;
