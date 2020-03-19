@@ -9,11 +9,21 @@
               <p>{{ this.description }}</p>
           </div>
       </div>
-      <div class="event-btns">
-          <router-link :to="{ name: 'single-event', params: { eventID: this.id }}">
-              <button class="event-btn">Learn More</button>
+       <div class="event-btns--user">
+        <access-control :roles="['user']" role="">
+          <router-link :to="{ name: 'single-event', params: { Event: this }}" class="event-btn" tag="button">
+            Learn More
           </router-link>
-          <button class="event-btn">Register</button>
+          <button v-if="myEvents" class="event-btn">Cancel</button>
+          <button v-else class="event-btn">Register</button>
+        </access-control>
+      </div>
+      <div class="event-btns--admin_container">
+        <access-control :roles="['admin']" role="admin" :_class="['event-btns--admin_wrapper']">
+          <button class="event-btn">Edit</button>
+          <button class="event-btn">Announce</button>
+          <button class="event-btn">Check RSVP</button>
+        </access-control>
       </div>
   </div>
 </template>
