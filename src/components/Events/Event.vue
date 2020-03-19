@@ -11,11 +11,8 @@
       </div>
        <div class="event-btns--user">
         <access-control :roles="['user']" role="">
-          <router-link :to="{ name: 'single-event', params: { Event: this }}" class="event-btn" tag="button">
-            Learn More
-          </router-link>
-          <button v-if="myEvents" class="event-btn">Cancel</button>
-          <button v-else class="event-btn">Register</button>
+          <slot name="btn1" :event="event" />
+          <slot name="btn2" :event="event" />
         </access-control>
       </div>
       <div class="event-btns--admin_container">
@@ -27,7 +24,9 @@
       </div>
       <!-- <div class="event-btns--user">
         <access-control :roles="['user']" role="">
-          <button class="event-btn">Learn More</button>
+           <router-link :to="{ name: 'single-event', params: { Event: this }}" class="event-btn" tag="button">
+            Learn More
+          </router-link>
           <button v-if="myEvents" class="event-btn">Cancel</button>
           <button v-else class="event-btn">Register</button>
         </access-control>

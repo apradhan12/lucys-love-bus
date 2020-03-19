@@ -8,6 +8,12 @@
           <template v-slot:NoEventsMsg>
             <span>You aren't registered for any events.</span>
           </template>
+          <template v-slot:eventBtn1>
+            <router-link
+          </template>
+          <template v-slot:eventBtn2="slotProps">
+            
+          </template>
         </events-list-scroll>
       </div>
       <div class="payment component-wrapper"></div>

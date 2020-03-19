@@ -12,10 +12,14 @@
             v-on:click='incrementCurrentPage'>Next</button>
         </div>
         <div v-if="events.length > 0" class="events-container">
-          <Event
-              v-for='event in pageOfEvents'
-              :key='event.id'
-              :event="event" />
+          <event v-for="event in pageOfEvents" :key="event.id" :event="event">
+            <template v-slot:btn1>
+              <slot name="eventBtn1" :event="slotProps.event"/>
+            </template>
+            <template v-slot:btn2="slotProps">
+              <slot name="eventBtn2" :event="slotProps.event"/>
+            </template>
+          </event>
         </div>
     </div>
 </template>

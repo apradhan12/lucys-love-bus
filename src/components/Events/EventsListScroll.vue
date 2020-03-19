@@ -1,13 +1,17 @@
 <template>
-    <div class="scroll-container">
-        <slot v-if="events.length === 0" name="NoEventsMsg"></slot>
-        <div v-else>
-          <Event
-              v-for='event in events'
-              :key='event.id'
-              :event="event" />
-        </div>
-    </div>
+  <div>
+    <slot v-if="events.length === 0" name="NoEventsMsg"></slot>
+    <div v-else>
+      <event v-for="event in events" :key="event.id" :event="event" >
+        <template v-slot:btn1>
+          <slot name="eventBtn1" :event="slotProps.event" />
+        </template>
+        <template v-slot:btn2="slotProps">
+          <slot name="eventBtn2" :event="slotProps.event"/>
+        </template>
+      </event>
+    <div>
+  <div>
 </template>
 
 <script>
