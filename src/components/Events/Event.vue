@@ -9,10 +9,16 @@
               <p>{{ this.description }}</p>
           </div>
       </div>
+<<<<<<< HEAD
        <div class="event-btns--user">
         <access-control :roles="['user']" role="">
           <router-link :to="{ name: 'single-event', params: { Event: this }}" class="event-btn" tag="button">
             Learn More
+=======
+      <div class="event-btns">
+          <router-link :to="{ name: 'single-event', params: { eventID: this.id }}">
+              <button class="event-btn">Learn More</button>
+>>>>>>> fda333a... Finished single event component and routing
           </router-link>
           <button v-if="myEvents" class="event-btn">Cancel</button>
           <button v-else class="event-btn">Register</button>
