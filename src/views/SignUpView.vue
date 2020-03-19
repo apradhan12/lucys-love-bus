@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="auth-container">
     <h1> Signup </h1>
     <h4> Join the Sajni Center Community! </h4>
     <p> A very detailed signup description </p>
@@ -104,3 +104,8 @@ export default {
   },
 };
 </script>
+
+<style lang="less" scoped>
+@import '../../assets/global-classes.less';
+
+</style>

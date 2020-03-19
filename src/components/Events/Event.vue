@@ -1,12 +1,12 @@
 <template>
   <div class="event__container">
       <div class="event-img">
-          <img :src="img" />
+          <img :src="event.img" />
       </div>
       <div class="event-content">
           <div class="content-wrapper">
-              <h3>{{ this.name }}</h3>
-              <p>{{ this.description }}</p>
+              <h3>{{ event.name }}</h3>
+              <p>{{ event.description }}</p>
           </div>
       </div>
        <div class="event-btns--user">
@@ -25,11 +25,25 @@
           <button class="event-btn">Check RSVP</button>
         </access-control>
       </div>
+      <!-- <div class="event-btns--user">
+        <access-control :roles="['user']" role="">
+          <button class="event-btn">Learn More</button>
+          <button v-if="myEvents" class="event-btn">Cancel</button>
+          <button v-else class="event-btn">Register</button>
+        </access-control>
+      </div>
+      <div class="event-btns--admin_container">
+        <access-control :roles="['admin']" role="admin" :_class="['event-btns--admin_wrapper']">
+          <button class="event-btn">Edit</button>
+          <button class="event-btn">Announce</button>
+          <button class="event-btn">Check RSVP</button>
+        </access-control>
+      </div> -->
   </div>
 </template>
 
 <script>
-import AccessControl from '../Authentication/AccessControl/AccessControl.vue';
+import AccessControl from '../AccessControl/AccessControl.vue';
 
 export default {
   name: 'Event',
@@ -37,13 +51,10 @@ export default {
     AccessControl,
   },
   props: {
-    id: Number,
-    name: String,
-    location: String,
-    time: String,
-    description: String,
-    img: String,
-    myEvents: Boolean, // if true, show Cancel button on events; otherwise, show Register buttons
+    event: {
+      type: Object,
+      required: true,
+    },
   },
 };
 </script>

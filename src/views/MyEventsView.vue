@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import EventsList from '../Events/EventsList.vue';
+import EventsList from '../components/Events/EventsList.vue';
 
 export default {
   name: 'MyEvents',

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="auth-container">
     <h1>Login</h1>
     <h4> Welcome! </h4>
     <p> A very detailed login description </p>
@@ -70,3 +70,8 @@ export default {
   },
 };
 </script>
+
+<style lang="less" scoped>
+@import '../../assets/global-classes.less';
+
+</style>
