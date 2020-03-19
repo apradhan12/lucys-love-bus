@@ -132,9 +132,8 @@ export default {
       // slice truncates any out-of-bounds indices, so that's not a concern here
       return state.events.slice(firstEvent, lastEvent);
     },
-    getEvents: state => state.events,
+    getUsersEvents: state => username => state.events.filter(e => e.users.includes(username)),
     numOfEvents: state => state.events.length,
-
     getEventById: state => id => state.events.find(event => event.id === id),
   },
 };

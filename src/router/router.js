@@ -33,7 +33,7 @@ export default new Router({
       component: EventsView,
     },
     {
-      path: '/:eventID',
+      path: '/event/:eventId',
       name: 'single-event',
       component: SingleEventView,
       props: true,

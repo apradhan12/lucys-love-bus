@@ -1,26 +1,41 @@
 <template>
   <div>
     <h1>My Events</h1>
-    <EventsList :events="myEvents" :username="username" myEvents></EventsList>
+    <events-list-scroll :events="myEvents">
+      <template v-slot:eventBtn1="slotProps">
+        <router-link
+          :to="{ name: 'single-event', params: { eventId: slotProps.event.id}}"
+          class="event-btn btn--secondary" tag="button">
+          Learn More
+        </router-link>
+      </template>
+      <template v-slot:eventBtn2="slotProps">
+        <button v-on:click="cancelRegistration(slotProps.event)" class="event-btn" >Cancel</button>
+      </template>
+    </events-list-scroll>
   </div>
 </template>
 
 <script>
-import EventsList from '../components/Events/EventsList.vue';
+import EventsListScroll from '../components/Events/EventsListScroll.vue';
 
 export default {
   name: 'MyEvents',
   components: {
-    EventsList,
+    EventsListScroll,
   },
   props: {
     username: String,
   },
   computed: {
     myEvents() {
-      const events = this.$store.getters['events/getEvents'];
-      return events.filter(e => e.users.includes(this.username));
+      return this.$store.getters['events/getUserEvents'](this.username);
     },
   },
+  methods: {
+    cancelRegistration(event) {
+      console.log('canceled', event);
+    }
+  }
 };
 </script>

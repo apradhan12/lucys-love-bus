@@ -13,7 +13,7 @@
         </div>
         <div v-if="events.length > 0" class="events-container">
           <event v-for="event in pageOfEvents" :key="event.id" :event="event">
-            <template v-slot:btn1>
+            <template v-slot:btn1="slotProps">
               <slot name="eventBtn1" :event="slotProps.event"/>
             </template>
             <template v-slot:btn2="slotProps">

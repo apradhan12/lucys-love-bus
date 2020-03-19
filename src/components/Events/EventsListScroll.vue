@@ -10,8 +10,8 @@
           <slot name="eventBtn2" :event="slotProps.event"/>
         </template>
       </event>
-    <div>
-  <div>
+    </div>
+  </div>
 </template>
 
 <script>

@@ -4,17 +4,7 @@
     <h3>You signed up for the following events:</h3>
     <div class="component-container">
       <div class="events component-wrapper">
-        <events-list-scroll :events="registeredEvents">
-          <template v-slot:NoEventsMsg>
-            <span>You aren't registered for any events.</span>
-          </template>
-          <template v-slot:eventBtn1>
-            <router-link
-          </template>
-          <template v-slot:eventBtn2="slotProps">
-            
-          </template>
-        </events-list-scroll>
+        <events-list-scroll :events="registeredEvents" />
       </div>
       <div class="payment component-wrapper"></div>
       <div class="codes component-wrapper"></div>
