@@ -4,7 +4,22 @@
     <h3>You signed up for the following events:</h3>
     <div class="component-container">
       <div class="events component-wrapper">
-        <events-list-scroll :events="registeredEvents" />
+        <events-list-scroll :events="registeredEvents">
+          <template v-slot:eventBtn1="slotProps">
+            <router-link
+              :to="{ name: 'single-event', params: { eventId: slotProps.event.id}}"
+              class="event-btn" tag="button">
+              Event Page
+            </router-link>
+          </template>
+          <template v-slot:eventBtn2="slotProps">
+            <button
+              v-on:click="cancelRegistration({event: slotProps.event})"
+              class="event-btn btn--secondary">
+              Remove
+            </button>
+          </template>
+        </events-list-scroll>
       </div>
       <payment-summary class="payment component-wrapper"></payment-summary>
       <promo-code class="codes component-wrapper"></promo-code>
@@ -13,7 +28,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 import EventsListScroll from '../components/Events/EventsListScroll.vue';
 import PaymentSummary from '../components/Checkout/PaymentSummary.vue';
 import PromoCode from '../components/Checkout/PromoCode.vue';
@@ -28,6 +43,11 @@ export default {
   computed: {
     ...mapState('cart', {
       registeredEvents: 'registeredEvents',
+    }),
+  },
+  methods: {
+    ...mapMutations('cart', {
+      cancelRegistration: 'cancelRegistration',
     }),
   },
 };

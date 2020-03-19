@@ -1,7 +1,11 @@
 <template>
   <events-list :events="allEvents">
     <template v-slot:eventBtn1="slotProps">
-      <button v-on:click="registerForEvent(slotProps.event)" class="event-btn" >Register</button>
+      <button
+        v-on:click="registerForEvent({event: slotProps.event})"
+        class="event-btn" >
+        Register
+      </button>
     </template>
     <template v-slot:eventBtn2="slotProps">
       <router-link
@@ -14,7 +18,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 import EventsList from '../components/Events/EventsList.vue';
 
 export default {
@@ -28,9 +32,15 @@ export default {
     }),
   },
   methods: {
+<<<<<<< HEAD
     // registerForEvent(event) {
     //   // console.log('registered', event);
     // },
+=======
+    ...mapMutations('cart', {
+      registerForEvent: 'registerForEvent',
+    }),
+>>>>>>> ece29ec... saving changes
   },
 };
 </script>

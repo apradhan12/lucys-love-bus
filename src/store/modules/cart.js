@@ -1,16 +1,7 @@
 export default {
   namespaced: true,
   state: {
-    registeredEvents: [
-      {
-        id: 0,
-        name: 'Event 0',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a',
-        price: 5.5,
-        users: ['robinsons'],
-        img: 'https://i0.wp.com/www.skillings.com/wp-content/uploads/2017/02/placeholder-square.jpg',
-      },
-    ],
+    registeredEvents: [],
   },
   getters: {
     getSubTotal(state) {
@@ -19,7 +10,12 @@ export default {
   },
   mutations: {
     registerForEvent(state, { event }) {
-      state.registerForEvent.push(event);
+      if (state.registeredEvents.filter(evt => evt.id === event.id).length === 0) {
+        state.registeredEvents.push(event);
+      }
+    },
+    cancelRegistration(state, { event }) {
+      state.registeredEvents = state.registeredEvents.filter(evt => evt.id !== event.id);
     },
   },
   actions: {
