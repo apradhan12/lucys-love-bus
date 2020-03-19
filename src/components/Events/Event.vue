@@ -10,13 +10,13 @@
           </div>
       </div>
        <div class="event-btns--user">
-        <access-control :roles="['user']" role="">
+        <access-control :roles="['user']" role="user">
           <slot name="btn1" :event="event" />
           <slot name="btn2" :event="event" />
         </access-control>
       </div>
       <div class="event-btns--admin_container">
-        <access-control :roles="['admin']" role="admin" :_class="['event-btns--admin_wrapper']">
+        <access-control :roles="['admin']" role="" :_class="['event-btns--admin_wrapper']">
           <button class="event-btn">Edit</button>
           <button class="event-btn">Announce</button>
           <button class="event-btn">Check RSVP</button>
