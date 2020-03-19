@@ -10,7 +10,11 @@
         </router-link>
       </template>
       <template v-slot:eventBtn2="slotProps">
-        <button v-on:click="cancelRegistration(slotProps.event)" class="event-btn" >Cancel</button>
+        <button
+          v-on:click="cancelRegistration(slotProps.event)"
+          class="event-btn btn--secondary">
+          Cancel
+        </button>
       </template>
     </events-list-scroll>
   </div>
