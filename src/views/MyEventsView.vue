@@ -35,7 +35,7 @@ export default {
   methods: {
     cancelRegistration(event) {
       console.log('canceled', event);
-    }
-  }
+    },
+  },
 };
 </script>
