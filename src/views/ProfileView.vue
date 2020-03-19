@@ -26,11 +26,10 @@
 </template>
 
 <script>
-import Welcome from './Welcome.vue';
+import Welcome from '../components/Profile/Welcome.vue';
 
 export default {
   name: 'Profile',
-
   components: {
     Welcome,
   },

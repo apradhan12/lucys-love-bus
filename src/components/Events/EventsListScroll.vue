@@ -1,20 +1,17 @@
 <template>
-    <div class="scroll-container">
-        <span v-if="noEvents">
-          <span v-if="myEvents">You aren't registered for any events.</span>
-          <span v-else>There aren't any events right now. Check back later!</span>
-        </span>
-        <div v-else class="events-container">
-          <Event
-              v-for='event in events'
-              :key='event.id'
-              :id='event.id'
-              :name='event.name'
-              :img='event.img'
-              :description='event.description'
-              :myEvents="myEvents" />
-        </div>
+  <div>
+    <slot v-if="events.length === 0" name="NoEventsMsg"></slot>
+    <div v-else>
+      <event v-for="event in events" :key="event.id" :event="event" >
+        <template v-slot:btn1>
+          <slot name="eventBtn1" :event="slotProps.event" />
+        </template>
+        <template v-slot:btn2="slotProps">
+          <slot name="eventBtn2" :event="slotProps.event"/>
+        </template>
+      </event>
     </div>
+  </div>
 </template>
 
 <script>
@@ -26,7 +23,10 @@ export default {
     Event,
   },
   props: {
-    events: Array,
+    events: {
+      type: Array,
+      required: true,
+    },
   },
 };
 

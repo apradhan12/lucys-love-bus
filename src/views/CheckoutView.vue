@@ -4,7 +4,7 @@
     <h3>You signed up for the following events:</h3>
     <div class="component-container">
       <div class="events component-wrapper">
-        <events />
+        <events-list-scroll :events="registeredEvents" />
       </div>
       <div class="payment component-wrapper"></div>
       <div class="codes component-wrapper"></div>
@@ -13,18 +13,23 @@
 </template>
 
 <script>
-import Events from '../Events/Events.vue';
+import EventsListScroll from '../components/Events/EventsListScroll.vue';
 
 export default {
   name: 'Checkout',
   components: {
-    Events,
+    EventsListScroll,
+  },
+  computed: {
+    registeredEvents() {
+      return [];
+    },
   },
 };
 </script>
 
 <style lang="less">
-@import '../../../assets/color-constants.less';
+@import '../../assets/color-constants.less';
 
   .component-container {
     margin: 0 auto;

@@ -85,7 +85,7 @@ export default {
 </script>
 
 <style scoped>
-@import '../../../assets/color-constants.less';
+@import '../../assets/color-constants.less';
 .container {
     margin: 3rem;
     display: flex;

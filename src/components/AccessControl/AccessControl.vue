@@ -16,7 +16,7 @@ export default {
   computed: {
     hasRole() {
       return (this.roles.length === 0 || this.roles.includes(this.role))
-          || (this.component_user_id === this.user_id);
+          || (this.componentUserId === this.userId);
     },
   },
 };
