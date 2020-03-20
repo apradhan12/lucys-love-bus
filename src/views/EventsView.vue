@@ -28,9 +28,9 @@ export default {
     }),
   },
   methods: {
-    registerForEvent(event) {
-      console.log('registered', event);
-    },
+    // registerForEvent(event) {
+    //   // console.log('registered', event);
+    // },
   },
 };
 </script>
