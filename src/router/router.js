@@ -37,14 +37,11 @@ export default new Router({
       component: Events,
     },
     {
-<<<<<<< HEAD
       path: '/create-event',
       name: 'create-event',
       component: CreateEvent,
     },
     {
-=======
->>>>>>> d7c689dc8a6522884e116bff4cda05666779df78
       path: '/:eventID',
       name: 'single-event',
       component: SingleEvent,
