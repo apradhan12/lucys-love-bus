@@ -11,7 +11,8 @@
       </div>
        <div class="event-btns--user">
         <access-control :roles="['user']" role="">
-          <router-link :to="{ name: 'single-event', params: { Event: this }}" class="event-btn" tag="button">
+          <router-link :to="{ name: 'single-event', params: { Event: this }}"
+          class="event-btn" tag="button">
             Learn More
           </router-link>
           <button v-if="myEvents" class="event-btn">Cancel</button>

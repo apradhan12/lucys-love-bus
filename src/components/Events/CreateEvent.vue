@@ -138,6 +138,7 @@ span {
     margin: 1rem;
     font-family: 'Montserrat';
     color: red;
+    font-weight: bold;
 
 }
 
