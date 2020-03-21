@@ -1,5 +1,4 @@
 <template>
-
   <div class="event-container">
     <router-view></router-view>
       <div class="event-name">
@@ -27,10 +26,15 @@
 <script>
 export default {
   name: 'SingleEvent',
-  props: ['eventId'],
+  props: {
+    eventId: String, // id is a number, but props are always passed as strings
+    viewMode: Number, // 0=unregistered user :: 1=registered user :: 2=admin
+  },
   computed: {
     singleEvent() {
-      return this.$store.getters['events/getEventById'](this.eventId);
+      const getEventById = this.$store.getters['events/getEventById'];
+      const id = parseInt(this.eventId, 10);
+      return getEventById(id);
     },
   },
 };
