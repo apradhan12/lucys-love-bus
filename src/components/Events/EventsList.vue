@@ -44,7 +44,6 @@ export default {
   props: {
     events: Array,
     noEventsMsg: String, // msg to display if there are no relevant events
-    myEvents: Boolean, // true if "my events" page, false otherwise; used to determine buttons
   },
   computed: {
     // list of a single page's worth of items

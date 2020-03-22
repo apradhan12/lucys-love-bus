@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>My Events</h1>
-    <EventsList :events="myEvents" :username="username" myEvents></EventsList>
+    <EventsList :events="myEvents" :noEventsMsg="noEventsMsg"></EventsList>
   </div>
 </template>
 
@@ -12,6 +12,11 @@ export default {
   name: 'MyEvents',
   components: {
     EventsList,
+  },
+  data() {
+    return {
+      noEventsMsg: 'You are not registered for any events.',
+    };
   },
   props: {
     username: String,

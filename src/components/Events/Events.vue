@@ -19,6 +19,11 @@ export default {
   props: {
     paginate: { type: Boolean, default: false },
   },
+  data() {
+    return {
+      noEventsMsg: 'No events yet. Check back later!',
+    };
+  },
   computed: {
     events() {
       return this.$store.getters['events/getEvents'];
