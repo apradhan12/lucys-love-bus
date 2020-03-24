@@ -8,8 +8,12 @@
         <p>Event Description: {{ singleEvent.description }}</p>
       </div>
       <div class="event-buttons">
-        <button>Register</button>
-        <router-link :to="{name: 'events'}" tag="button">Back to Events</router-link>
+        <button v-if="viewMode === 0">Register</button>
+        <button v-if="viewMode === 1">Unregister</button>
+        <button v-if="viewMode === 2">Edit</button>
+        <router-link to="events">
+            <button>Back to Events</button>
+        </router-link>
       </div>
       <div class="event-info">
         <p>Location: {{ singleEvent.location }}</p>
