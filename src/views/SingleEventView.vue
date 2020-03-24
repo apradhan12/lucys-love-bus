@@ -8,9 +8,13 @@
         <p>Event Description: {{ singleEvent.description }}</p>
       </div>
       <div class="event-buttons">
-        <button v-if="viewMode === 0">Register</button>
-        <button v-if="viewMode === 1">Unregister</button>
-        <button v-if="viewMode === 2">Edit</button>
+        <access-control :roles="['user']" role="user">
+          <button v-if="registered">Unregister</button>
+          <button v-else>Register!</button>
+        </access-control>
+        <access-control :roles="['admin']" role="admin">
+          <button>Edit Event</button>
+        </access-control>
         <router-link to="events">
             <button>Back to Events</button>
         </router-link>
@@ -39,6 +43,9 @@ export default {
       const getEventById = this.$store.getters['events/getEventById'];
       const id = parseInt(this.eventId, 10);
       return getEventById(id);
+    },
+    registered() {
+      return true; // will be fetched from store in future
     },
   },
 };
