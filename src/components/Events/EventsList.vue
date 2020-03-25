@@ -1,7 +1,7 @@
 <template>
     <div>
         <slot name="header"></slot>
-        <slot v-if="events.length === 0" name="NoEventsMsg"></slot>
+        <slot v-if="events.length === 0" name="noEventsMsg"></slot>
         <div class='pagination-wrapper'>
           <button
             class='pagination__btn'

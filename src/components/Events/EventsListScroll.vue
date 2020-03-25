@@ -1,6 +1,6 @@
 <template>
   <div>
-    <slot v-if="events.length === 0" name="NoEventsMsg"></slot>
+    <slot v-if="events.length === 0" name="noEventsMsg" />
     <div v-else>
       <event v-for="event in events" :key="event.id" :event="event" >
         <template v-slot:btn1="slotProps">

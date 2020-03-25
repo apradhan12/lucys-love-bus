@@ -1,8 +1,11 @@
 <template>
   <events-list :events="allEvents">
+    <template v-slot:noEventsMsg>
+      <h3>Sorry, there are no currently availible events!</h3>
+    </template>
     <template v-slot:eventBtn1="slotProps">
       <button
-        v-on:click="registerForEvent({event: slotProps.event})"
+        v-on:click="register({event: slotProps.event})"
         class="event-btn" >
         Register
       </button>
@@ -32,15 +35,14 @@ export default {
     }),
   },
   methods: {
-<<<<<<< HEAD
-    // registerForEvent(event) {
-    //   // console.log('registered', event);
-    // },
-=======
     ...mapMutations('cart', {
       registerForEvent: 'registerForEvent',
     }),
->>>>>>> ece29ec... saving changes
+    register(payload) {
+      this.registerForEvent(payload);
+      // eslint-disable-next-line no-alert
+      alert(`You have signed up for ${payload.event.name}.`);
+    },
   },
 };
 </script>

@@ -2,6 +2,9 @@
   <div>
     <h1>My Events</h1>
     <events-list-scroll :events="myEvents">
+      <template v-slot:noEventsMsg>
+        <h3>Currently, you are signed up for no events!</h3>
+      </template>
       <template v-slot:eventBtn1="slotProps">
         <router-link
           :to="{ name: 'single-event', params: { eventId: slotProps.event.id}}"

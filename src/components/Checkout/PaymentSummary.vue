@@ -4,7 +4,7 @@
         <h3>Subtotal: ${{subtotal.toFixed(2)}}</h3>
         <h3>Taxes: ${{taxes.toFixed(2)}}</h3>
         <h3>Total: ${{totalPrice.toFixed(2)}}</h3>
-        <button class="event-btn btn--primary">Event Page</button>
+        <button class="event-btn btn--primary">Proceed to checkout</button>
     </div>
 </template>
 

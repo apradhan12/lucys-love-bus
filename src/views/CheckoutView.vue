@@ -5,6 +5,9 @@
     <div class="component-container">
       <div class="events component-wrapper">
         <events-list-scroll :events="registeredEvents">
+          <template v-slot:noEventsMsg>
+            <h3>You have no events in your cart!</h3>
+          </template>
           <template v-slot:eventBtn1="slotProps">
             <router-link
               :to="{ name: 'single-event', params: { eventId: slotProps.event.id}}"
