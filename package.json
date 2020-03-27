@@ -30,6 +30,8 @@
     "eslint-plugin-vue": "^5.0.0",
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "axios-mock-adapter": "^1.17.0",
+    "jest-localstorage-mock": "^2.4.0"
   }
 }

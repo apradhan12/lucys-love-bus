@@ -20,13 +20,15 @@
 </template>
 
 <script>
+import authService from '../../../utils/service/authService';
+
 export default {
   name: 'Login',
   data() {
     return {
       email: '',
       password: '',
-      rememberMe: '',
+      rememberMe: false,
       submitted: false,
       inputValid: false,
       error: '',
@@ -50,20 +52,17 @@ export default {
       this.submitted = true;
       if (this.validateInput()) {
         const user = {
-          email: this.email,
+          username: this.email,
           password: this.password,
-          remember_me: this.rememberMe,
+          rememberMe: this.rememberMe,
         };
         try {
-          await this.$store.dispatch('login', user);
+          await authService.actions.login(user);
           this.resetInput();
-          this.$router.push('/');
+          // switch this to the home component once it's made.
+          this.$router.push('/events');
         } catch (error) {
-          if (error.status === 401) {
-            this.error = `Incorrect Email/Password: ${error.message}.`;
-          } else {
-            this.error = 'Bad request.';
-          }
+          this.error = error.message;
         }
       }
     },

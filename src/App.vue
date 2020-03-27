@@ -8,11 +8,15 @@
 
 <script>
 import TheNavigation from './components/TheNavigation.vue';
+import authService from './utils/service/authService';
 
 export default {
   name: 'App',
   components: {
     TheNavigation,
+  },
+  beforeCreate() {
+    authService.actions.persistUser();
   },
 };
 </script>
