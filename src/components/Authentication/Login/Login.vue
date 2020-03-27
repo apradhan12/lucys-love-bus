@@ -52,9 +52,9 @@ export default {
       this.submitted = true;
       if (this.validateInput()) {
         const user = {
-          username: this.email,
+          email: this.email,
           password: this.password,
-          rememberMe: this.rememberMe,
+          // rememberMe: this.rememberMe,
         };
         try {
           await authService.actions.login(user);
