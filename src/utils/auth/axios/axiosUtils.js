@@ -8,6 +8,8 @@ import {
 import tokenService from '../tokenService';
 import userState from '../state/userState';
 
+const INVALID_ACCESS_TOKEN = 'Given access token is expired or invalid';
+
 /**
  * An array containing the list of http status codes where the axios interceptor
  * will be called.
@@ -60,7 +62,6 @@ export function createRequestInterceptor(instance) {
  * - FINALLY BLOCK IS VERY IMPORTANT.
  * - Recursive call ensures we revert to the default interceptor.
  *
- * TODO: forced logout if rerequest fails. Add 3rd interceptor.
  * @param {*} instance instance of axios to include interceptor.
  * @param {*} onRefresh function to be called on failed request.
  */
@@ -68,7 +69,12 @@ export function createResponseInterceptor(instance, onRefresh) {
   const interceptorID = instance.interceptors.response.use(
     response => response,
     async (error) => {
-      if (error.response && refreshStatusCodes.includes(error.response.status)) {
+      console.log(error.response.data);
+      if (error.response
+        // ensure it is the correct error code.
+        && refreshStatusCodes.includes(error.response.status)
+        // ensure it only occurs when specified String is received in body
+        && error.response.data === INVALID_ACCESS_TOKEN) {
         instance.interceptors.response.eject(interceptorID);
         try {
           // attempt to refresh token
