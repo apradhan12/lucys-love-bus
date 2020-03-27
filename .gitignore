@@ -2,8 +2,4 @@
 npm-debug.log
 /dist
 *.xml
-.idea/vcs.xml
-.idea/modules.xml
-.idea/misc.xml
-.idea/lucys-love-bus.iml
-.idea/inspectionProfiles/Project_Default.xml
+.idea/
