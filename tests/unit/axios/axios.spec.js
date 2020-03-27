@@ -6,6 +6,8 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { refreshToken, createRequestInterceptor, createResponseInterceptor } from '../../../src/utils/auth/axios/axiosUtils';
 
+const INVALID_ACCESS_TOKEN = 'Given access token is expired or invalid';
+
 describe('axios interceptor tests', () => {
   // init axios instance
   const testAxios = axios.create();
@@ -27,7 +29,7 @@ describe('axios interceptor tests', () => {
     async (done) => {
       expect.assertions(5);
       // setup
-      mock.onGet().replyOnce(401, {})
+      mock.onGet().replyOnce(401, INVALID_ACCESS_TOKEN)
         .onPost().replyOnce(201, { access_token: 'an access token' })
         .onGet().replyOnce(config => [201,
           {
@@ -60,8 +62,8 @@ describe('axios interceptor tests', () => {
       expect.assertions(5);
       // pt. 1
       // setup
-      mock.onGet().replyOnce(401, {}) // initial request is unauthorized
-        .onPost().replyOnce(401, {}); // token refresh request returns 401
+      mock.onGet().replyOnce(401, INVALID_ACCESS_TOKEN) // initial request is unauthorized
+        .onPost().replyOnce(401, INVALID_ACCESS_TOKEN); // token refresh request returns 401
       // execute
       await testAxios.get(API_USER).catch(() => {
         expect(mock.history.get.length).toBe(1);
@@ -70,7 +72,7 @@ describe('axios interceptor tests', () => {
 
       // pt.2
       // setup
-      mock.onGet().replyOnce(401, {})
+      mock.onGet().replyOnce(401, INVALID_ACCESS_TOKEN)
         .onPost().replyOnce(201, { access_token: 'an access token' })
         .onGet().replyOnce(config => [201,
           {
@@ -97,10 +99,10 @@ describe('axios interceptor tests', () => {
     async (done) => {
       // setup
       localStorage.setItem('access_token', 'first access token');
-      mock.onGet().replyOnce(401, {})
+      mock.onGet().replyOnce(401, INVALID_ACCESS_TOKEN)
         .onPost().replyOnce(201, { access_token: 'second access token' })
         .onGet().replyOnce(config => [200, { requestHeaders: config.headers }])
-        .onGet().replyOnce(401, {})
+        .onGet().replyOnce(401, INVALID_ACCESS_TOKEN)
         .onPost().replyOnce(201, { access_token: 'third access token' })
         .onGet().replyOnce(config => [200, { requestHeaders: config.headers }]);
 
@@ -160,7 +162,7 @@ describe('axios interceptor tests', () => {
       // expect.assertions(5); // not needed yet.
       // setup
       // mock.onGet().replyOnce(config => new Promise(resolve => setTimeout(resolve([401, {}]), 1000)))
-      mock.onGet().replyOnce(401, {})
+      mock.onGet().replyOnce(401, INVALID_ACCESS_TOKEN)
         .onPost().replyOnce(config => [201, { access_token: 'an access token' }])
         .onGet().replyOnce(config => [200,
           {
@@ -196,7 +198,7 @@ describe('axios interceptor tests', () => {
 
       try {
         await testAxios.get(API_USER);
-        done.fail('Shold throw an error');
+        done.fail('Should throw an error');
       } catch (error) {
         expect(mock.history.get.length).toBe(1);
         done();
