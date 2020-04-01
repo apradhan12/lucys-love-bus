@@ -35,8 +35,10 @@
 export default {
   name: 'SingleEvent',
   props: {
-    eventId: String, // id is a number, but props are always passed as strings
-    viewMode: Number, // 0=unregistered user :: 1=registered user :: 2=admin
+    eventID: { // id is a number, but props are always passed as strings
+      type: String,
+      required: true,
+    },
   },
   computed: {
     singleEvent() {
