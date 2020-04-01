@@ -7,7 +7,7 @@
           <slot name="eventBtn1" :event="slotProps.event" />
         </template>
         <template v-slot:btn2="slotProps">
-          <slot name="eventBtn2" :event="slotProps.event"/>
+          <slot name="eventBtn2" :event="slotProps.event" />
         </template>
       </event>
     </div>
