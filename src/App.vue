@@ -9,11 +9,13 @@
 <script>
 import TheNavigation from './components/TheNavigation.vue';
 import authService from './utils/service/authService';
+import TheFooter from './components/TheFooter.vue';
 
 export default {
   name: 'App',
   components: {
     TheNavigation,
+    TheFooter,
   },
   beforeCreate() {
     authService.actions.persistUser();

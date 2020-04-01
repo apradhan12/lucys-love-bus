@@ -1,28 +1,25 @@
 <template>
     <div>
-        <span v-if="noEvents">
-          <span v-if="myEvents">You aren't registered for any events.</span>
-          <span v-else>There aren't any events right now. Check back later!</span>
-        </span>
+        <slot name="header"></slot>
+        <slot v-if="events.length === 0" name="NoEventsMsg"></slot>
         <div class='pagination-wrapper'>
           <button
             class='pagination__btn'
             v-on:click='decrementCurrentPage'>Prev</button>
-
           <span><b>Page {{ currentPage + 1 }} of {{ maxPage + 1 }}</b></span>
           <button
             class='pagination__btn'
             v-on:click='incrementCurrentPage'>Next</button>
         </div>
-        <div v-if="!noEvents" class="events-container">
-          <Event
-              v-for='event in pageOfEvents'
-              :key='event.id'
-              :id='event.id'
-              :name='event.name'
-              :img='event.img'
-              :description='event.description'
-              :myEvents="myEvents" />
+        <div v-if="events.length > 0" class="events-container">
+          <event v-for="event in pageOfEvents" :key="event.id" :event="event">
+            <template v-slot:btn1="slotProps">
+              <slot name="eventBtn1" :event="slotProps.event"/>
+            </template>
+            <template v-slot:btn2="slotProps">
+              <slot name="eventBtn2" :event="slotProps.event"/>
+            </template>
+          </event>
         </div>
     </div>
 </template>
@@ -42,8 +39,10 @@ export default {
     };
   },
   props: {
-    events: Array,
-    noEventsMsg: String, // msg to display if there are no relevant events
+    events: {
+      type: Array,
+      required: true,
+    },
   },
   computed: {
     // list of a single page's worth of items
@@ -57,10 +56,6 @@ export default {
     // page number of the last page
     maxPage() {
       return Math.floor(this.events.length / this.eventsPerPage);
-    },
-    // there are no events to display
-    noEvents() {
-      return this.events.length === 0;
     },
   },
   methods: {

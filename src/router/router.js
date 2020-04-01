@@ -1,20 +1,17 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from '../components/Home/Home.vue';
-import AboutUs from '../components/AboutUs/AboutUs.vue';
-import Events from '../components/Events/Events.vue';
-import SingleEvent from '../components/Events/SingleEvent.vue';
-import Authentication from '../components/Authentication/Authentication.vue';
-import Login from '../components/Authentication/Login/Login.vue';
-import SignUp from '../components/Authentication/SignUp/SignUp.vue';
-import AccessControlDemonstration from '../components/Authentication/AccessControl/AccessControlDemonstration.vue';
-import NotFound from '../components/NotFound.vue';
-import Profile from '../components/Profile/Profile.vue';
-import MyEvents from '../components/Profile/MyEvents.vue';
-import Account from '../components/Profile/Account.vue';
-import CreateEvent from '../components/Events/CreateEvent.vue';
-
-import Checkout from '../components/Checkout/Checkout.vue';
+import HomeView from '../views/HomeView.vue';
+import AboutUsView from '../views/AboutUsView.vue';
+import EventsView from '../views/EventsView.vue';
+import LoginView from '../views/LoginView.vue';
+import SignUpView from '../views/SignUpView.vue';
+import AccessControlDemonstration from '../components/AccessControl/AccessControlDemonstration.vue';
+import NotFoundView from '../views/NotFoundView.vue';
+import ProfileView from '../views/ProfileView.vue';
+import MyEventsView from '../views/MyEventsView.vue';
+import CheckoutView from '../views/CheckoutView.vue';
+import SingleEventView from '../views/SingleEventView.vue';
+import CreateEventView from '../views/CreateEventView.vue';
 
 Vue.use(Router);
 
@@ -24,27 +21,27 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home,
+      component: HomeView,
     },
     {
       path: '/about-us',
       name: 'about-us',
-      component: AboutUs,
+      component: AboutUsView,
     },
     {
       path: '/events',
       name: 'events',
-      component: Events,
+      component: EventsView,
     },
     {
       path: '/create-event',
       name: 'create-event',
-      component: CreateEvent,
+      component: CreateEventView,
     },
     {
-      path: '/:eventID',
+      path: '/event/:eventId',
       name: 'single-event',
-      component: SingleEvent,
+      component: SingleEventView,
       props: true,
     },
     {
@@ -55,47 +52,33 @@ export default new Router({
     {
       path: '/checkout',
       name: 'checkout',
-      component: Checkout,
+      component: CheckoutView,
     },
     {
-      path: '/authentication',
-      name: 'authentication',
-      component: Authentication,
-      redirect: '/authentication/login',
-      children: [
-        {
-          path: 'login',
-          name: 'login',
-          component: Login,
-        },
-        {
-          path: 'sign-up',
-          name: 'sign-up',
-          component: SignUp,
-        },
-      ],
+      path: '/login',
+      name: 'login',
+      component: LoginView,
+    },
+    {
+      path: '/sign-up',
+      name: 'sign-up',
+      component: SignUpView,
     },
     {
       path: '/:username/profile',
       name: 'profile',
-      component: Profile,
+      component: ProfileView,
     },
     {
       path: '/:username/my-events',
       name: 'my-events',
-      component: MyEvents,
-      props: true,
-    },
-    {
-      path: '/:username/account',
-      name: 'account',
-      component: Account,
+      component: MyEventsView,
       props: true,
     },
     {
       path: '*',
       name: 'not-found',
-      component: NotFound,
+      component: NotFoundView,
     },
   ],
 });

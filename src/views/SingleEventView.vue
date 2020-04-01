@@ -10,9 +10,7 @@
       </div>
       <div class="event-buttons">
         <button>Register</button>
-        <router-link to="events">
-            <button>Back to Events</button>
-        </router-link>
+        <router-link :to="{name: 'events'}" tag="button">Back to Events</router-link>
       </div>
       <div class="event-info">
         <p>Location: {{ singleEvent.location }}</p>
@@ -29,11 +27,10 @@
 <script>
 export default {
   name: 'SingleEvent',
-  props: ['eventID'],
+  props: ['eventId'],
   computed: {
     singleEvent() {
-      const getEventById = this.$store.getters['events/getEventById'];
-      return getEventById(this.eventID);
+      return this.$store.getters['events/getEventById'](this.eventId);
     },
   },
 };
