@@ -1,5 +1,4 @@
 <template>
-
   <div class="event-container">
     <router-view></router-view>
       <div class="event-name">
@@ -9,8 +8,16 @@
         <p>Event Description: {{ singleEvent.description }}</p>
       </div>
       <div class="event-buttons">
-        <button>Register</button>
-        <router-link :to="{name: 'events'}" tag="button">Back to Events</router-link>
+        <access-control :roles="['user']" role="user">
+          <button v-if="registered">Unregister</button>
+          <button v-else>Register!</button>
+        </access-control>
+        <access-control :roles="['admin']" role="admin">
+          <button>Edit Event</button>
+        </access-control>
+        <router-link to="events">
+            <button>Back to Events</button>
+        </router-link>
       </div>
       <div class="event-info">
         <p>Location: {{ singleEvent.location }}</p>
@@ -27,10 +34,20 @@
 <script>
 export default {
   name: 'SingleEvent',
-  props: ['eventId'],
+  props: {
+    eventID: { // id is a number, but props are always passed as strings
+      type: String,
+      required: true,
+    },
+  },
   computed: {
     singleEvent() {
-      return this.$store.getters['events/getEventById'](this.eventId);
+      const getEventById = this.$store.getters['events/getEventById'];
+      const id = parseInt(this.eventId, 10);
+      return getEventById(id);
+    },
+    registered() {
+      return true; // will be fetched from store in future
     },
   },
 };
