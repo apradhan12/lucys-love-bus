@@ -1,7 +1,14 @@
 <template>
   <events-list :events="allEvents">
+    <template v-slot:noEventsMsg>
+      <h3>Sorry, there are no currently availible events!</h3>
+    </template>
     <template v-slot:eventBtn1="slotProps">
-      <button v-on:click="registerForEvent(slotProps.event)" class="event-btn" >Register</button>
+      <button
+        v-on:click="register({event: slotProps.event})"
+        class="event-btn" >
+        Register
+      </button>
     </template>
     <template v-slot:eventBtn2="slotProps">
       <router-link
@@ -14,7 +21,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 import EventsList from '../components/Events/EventsList.vue';
 
 export default {
@@ -28,14 +35,18 @@ export default {
     }),
   },
   methods: {
-    // registerForEvent(event) {
-    //   // console.log('registered', event);
-    // },
+    ...mapMutations('cart', {
+      registerForEvent: 'registerForEvent',
+    }),
+    register(payload) {
+      this.registerForEvent(payload);
+      // eslint-disable-next-line no-alert
+      alert(`You have signed up for ${payload.event.name}.`);
+    },
   },
 };
 </script>
 
 <style lang="less" scoped>
 @import '../../assets/global-classes.less';
-
 </style>
