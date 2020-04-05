@@ -1,16 +1,32 @@
 <template>
-  <div class="auth-container">
-    <h1> Signup </h1>
-    <h4> Join the Sajni Center Community! </h4>
-    <p> A very detailed signup description </p>
+  <div>
+    <h1>Sign Up</h1>
+    <div class="center">
+      <h4> Join the Sajni Center! </h4>
+      <p>
+        If you wish to join events for free and learn about more opportunities,
+        sign this form to request to be appoved by our team!
+      </p>
+    </div>
     <div class="auth-container">
-      <strong> Sign up for a family account </strong>
-      <input v-model="firstName" type="text" placeholder="First Name">
-      <input v-model="lastName" type="text" placeholder="Last Name">
+      <span class="form-title"> Sign up for a family account </span>
+      <div>
+        <input v-model="firstName" type="text" placeholder="First Name">
+        &nbsp;
+        <input v-model="lastName" type="text" placeholder="Last Name">
+      </div>
       <input v-model="email" type="text" placeholder="Email">
-      <input v-model="password[0]" type="password" placeholder="Password">
-      <input v-model="password[1]" type="password" placeholder="Retype Password">
-      <button @click="signup"> Signup </button>
+      <input type="text" placeholder="Some other field">
+      <input type="text" placeholder="Some other field">
+      <div>
+        <input v-model="password[0]" type="password" placeholder="Password">
+        &nbsp;
+        <input v-model="password[1]" type="password" placeholder="Retype Password">
+      </div>
+      <div>
+        <button @click="signup"> Request </button> &nbsp;
+        <router-link to="login" tag="a"> Already have an account? Log in here! </router-link>
+      </div>
     </div>
     <ul class="error">
       <li v-for="(err, index) in inputError" :key="index"> {{err}} </li>
@@ -106,5 +122,14 @@ export default {
 
 <style lang="less" scoped>
 @import '../../assets/global-classes.less';
+
+.auth-container {
+  background-color: #fff1d4;
+}
+
+a {
+  text-decoration: none;
+  color: gray;
+}
 
 </style>

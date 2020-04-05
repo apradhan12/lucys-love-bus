@@ -42,7 +42,6 @@ html {
 
 #app {
   font-family: var(--main-font);
-  text-align: center;
   width: 100%;
   height: 100vh;
   background-color: var(--body-color);

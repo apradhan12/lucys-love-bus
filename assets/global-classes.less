@@ -1,11 +1,20 @@
 @import './color-constants.less';
 
+h1 {
+  margin-left: 8em;
+}
+
 .auth-container {
-  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  background-color: white;
+  padding: 2em 4em 2em 4em;
+  width: 30em;
+  margin: auto;
+}
+
+.center {
+  text-align: center;
 }
 
 
@@ -86,4 +95,33 @@
   background-color: white;
   border: 1px solid @tangerine;
   border-radius: 4px;
+}
+
+
+// -------------- FORMS & INPUT ------------------
+
+.form-title {
+  font-size: 18px;
+  display: block;
+  margin-bottom: 1em;
+}
+
+input[type="text"], input[type="password"] {
+  border: 2px solid #888888;
+  border-radius: 2px;
+  font-size: 16px;
+  padding: .5em;
+  margin: 10px 0 10px 0;
+}
+
+button {
+  background-color: @tangerine;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 2px;
+  border: none;
+  color: white;
+  min-width: 10em;
+  margin: 1em 0 1em 0;
+  cursor: pointer;
 }

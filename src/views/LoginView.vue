@@ -1,20 +1,26 @@
 <template>
-  <div class="auth-container">
-    <h1>Login</h1>
-    <h4> Welcome! </h4>
-    <p> A very detailed login description </p>
-    <div class="auth-container">
-      <strong> Sign in to your account </strong>
-      <input v-model="email" @focus="resetSubmit" type="text" placeholder="Email Address" />
-      <input v-model="password" @focus="resetSubmit" type="password" placeholder="Password"/>
-      <button @click="submit"> Login </button>
-      <label for="keepSignedIn"> Keep me signed in </label>
-      <input type="checkbox" id="rememberMe" v-model="rememberMe">
-      <router-link to="sign-up" tag="a"> Don't have an account? Sign up here! </router-link>
-    </div>
-    <div class="error">
-      <p v-if="submitted && !inputValid"> Enter an email and password </p>
-      <p v-if="submitted && error">{{error}}</p>
+  <div>
+    <h1>Log In</h1>
+    <div class="login">
+      <div class="center">
+        <h4> Welcome! </h4>
+        <p>A very detailed login description</p>
+      </div>
+      <div class="auth-container">
+        <span class="form-title"> Sign in to your account </span>
+        <input v-model="email" @focus="resetSubmit" type="text" placeholder="Email Address" />
+        <input v-model="password" @focus="resetSubmit" type="password" placeholder="Password"/>
+        <div class="remember-me">
+          <input type="checkbox" id="rememberMe" v-model="rememberMe">
+          <label for="rememberMe">Remember me</label>
+        </div>
+        <button @click="submit"> Login </button>
+        <router-link to="sign-up" tag="a"> Don't have an account? Sign up here! </router-link>
+      </div>
+      <div class="error">
+        <p v-if="submitted && !inputValid"> Enter an email and password </p>
+        <p v-if="submitted && error">{{error}}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -72,5 +78,20 @@ export default {
 
 <style lang="less" scoped>
 @import '../../assets/global-classes.less';
+
+.login {
+  background-color: #BBBBBB;
+  width: 100%;
+  padding: 1em 0 3em 0;
+}
+
+.remember-me {
+  margin: 1em 0 1em 0;
+}
+
+a {
+  text-decoration: none;
+  color: gray;
+}
 
 </style>
