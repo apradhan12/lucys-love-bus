@@ -6,6 +6,7 @@
 
 <script>
 export default {
+  name: 'access-control',
   props: {
     roles: { type: Array, default: () => [] },
     role: { type: String, default: '' },

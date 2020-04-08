@@ -17,6 +17,7 @@ function setAccessTokenHeader(access_token) {
 }
 
 function setRefreshTokenHeader(refresh_token) {
+  console.log('refresh token', refresh_token);
   protectedResourceAxios.defaults['X-Refresh-Token'] = refresh_token;
 }
 
