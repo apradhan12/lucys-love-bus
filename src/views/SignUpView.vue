@@ -1,6 +1,9 @@
 <template>
   <div>
     <h1>Sign Up</h1>
+    <div class="left-tab">
+      Back to Log In
+    </div>
     <div class="center">
       <h4> Join the Sajni Center! </h4>
       <p>
@@ -10,7 +13,7 @@
     </div>
     <div class="auth-container">
       <span class="form-title"> Sign up for a family account </span>
-      <div>
+      <div class="h-fields">
         <input v-model="firstName" type="text" placeholder="First Name">
         &nbsp;
         <input v-model="lastName" type="text" placeholder="Last Name">
@@ -18,13 +21,13 @@
       <input v-model="email" type="text" placeholder="Email">
       <input type="text" placeholder="Some other field">
       <input type="text" placeholder="Some other field">
-      <div>
+      <div class="h-fields">
         <input v-model="password[0]" type="password" placeholder="Password">
         &nbsp;
         <input v-model="password[1]" type="password" placeholder="Retype Password">
       </div>
       <div>
-        <button @click="signup"> Request </button> &nbsp;
+        <button @click="signup" class="btn-primary"> Request </button> &nbsp;
         <router-link to="login" tag="a"> Already have an account? Log in here! </router-link>
       </div>
     </div>

@@ -17,6 +17,19 @@ h1 {
   text-align: center;
 }
 
+.left-tab {
+  position: absolute;
+  left: 0;
+  width: 5em;
+  border-radius: 0 6px 6px 0;
+  padding: 1em 1.3em 1em 1.3em;
+  text-align: center;
+  font-size: 16px;
+  background-color: @tangerine;
+  color: white;
+  cursor: pointer;
+}
+
 
 // --------------Events Classes---------------
 .event__container {
@@ -106,15 +119,22 @@ h1 {
   margin-bottom: 1em;
 }
 
+// wrapper for fields in forms laid out horizontally next to each other (e.g., first and last name)
+.h-fields {
+  display: flex;
+  flex-direction: horizontal;
+  justify-content: space-between;
+}
+
 input[type="text"], input[type="password"] {
   border: 2px solid #888888;
   border-radius: 2px;
   font-size: 16px;
   padding: .5em;
-  margin: 10px 0 10px 0;
+  margin: .5em 0 .5em 0;
 }
 
-button {
+.btn-primary {
   background-color: @tangerine;
   padding: 8px;
   font-size: 16px;

@@ -2,6 +2,9 @@
   <div>
     <h1>Log In</h1>
     <div class="login">
+      <div class="left-tab">
+        Back to Landing Page
+      </div>
       <div class="center">
         <h4> Welcome! </h4>
         <p>A very detailed login description</p>
@@ -14,7 +17,7 @@
           <input type="checkbox" id="rememberMe" v-model="rememberMe">
           <label for="rememberMe">Remember me</label>
         </div>
-        <button @click="submit"> Login </button>
+        <button @click="submit" class="btn-primary"> Login </button>
         <router-link to="sign-up" tag="a"> Don't have an account? Sign up here! </router-link>
       </div>
       <div class="error">
