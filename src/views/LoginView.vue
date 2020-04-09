@@ -1,7 +1,9 @@
 <template>
   <div class="login">
-    <router-link :to="{name: 'home'}" tag="div" class="left-tab">Back to Landing Page</router-link>
     <div class="center">
+      <router-link :to="{name: 'home'}" tag="div" class="left-tab">
+        Back to Landing Page
+      </router-link>
       <h4>Welcome!</h4>
       <p>A very detailed login description</p>
     </div>
