@@ -1,9 +1,9 @@
 <template>
   <div>
     <h1>Sign Up</h1>
-    <div class="left-tab">
-      Back to Log In
-    </div>
+    <router-link :to="{name: 'login'}" tag="div" class="left-tab">
+        Back to Log In
+    </router-link>
     <div class="center">
       <h4> Join the Sajni Center! </h4>
       <p>
@@ -14,21 +14,37 @@
     <div class="auth-container">
       <span class="form-title"> Sign up for a family account </span>
       <div class="h-fields">
-        <input v-model="firstName" type="text" placeholder="First Name">
-        &nbsp;
-        <input v-model="lastName" type="text" placeholder="Last Name">
+        <input
+          v-model="firstName"
+          class="input-primary half-input"
+          type="text"
+          placeholder="First Name">
+        <input
+        v-model="lastName"
+        class="input-primary half-input"
+        type="text"
+        placeholder="Last Name">
       </div>
-      <input v-model="email" type="text" placeholder="Email">
-      <input type="text" placeholder="Some other field">
-      <input type="text" placeholder="Some other field">
+      <input v-model="email" class="input-primary" type="text" placeholder="Email">
+      <input type="text" class="input-primary" placeholder="Some other field">
+      <input type="text"  class="input-primary" placeholder="Some other field">
       <div class="h-fields">
-        <input v-model="password[0]" type="password" placeholder="Password">
-        &nbsp;
-        <input v-model="password[1]" type="password" placeholder="Retype Password">
+        <input
+          v-model="password[0]"
+          class="input-primary half-input"
+          type="password"
+          placeholder="Password">
+        <input
+          v-model="password[1]"
+          class="input-primary half-input"
+          type="password"
+          placeholder="Retype Password">
       </div>
       <div>
         <button @click="signup" class="btn-primary"> Request </button> &nbsp;
-        <router-link to="login" tag="a"> Already have an account? Log in here! </router-link>
+        <router-link to="login" class="med-pad-left" tag="a">
+          Already have an account? Log in here!
+        </router-link>
       </div>
     </div>
     <ul class="error">
@@ -128,6 +144,10 @@ export default {
 
 .auth-container {
   background-color: #fff1d4;
+}
+
+.half-input {
+  width: 43%;
 }
 
 a {

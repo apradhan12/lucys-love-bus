@@ -2,17 +2,27 @@
   <div>
     <h1>Log In</h1>
     <div class="login">
-      <div class="left-tab">
+      <router-link :to="{name: 'home'}" tag="div" class="left-tab">
         Back to Landing Page
-      </div>
+      </router-link>
       <div class="center">
         <h4> Welcome! </h4>
         <p>A very detailed login description</p>
       </div>
       <div class="auth-container">
         <span class="form-title"> Sign in to your account </span>
-        <input v-model="email" @focus="resetSubmit" type="text" placeholder="Email Address" />
-        <input v-model="password" @focus="resetSubmit" type="password" placeholder="Password"/>
+        <input
+          v-model="email"
+          @focus="resetSubmit"
+          class="input-primary"
+          type="text"
+          placeholder="Email Address" />
+        <input
+          v-model="password"
+          @focus="resetSubmit"
+          class="input-primary"
+          type="password"
+          placeholder="Password"/>
         <div class="remember-me">
           <input type="checkbox" id="rememberMe" v-model="rememberMe">
           <label for="rememberMe">Remember me</label>
