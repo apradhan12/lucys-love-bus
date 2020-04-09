@@ -1,39 +1,36 @@
 <template>
-  <div>
-    <h1>Log In</h1>
-    <div class="login">
-      <router-link :to="{name: 'home'}" tag="div" class="left-tab">
-        Back to Landing Page
-      </router-link>
-      <div class="center">
-        <h4> Welcome! </h4>
-        <p>A very detailed login description</p>
+  <div class="login">
+    <router-link :to="{name: 'home'}" tag="div" class="left-tab">Back to Landing Page</router-link>
+    <div class="center">
+      <h4>Welcome!</h4>
+      <p>A very detailed login description</p>
+    </div>
+    <div class="auth-container">
+      <span class="form-title">Sign in to your account</span>
+      <input
+        v-model="email"
+        @focus="resetSubmit"
+        class="input-primary"
+        type="text"
+        placeholder="Email Address"
+      />
+      <input
+        v-model="password"
+        @focus="resetSubmit"
+        class="input-primary"
+        type="password"
+        placeholder="Password"
+      />
+      <div class="remember-me">
+        <input type="checkbox" id="rememberMe" v-model="rememberMe" />
+        <label for="rememberMe">Remember me</label>
       </div>
-      <div class="auth-container">
-        <span class="form-title"> Sign in to your account </span>
-        <input
-          v-model="email"
-          @focus="resetSubmit"
-          class="input-primary"
-          type="text"
-          placeholder="Email Address" />
-        <input
-          v-model="password"
-          @focus="resetSubmit"
-          class="input-primary"
-          type="password"
-          placeholder="Password"/>
-        <div class="remember-me">
-          <input type="checkbox" id="rememberMe" v-model="rememberMe">
-          <label for="rememberMe">Remember me</label>
-        </div>
-        <button @click="submit" class="btn-primary"> Login </button>
-        <router-link to="sign-up" tag="a"> Don't have an account? Sign up here! </router-link>
-      </div>
-      <div class="error">
-        <p v-if="submitted && !inputValid"> Enter an email and password </p>
-        <p v-if="submitted && error">{{error}}</p>
-      </div>
+      <button @click="submit" class="btn-primary">Login</button>
+      <router-link to="sign-up" tag="a">Don't have an account? Sign up here!</router-link>
+    </div>
+    <div class="error">
+      <p v-if="submitted && !inputValid">Enter an email and password</p>
+      <p v-if="submitted && error">{{error}}</p>
     </div>
   </div>
 </template>
@@ -89,11 +86,11 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang='less' scoped>
 @import '../../assets/global-classes.less';
 
 .login {
-  background-color: #BBBBBB;
+  background-color: #bbbbbb;
   width: 100%;
   padding: 1em 0 3em 0;
 }
@@ -106,5 +103,4 @@ a {
   text-decoration: none;
   color: gray;
 }
-
 </style>

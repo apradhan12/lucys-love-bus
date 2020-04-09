@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Sign Up</h1>
     <router-link :to="{name: 'login'}" tag="div" class="left-tab">
         Back to Log In
     </router-link>
@@ -42,7 +41,7 @@
       </div>
       <div>
         <button @click="signup" class="btn-primary"> Request </button> &nbsp;
-        <router-link to="login" class="med-pad-left" tag="a">
+        <router-link :to="{name: 'login'}" class="med-pad-left" tag="a">
           Already have an account? Log in here!
         </router-link>
       </div>
