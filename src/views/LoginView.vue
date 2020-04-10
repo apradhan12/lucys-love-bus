@@ -23,7 +23,11 @@
         type="password"
         placeholder="Password"
       />
-      <button @click="submit" class="btn-primary">Login</button>
+      <div class="remember-me">
+        <input type="checkbox" id="rememberMe" v-model="rememberMe" />
+        <label for="rememberMe">Remember me</label>
+      </div>
+      <button @click="submit" class="btn--tertiary">Login</button>
       <router-link to="sign-up" tag="a">Don't have an account? Sign up here!</router-link>
     </div>
     <div class="error">
