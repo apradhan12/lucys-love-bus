@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable camelcase */
 import { publicResourceAxios, protectedResourceAxios } from '../utils/auth/axios/axiosInstance';
 import {
@@ -18,7 +19,7 @@ function setAccessTokenHeader(access_token) {
 
 function setRefreshTokenHeader(refresh_token) {
   console.log('refresh token', refresh_token);
-  protectedResourceAxios.defaults['X-Refresh-Token'] = refresh_token;
+  protectedResourceAxios.defaults.headers['X-Refresh-Token'] = refresh_token;
 }
 
 function deleteAccessTokenHeader() {
@@ -26,7 +27,7 @@ function deleteAccessTokenHeader() {
 }
 
 function deleteRefreshTokenHeader() {
-  delete protectedResourceAxios.defaults['X-Refresh-Token'];
+  delete protectedResourceAxios.defaults.headers['X-Refresh-Token'];
 }
 
 /**

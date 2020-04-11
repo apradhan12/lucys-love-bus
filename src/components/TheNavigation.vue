@@ -3,18 +3,38 @@
     <div class="title">
       <router-link to="/" tag="h3">[LOGO]</router-link>
     </div>
-
     <div class="navlinks">
       <router-link to="/about-us" tag="button">About Us</router-link>
       <router-link to="/events" tag="button">Events</router-link>
       <router-link to="/login" tag="button">Log In</router-link>
+      <button v-on:click="logout">Log Out</button>
       <router-link to="/checkout" tag="button">Checkout</router-link>
     </div>
   </div>
 </template>
 
+<script>
+import authService from '../utils/service/authService';
+
+export default {
+  name: 'the-navigation',
+  methods: {
+    async logout() {
+      console.log('logout');
+      let res = '';
+      try {
+        res = await authService.actions.logout();
+      } catch (err) {
+        res = err;
+      }
+      return res;
+    },
+  },
+};
+</script>
+
 <style lang="less" scoped>
-@import '../../assets/color-constants.less';
+@import '../../assets/global-classes.less';
 
 .header {
   display: flex;

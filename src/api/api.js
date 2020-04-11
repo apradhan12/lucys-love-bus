@@ -25,7 +25,14 @@ async function createEvent(event) {
     },
   };
 
-  protectedResourceAxios.post(`${baseUrl}/protected/events/`, body);
+  let res;
+  try {
+    res = await protectedResourceAxios.post(`${baseUrl}/protected/events/`, body);
+  } catch (err) {
+    return err;
+  }
+
+  return res;
 }
 
 export default {
