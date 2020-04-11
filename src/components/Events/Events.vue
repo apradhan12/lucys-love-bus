@@ -35,6 +35,5 @@ export default {
 <style lang="less">
   .events-container {
     margin: 0;
-    max-width: 100%;
   }
 </style>

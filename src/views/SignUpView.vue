@@ -5,7 +5,7 @@
     </router-link>
     <div class="center">
       <h4> Join the Sajni Center! </h4>
-      <p>
+      <p class="text-wrap">
         If you wish to join events for free and learn about more opportunities,
         sign this form to request to be appoved by our team!
       </p>
@@ -145,6 +145,11 @@ export default {
   background-color: #fff1d4;
 }
 
+.text-wrap {
+  margin: auto;
+  width: 30em;
+  padding-bottom: 1em;
+}
 .half-input {
   width: 43%;
 }

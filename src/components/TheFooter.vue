@@ -1,5 +1,5 @@
 <template>
-  <div class="footer">
+  <footer class="footer">
     <div>
         <p>The Sajni Center</p>
     </div>
@@ -8,7 +8,7 @@
         <p>FAQs</p>
         <p>SUPPORT</p>
     </div>
-  </div>
+  </footer>
 </template>
 
 <script>
@@ -20,8 +20,9 @@ export default {
 <style lang="less" scoped>
 .footer {
   display: flex;
-  margin-top: auto;
   justify-content: space-around;
+  height: 6em;
+  margin-top: -6em;
 
   .links {
     display: flex;

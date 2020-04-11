@@ -79,8 +79,6 @@ export default {
 
   .events-container {
     margin: 0 auto;
-    width: 65rem;
-    max-width: 90vw;
   }
 
   .pagination-wrapper {

@@ -1,7 +1,11 @@
 <template>
   <div id="app">
-    <the-navigation />
-    <router-view />
+    <div class="content-wrap-for-footer">
+      <the-navigation />
+      <div class="main-content center">
+        <router-view />
+      </div>
+    </div>
     <the-footer />
   </div>
 </template>
@@ -42,8 +46,18 @@ html {
 
 #app {
   font-family: var(--main-font);
-  width: 100%;
-  height: 100vh;
+  min-height: 100%;
   background-color: var(--body-color);
+}
+
+.content-wrap-for-footer {
+  min-height: 100vh;
+  width: 100%;
+}
+
+.main-content {
+  max-width: 60em;
+  margin: auto;
+  padding: 4em;
 }
 </style>
