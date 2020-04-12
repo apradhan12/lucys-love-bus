@@ -94,10 +94,11 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$validator.validateAll().then((result) => {
+      this.$validator.validateAll().then(async (result) => {
         if (result) {
           try {
-            api.createEvent(this.event);
+            await api.createEvent(this.event);
+            this.event = {};
           } catch (err) {
             this.error = err;
           }
