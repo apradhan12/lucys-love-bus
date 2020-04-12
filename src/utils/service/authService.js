@@ -43,7 +43,6 @@ const actions = {
    * Calls logout from userState Singleton.
    */
   async logout() {
-    console.log('logout2');
     try {
       const response = await authApi.logout(tokenService.getRefreshToken());
       authApi.deleteAccessTokenHeader();
@@ -54,7 +53,7 @@ const actions = {
       }
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.log(error);
+      // console.log(error);
     }
   },
   /**
@@ -77,13 +76,10 @@ const actions = {
         // eslint-disable-next-line no-console
         console.error(error);
       }
-      console.log('1', userState.getIsSignedIn());
     // login if both are valid.
     } else if (jwtUtils.isJWTValid(access) && jwtUtils.isJWTValid(refresh)) {
       userState.login(access, refresh);
-      console.log('2', userState.getIsSignedIn());
     }
-    console.log('3', userState.getIsSignedIn());
   },
 };
 

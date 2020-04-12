@@ -20,7 +20,6 @@ export default {
   name: 'the-navigation',
   methods: {
     async logout() {
-      console.log('logout');
       let res = '';
       try {
         res = await authService.actions.logout();
