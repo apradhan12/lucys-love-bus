@@ -1,16 +1,50 @@
 <template>
-  <div class="auth-container">
-    <h1> Signup </h1>
-    <h4> Join the Sajni Center Community! </h4>
-    <p> A very detailed signup description </p>
+  <div>
+    <router-link :to="{name: 'login'}" tag="div" class="left-tab">
+        Back to Log In
+    </router-link>
+    <div class="center">
+      <h4> Join the Sajni Center! </h4>
+      <p class="text-wrap">
+        If you wish to join events for free and learn about more opportunities,
+        sign this form to request to be appoved by our team!
+      </p>
+    </div>
     <div class="auth-container">
-      <strong> Sign up for a family account </strong>
-      <input v-model="firstName" type="text" placeholder="First Name">
-      <input v-model="lastName" type="text" placeholder="Last Name">
-      <input v-model="email" type="text" placeholder="Email">
-      <input v-model="password[0]" type="password" placeholder="Password">
-      <input v-model="password[1]" type="password" placeholder="Retype Password">
-      <button @click="signup"> Signup </button>
+      <span class="form-title"> Sign up for a family account </span>
+      <div class="h-fields">
+        <input
+          v-model="firstName"
+          class="input-primary half-input"
+          type="text"
+          placeholder="First Name">
+        <input
+        v-model="lastName"
+        class="input-primary half-input"
+        type="text"
+        placeholder="Last Name">
+      </div>
+      <input v-model="email" class="input-primary" type="text" placeholder="Email">
+      <input type="text" class="input-primary" placeholder="Some other field">
+      <input type="text"  class="input-primary" placeholder="Some other field">
+      <div class="h-fields">
+        <input
+          v-model="password[0]"
+          class="input-primary half-input"
+          type="password"
+          placeholder="Password">
+        <input
+          v-model="password[1]"
+          class="input-primary half-input"
+          type="password"
+          placeholder="Retype Password">
+      </div>
+      <div>
+        <button @click="signup" class="btn-primary"> Request </button> &nbsp;
+        <router-link :to="{name: 'login'}" class="med-pad-left" tag="a">
+          Already have an account? Log in here!
+        </router-link>
+      </div>
     </div>
     <ul class="error">
       <li v-for="(err, index) in inputError" :key="index"> {{err}} </li>
@@ -106,5 +140,23 @@ export default {
 
 <style lang="less" scoped>
 @import '../../assets/global-classes.less';
+
+.auth-container {
+  background-color: #fff1d4;
+}
+
+.text-wrap {
+  margin: auto;
+  width: 30em;
+  padding-bottom: 1em;
+}
+.half-input {
+  width: 43%;
+}
+
+a {
+  text-decoration: none;
+  color: gray;
+}
 
 </style>

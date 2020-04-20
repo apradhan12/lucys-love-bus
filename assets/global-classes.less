@@ -1,11 +1,31 @@
 @import './color-constants.less';
 
 .auth-container {
-  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  background-color: white;
+  padding: 2em 4em 2em 4em;
+  width: 30em;
+  margin: auto;
+}
+
+.center {
+  text-align: center;
+}
+
+.left-tab {
+  position: relative;
+  left: 0;
+  top: 0;
+  margin-bottom: -6em;
+  width: 5em;
+  border-radius: 0 6px 6px 0;
+  padding: 1em 1.3em 1em 1.3em;
+  text-align: center;
+  font-size: 16px;
+  background-color: @tangerine;
+  color: white;
+  cursor: pointer;
 }
 
 
@@ -86,4 +106,44 @@
   background-color: white;
   border: 1px solid @tangerine;
   border-radius: 4px;
+}
+
+
+// -------------- FORMS & INPUT ------------------
+
+.form-title {
+  font-size: 18px;
+  display: block;
+  margin-bottom: 1em;
+}
+
+// wrapper for fields in forms laid out horizontally next to each other (e.g., first and last name)
+.h-fields {
+  display: flex;
+  flex-direction: horizontal;
+  justify-content: space-between;
+}
+
+.input-primary {
+  border: 2px solid #888888;
+  border-radius: 2px;
+  font-size: 16px;
+  padding: .5em;
+  margin: .5em 0 .5em 0;
+}
+
+.btn-primary {
+  background-color: @tangerine;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 2px;
+  border: none;
+  color: white;
+  min-width: 10em;
+  margin: 1em 0 1em 0;
+  cursor: pointer;
+}
+
+.med-pad-left {
+  padding-left: 2.5em;
 }

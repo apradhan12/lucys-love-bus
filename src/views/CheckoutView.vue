@@ -5,7 +5,7 @@
     <div class="component-container">
       <div class="events component-wrapper">
         <events-list-scroll :events="registeredEvents">
-          <template v-slot:noEventsMsg>
+          <template v-slot:NoEventsMsg>
             <h3>You have no events in your cart!</h3>
           </template>
           <template v-slot:eventBtn1="slotProps">
@@ -67,8 +67,7 @@ export default {
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 2fr 1fr 1fr;
     grid-gap: 1rem;
-    width: 60vw;
-    height: 40rem;
+    max-height: 60vh;
   }
   .component-wrapper {
     border: 1px solid @notes-form-color;
