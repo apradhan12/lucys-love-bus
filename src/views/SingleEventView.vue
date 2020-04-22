@@ -35,7 +35,7 @@
 export default {
   name: 'SingleEvent',
   props: {
-    eventID: { // id is a number, but props are always passed as strings
+    eventId: { // id is a number, but props are always passed as strings
       type: String,
       required: true,
     },

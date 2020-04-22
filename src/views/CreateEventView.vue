@@ -1,40 +1,59 @@
 <template>
     <form @submit.prevent="onSubmit">
     <div class="container">
-        <input v-validate="'required|max:80'" v-model="name"
+        <input v-validate="'required|max:80'" v-model="event.name"
         name="name" class="event-name" placeholder="Name of Event">
         <span class="form-errors" v-show="errors.has('name')">{{ errors.first('name') }}</span>
         <div class="form">
             <div class="form-element">
-                <input v-validate="'required'"
-                v-model="date" name="date" type="date" size="50">
-                <input v-validate="'required|max:80'" v-model="location"
-                name="location" type="text" size="60" placeholder="Location">
+                <input
+                    v-validate="'required'"
+                    v-model="event.date"
+                    name="date"
+                    type="date"
+                    size="50">
+                <input
+                    v-validate="'required|max:80'"
+                    v-model="event.location"
+                    name="location"
+                    type="text"
+                    size="60"
+                    placeholder="Location">
             </div>
             <div class="form-errors">
                 <span v-show="errors.has('date')">{{ errors.first('date') }}</span>
                 <span v-show="errors.has('location')">{{ errors.first('location') }}</span>
             </div>
             <div class="form-element">
-                <input v-validate="'required'" v-model="startTime"
-                name="start time" type="time" step="300" size="30">
+                <input
+                    v-validate="'required'"
+                    v-model="event.startTime"
+                    name="start time"
+                    type="time"
+                    step="300"
+                    size="30">
                 <p>to</p>
-                <input v-validate="'required'" v-model="endTime"
-                name="end time" type="time" step="300" size="30">
+                <input
+                    v-validate="'required'"
+                    v-model="event.endTime"
+                    name="end time"
+                    type="time"
+                    step="300"
+                    size="30">
             </div>
             <div class="form-errors">
                 <span v-show="errors.has('start time')">{{ errors.first('start time') }}</span>
                 <span v-show="errors.has('end time')">{{ errors.first('end time') }}</span>
             </div>
             <div class="form-element">
-                <textarea v-validate="'required'" v-model="description" rows="10" cols="100"
+                <textarea v-validate="'required'" v-model="event.description" rows="10" cols="100"
                 name="description" placeholder="Description"></textarea>
             </div>
             <div class="form-errors">
                 <span v-show="errors.has('description')">{{ errors.first('description') }}</span>
             </div>
             <div class="form-element">
-                <textarea v-validate="'required'" v-model="whatToBring" rows="7" cols="100"
+                <textarea v-validate="'required'" v-model="event.whatToBring" rows="7" cols="100"
                 name="what to bring" placeholder="What to Bring"></textarea>
             </div>
             <div class="form-errors">
@@ -53,30 +72,36 @@
 <script>
 import Vue from 'vue';
 import VeeValidate from 'vee-validate';
+import api from '../api/api';
 
 Vue.use(VeeValidate);
 export default {
-  name: 'NewEvent',
+  name: 'CreateEvent',
   data() {
     return {
-      event: {
-        name: '',
-        date: '',
-        startTime: '',
-        endTime: '',
-        description: '',
-        whatToBring: '',
-      },
+      /*
+        name: String,
+        date: Date,
+        location: String,
+        startTime: String,
+        endTime: String,
+        description: String,
+        whatToBring: String,
+      */
+      event: {},
+      error: '',
     };
   },
   methods: {
     onSubmit() {
-      this.$validator.validateAll().then((result) => {
+      this.$validator.validateAll().then(async (result) => {
         if (result) {
-          // add http post request
-          // eslint-disable-next-line
-          alert('create event successful');
-          this.$router.push('/events');
+          try {
+            await api.createEvent(this.event);
+            this.event = {};
+          } catch (err) {
+            this.error = err;
+          }
         }
       });
     },

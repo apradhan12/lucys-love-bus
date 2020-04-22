@@ -23,10 +23,6 @@
         type="password"
         placeholder="Password"
       />
-      <div class="remember-me">
-        <input type="checkbox" id="rememberMe" v-model="rememberMe" />
-        <label for="rememberMe">Remember me</label>
-      </div>
       <button @click="submit" class="btn-primary">Login</button>
       <router-link to="sign-up" tag="a">Don't have an account? Sign up here!</router-link>
     </div>
@@ -46,7 +42,6 @@ export default {
     return {
       email: '',
       password: '',
-      rememberMe: false,
       submitted: false,
       inputValid: false,
       error: '',
@@ -70,9 +65,8 @@ export default {
       this.submitted = true;
       if (this.validateInput()) {
         const user = {
-          username: this.email,
+          email: this.email,
           password: this.password,
-          rememberMe: this.rememberMe,
         };
         try {
           await authService.actions.login(user);

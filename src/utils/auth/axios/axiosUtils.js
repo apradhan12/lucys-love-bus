@@ -7,6 +7,10 @@ import {
 } from '../../../api/endpoints';
 import tokenService from '../tokenService';
 import userState from '../state/userState';
+// eslint-disable-next-line import/no-cycle
+import authApi from '../../../api/authApi';
+
+const INVALID_ACCESS_TOKEN = 'Given access token is expired or invalid';
 
 /**
  * An array containing the list of http status codes where the axios interceptor
@@ -24,7 +28,7 @@ const refreshStatusCodes = [
 export async function refreshToken(instance, pastRequest) {
   const refresh_token = tokenService.getRefreshToken();
   try {
-    const { data } = await instance.post(API_REFRESH_TOKEN, { refresh_token });
+    const { data } = await authApi.refresh(refresh_token);
     tokenService.setAccessToken(data.access_token);
     pastRequest.response.config.headers['X-Access-Token'] = data.access_token;
     return Promise.resolve();
@@ -68,7 +72,11 @@ export function createResponseInterceptor(instance, onRefresh) {
   const interceptorID = instance.interceptors.response.use(
     response => response,
     async (error) => {
-      if (error.response && refreshStatusCodes.includes(error.response.status)) {
+      if (error.response
+        // ensure it is the correct error code.
+        && refreshStatusCodes.includes(error.response.status)
+        // ensure it only occurs when specified String is received in body
+        && error.response.data === INVALID_ACCESS_TOKEN) {
         instance.interceptors.response.eject(interceptorID);
         try {
           // attempt to refresh token

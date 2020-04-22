@@ -16,7 +16,7 @@ function getTokenHeader(token) {
 
 function isJWTValid(jwt) {
   const body = getTokenPayload(jwt);
-  return body !== null && Date.now() < body.expiration;
+  return body !== null && Math.round(Date.now() / 1000) < body.exp;
 }
 
 export default { getTokenPayload, getTokenHeader, isJWTValid };
