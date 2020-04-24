@@ -35,6 +35,16 @@ async function createEvent(event) {
   return res;
 }
 
+async function getEvent(id) {
+  try {
+    const { data } = await protectedResourceAxios.get(`${baseUrl}/protected/events/${id}`);
+    return data;
+  } catch (err) {
+    return err;
+  }
+}
+
 export default {
   createEvent,
+  getEvent,
 };

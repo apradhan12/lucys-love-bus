@@ -2,10 +2,10 @@
   <div class="event-container">
     <router-view></router-view>
       <div class="event-name">
-        <h1>{{ singleEvent.name }}</h1>
+        <h1>{{ singleEvent.title }}</h1>
       </div>
       <div class="event-description">
-        <p>Event Description: {{ singleEvent.description }}</p>
+        <p>Event Description: {{ singleEvent.details.description }}</p>
       </div>
       <div class="event-buttons">
         <access-control :roles="['user']" role="user">
@@ -20,9 +20,8 @@
         </router-link>
       </div>
       <div class="event-info">
-        <p>Location: {{ singleEvent.location }}</p>
-        <p>Time: {{ singleEvent.time }}</p>
-        <p>What to Bring: {{ singleEvent.bring }}</p>
+        <p>Location: {{ singleEvent.details.location }}</p>
+        <p>Time: {{ singleEvent.details.start }}</p>
       </div>
       <div class="event-img">
         <img :src="singleEvent.img" alt="Event Image">
@@ -32,6 +31,8 @@
 
 
 <script>
+import api from '../api/api';
+
 export default {
   name: 'SingleEvent',
   props: {
@@ -40,15 +41,24 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      singleEvent: {},
+    };
+  },
   computed: {
-    singleEvent() {
-      const getEventById = this.$store.getters['events/getEventById'];
-      const id = parseInt(this.eventId, 10);
-      return getEventById(id);
-    },
     registered() {
       return true; // will be fetched from store in future
     },
+  },
+  methods: {
+    async getSingleEvent() {
+      const res = await api.getEvent(this.eventId);
+      return res;
+    },
+  },
+  async created() {
+    this.singleEvent = await this.getSingleEvent();
   },
 };
 </script>
