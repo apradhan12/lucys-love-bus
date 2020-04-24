@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapState } from 'vuex';
 import EventsList from '../components/Events/EventsList.vue';
 
 export default {
@@ -23,9 +23,6 @@ export default {
     }),
   },
   methods: {
-    ...mapMutations('cart', {
-      registerForEvent: 'registerForEvent',
-    }),
     announce(payload) {
       // eslint-disable-next-line no-alert
       alert(`Once created, link create-announcement component here for ${payload.event.name}.`);
