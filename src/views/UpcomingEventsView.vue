@@ -1,6 +1,6 @@
 <template>
   <div>
-  <events-list :events="allEvents" :currentRole="role">
+  <events-list :events="allEvents" currentRole="admin">
     <template v-slot:noEventsMsg>
       <h3>Sorry, there are no currently availible events!</h3>
     </template>
@@ -14,11 +14,6 @@ import EventsList from '../components/Events/EventsList.vue';
 
 export default {
   name: 'UpcomingEventsView',
-  data() {
-    return {
-      role: 'admin',
-    };
-  },
   components: {
     EventsList,
   },
