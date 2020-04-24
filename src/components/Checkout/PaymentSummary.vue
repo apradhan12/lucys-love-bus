@@ -4,12 +4,36 @@
         <h3>Subtotal: ${{subtotal.toFixed(2)}}</h3>
         <h3>Taxes: ${{taxes.toFixed(2)}}</h3>
         <h3>Total: ${{totalPrice.toFixed(2)}}</h3>
-        <button class="event-btn btn--primary">Proceed to checkout</button>
+        <button
+          class="event-btn btn--primary"
+          v-on:click="onClickCheckout">Proceed to checkout</button>
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import { loadStripe } from '@stripe/stripe-js';
+
+// const stripe = require('stripe')('sk_test_Q2wTkIY5Z3h9pjtgkksJULj200M84LsI3q');
+
+// async function createStripeSession() {
+//   const session = await stripe.checkout.sessions.create({
+//     payment_method_types: ['card'],
+//     line_items: [{
+//       name: 'T-shirt',
+//       description: 'Comfortable cotton t-shirt',
+//       images: ['https://example.com/t-shirt.png'],
+//       amount: 500,
+//       currency: 'usd',
+//       quantity: 1,
+//     }],
+//     success_url: 'https://example.com/success?session_id={CHECKOUT_SESSION_ID}',
+//     cancel_url: 'https://example.com/cancel',
+//   });
+//   return session;
+// }
+
+const stripePromise = loadStripe('pk_test_BUZH61WwkfQGWgCw9a9GtaSJ00hxB4qgcU');
 
 export default {
   name: 'PaymentSummary',
@@ -23,6 +47,41 @@ export default {
     totalPrice() {
       return this.subtotal + this.taxes;
     },
+  },
+  methods: {
+    async onClickCheckout() {
+      // https://stripe.com/docs/payments/checkout/one-time
+      // const { sessionId } = await createStripeSession();
+      // const session = await stripe.checkout.sessions.create({
+      //   payment_method_types: ['card'],
+      //   line_items: [{
+      //     name: 'T-shirt',
+      //     description: 'Comfortable cotton t-shirt',
+      //     images: ['https://example.com/t-shirt.png'],
+      //     amount: 500,
+      //     currency: 'usd',
+      //     quantity: 1,
+      //   }],
+      //   success_url: 'https://example.com/success?session_id={CHECKOUT_SESSION_ID}',
+      //   cancel_url: 'https://example.com/cancel',
+      // });
+      // console.log(session);
+      //
+      // This code is to create a Checkout Session in Stripe's platform
+      // In their tutorial, a Checkout Session is supposed to be created in the backend
+      // so we want something like GET /api/v1/fetch_checkout_session
+      // If that function can return a valid session ID, the code below will
+      // redirect them to the session
+      // I would imagine there are massive security implications to managing
+      // the creation of Checkout Sessions in the client-side code
+
+      const stripeResponse = await stripePromise;
+      const { error } = await stripeResponse.redirectToCheckout({
+        sessionId: 'cs_test_Q13PCrOFSHzGq3AlrTASTEky4PCiTAulFYA45Ej1HM3ySMto0uEpEt5F',
+      });
+      if (error) console.error(error);
+    },
+
   },
 };
 </script>

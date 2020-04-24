@@ -6,6 +6,7 @@ import axios from 'axios';
 import {
   API_DOMAIN,
 } from '../../../api/endpoints';
+// eslint-disable-next-line import/no-cycle
 import { refreshToken, createRequestInterceptor, createResponseInterceptor } from './axiosUtils';
 
 /** MODULE SUMMARY:
