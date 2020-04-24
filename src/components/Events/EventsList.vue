@@ -12,7 +12,7 @@
             v-on:click='incrementCurrentPage'>Next</button>
         </div>
         <div v-if="events.length > 0" class="events-container">
-          <event v-for="event in pageOfEvents" :key="event.id" :event="event">
+          <event v-for="event in pageOfEvents" :key="event.id" :event="event" :role="currentRole">
             <template v-slot:btn1="slotProps">
               <slot name="eventBtn1" :event="slotProps.event"/>
             </template>
@@ -42,6 +42,9 @@ export default {
     events: {
       type: Array,
       required: true,
+    },
+    currentRole: {
+      type: String,
     },
   },
   computed: {

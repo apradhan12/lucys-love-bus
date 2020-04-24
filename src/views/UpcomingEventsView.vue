@@ -1,0 +1,48 @@
+<template>
+  <div>
+  <events-list :events="allEvents" :currentRole="role">
+    <template v-slot:noEventsMsg>
+      <h3>Sorry, there are no currently availible events!</h3>
+    </template>
+  </events-list>
+  </div>
+</template>
+
+<script>
+import { mapState, mapMutations } from 'vuex';
+import EventsList from '../components/Events/EventsList.vue';
+
+export default {
+  name: 'UpcomingEventsView',
+  data() {
+    return {
+      role: 'admin',
+    };
+  },
+  components: {
+    EventsList,
+  },
+  computed: {
+    ...mapState('events', {
+      allEvents: 'events',
+    }),
+  },
+  methods: {
+    ...mapMutations('cart', {
+      registerForEvent: 'registerForEvent',
+    }),
+    announce(payload) {
+      // eslint-disable-next-line no-alert
+      alert(`Once created, link create-announcement component here for ${payload.event.name}.`);
+    },
+    viewRSVP(payload) {
+      // eslint-disable-next-line no-alert
+      alert(`The users registered for ${payload.event.name} are ${payload.event.users}.`);
+    },
+  },
+};
+</script>
+
+<style lang="less" scoped>
+@import '../../assets/global-classes.less';
+</style>

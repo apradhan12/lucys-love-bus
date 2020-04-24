@@ -16,7 +16,8 @@
         </access-control>
       </div>
       <div class="event-btns--admin_container">
-        <access-control :roles="['admin']" role="" :_class="['event-btns--admin_wrapper']">
+        <access-control :roles="['admin']" role="currentRole"
+        :_class="['event-btns--admin_wrapper']">
           <button class="event-btn">Edit</button>
           <button class="event-btn">Announce</button>
           <button class="event-btn">Check RSVP</button>
@@ -37,6 +38,9 @@ export default {
     event: {
       type: Object,
       required: true,
+    },
+    currentRole: {
+      type: String,
     },
   },
 };
