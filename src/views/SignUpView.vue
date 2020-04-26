@@ -127,8 +127,8 @@ export default {
         };
         try {
           await authService.actions.signup(user);
+          this.$router.push(`/profile/${this.email}`);
           this.resetInput();
-          this.$router.push({ name: 'events' });
         } catch (error) {
           this.serverError = error.message;
         }

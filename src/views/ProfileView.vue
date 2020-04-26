@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>My Profile</h1>
-    <Welcome :name="user.name" :familyImg="user.img"/>
+    <Welcome :name="username" />
     <div class='three-buttons'>
       <div class='button'>
         <router-link to='/events'>
@@ -33,31 +33,10 @@ export default {
   components: {
     Welcome,
   },
-
-  data() {
-    return {
-      users: [
-        {
-          username: 'robinsons',
-          name: 'Robinson',
-          img: 'https://www.kiplinger.com/kipimages/pages/18048.jpg',
-        },
-        {
-          username: 'reaves',
-          name: 'Reaves',
-          img: 'https://assets.change.org/photos/0/kx/ah/hjkxAHxAKbytEHg-800x450-noPad.jpg?1560309500',
-        },
-      ],
-    };
-  },
-
-  computed: {
-    username() {
-      return this.$route.params.username;
-    },
-
-    user() {
-      return this.users.find(user => user.username === this.username);
+  props: {
+    username: {
+      required: true,
+      type: String,
     },
   },
 };

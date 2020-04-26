@@ -35,7 +35,10 @@ export default {
       let res = '';
       try {
         res = await authService.actions.logout();
+        // eslint-disable-next-line no-alert
+        alert('You successfully logged out!');
         this.setUser();
+        this.$router.push('/');
       } catch (err) {
         res = err;
       }
