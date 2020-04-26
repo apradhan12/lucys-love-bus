@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex';
 import userState from '../../utils/auth/state/userState';
 
 export default {
@@ -18,10 +19,22 @@ export default {
       userRoleNum: -1,
     };
   },
-  created() {
-    this.userRoleNum = userState.getUserAdminLevel();
+  watch: {
+    adminLevel: {
+      immediate: true,
+      handler() {
+        this.userRoleNum = userState.getUserAdminLevel();
+
+        if (this.adminLevel !== this.userRoleNum) {
+          this.setUser();
+        }
+      },
+    },
   },
   computed: {
+    ...mapState('user', {
+      adminLevel: 'adminLevel',
+    }),
     userRole() {
       switch (this.userRoleNum) {
         case 0:
@@ -29,12 +42,17 @@ export default {
         case 2:
           return 'admin';
         default:
-          return 'error';
+          return 'guest';
       }
     },
     hasRole() {
       return (this.roles.length === 0 || this.roles.includes(this.userRole));
     },
+  },
+  methods: {
+    ...mapMutations('user', {
+      setUser: 'setUser',
+    }),
   },
 };
 </script>
