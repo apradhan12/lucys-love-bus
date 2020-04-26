@@ -1,6 +1,6 @@
 <template>
-  <div class="scroll-container" v-bind:style="{ 'maxHeight': '15rem' }">
-      <div v-for="a in allAnnouncements" v-bind:key="a.id">
+  <div class="scroll-container announcements-container" v-bind:style="{ 'maxHeight': '20rem' }">
+      <div v-for="a in allAnnouncements" v-bind:key="a.id" class="announcement-wrapper">
         <h3>{{a.title}}</h3>
         <p>{{a.description}}</p>
       </div>
@@ -23,4 +23,14 @@ export default {
 <style scoped>
   @import '../../../assets/color-constants.less';
   @import '../../../assets/global-classes.less';
+
+  .announcements-container {
+    border: 1px solid grey;
+    padding: 1rem;
+  }
+
+  .announcement-wrapper {
+    border: 1px solid grey;
+    margin: 1rem 0;
+  }
 </style>
