@@ -112,7 +112,7 @@ export default {
 <style scoped>
 @import '../../assets/color-constants.less';
 .container {
-    margin: 3rem;
+    margin: 1rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
