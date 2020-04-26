@@ -13,25 +13,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import { loadStripe } from '@stripe/stripe-js';
-
-// const stripe = require('stripe')('sk_test_Q2wTkIY5Z3h9pjtgkksJULj200M84LsI3q');
-
-// async function createStripeSession() {
-//   const session = await stripe.checkout.sessions.create({
-//     payment_method_types: ['card'],
-//     line_items: [{
-//       name: 'T-shirt',
-//       description: 'Comfortable cotton t-shirt',
-//       images: ['https://example.com/t-shirt.png'],
-//       amount: 500,
-//       currency: 'usd',
-//       quantity: 1,
-//     }],
-//     success_url: 'https://example.com/success?session_id={CHECKOUT_SESSION_ID}',
-//     cancel_url: 'https://example.com/cancel',
-//   });
-//   return session;
-// }
+// import API from '../../api/api';
 
 const stripePromise = loadStripe('pk_test_BUZH61WwkfQGWgCw9a9GtaSJ00hxB4qgcU');
 
@@ -75,9 +57,11 @@ export default {
       // I would imagine there are massive security implications to managing
       // the creation of Checkout Sessions in the client-side code
 
+      // const apiReponse = await API.createCheckoutSession();
+
       const stripeResponse = await stripePromise;
       const { error } = await stripeResponse.redirectToCheckout({
-        sessionId: 'cs_test_Q13PCrOFSHzGq3AlrTASTEky4PCiTAulFYA45Ej1HM3ySMto0uEpEt5F',
+        sessionId: 'cs_test_QQxilvV7et44ON84UDayMpkXNWMqqWd0M4c0LuzuaB5QYeN6F145Y6lE',
       });
       if (error) console.error(error);
     },
