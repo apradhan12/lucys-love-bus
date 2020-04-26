@@ -32,9 +32,13 @@
 
 <script>
 import api from '../api/api';
+import AccessControl from '../components/AccessControl/AccessControl.vue';
 
 export default {
   name: 'SingleEvent',
+  components: {
+    AccessControl,
+  },
   props: {
     eventId: { // id is a number, but props are always passed as strings
       type: String,
@@ -43,7 +47,9 @@ export default {
   },
   data() {
     return {
-      singleEvent: {},
+      singleEvent: {
+        details: {},
+      },
     };
   },
   computed: {
