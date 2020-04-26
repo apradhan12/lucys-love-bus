@@ -5,19 +5,35 @@
 </template>
 
 <script>
+import userState from '../../utils/auth/state/userState';
+
 export default {
   name: 'access-control',
   props: {
-    roles: { type: Array, default: () => [] },
-    role: { type: String, default: '' },
-    componentUserId: { type: Number, default: -1 },
-    userId: { type: Number, default: -2 },
+    roles: { type: Array, required: true },
     _class: { type: Array, default: () => [] },
   },
+  data() {
+    return {
+      userRoleNum: -1,
+    };
+  },
+  created() {
+    this.userRoleNum = userState.getUserAdminLevel();
+  },
   computed: {
+    userRole() {
+      switch (this.userRoleNum) {
+        case 0:
+          return 'user';
+        case 2:
+          return 'admin';
+        default:
+          return 'error';
+      }
+    },
     hasRole() {
-      return (this.roles.length === 0 || this.roles.includes(this.role))
-          || (this.componentUserId === this.userId);
+      return (this.roles.length === 0 || this.roles.includes(this.userRole));
     },
   },
 };

@@ -47,7 +47,7 @@ class UserState {
     if (this.getIsSignedIn()) {
       const payload = jwtUtils.getTokenPayload(tokenService.getAccessToken());
       if (payload !== null) {
-        return payload.adminLevel;
+        return payload.privilegeLevel;
       }
     }
     return -1;
