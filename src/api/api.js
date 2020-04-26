@@ -2,7 +2,7 @@ import moment from 'moment';
 import { protectedResourceAxios } from '../utils/auth/axios/axiosInstance';
 import events from '../store/modules/events';
 
-const baseUrl = 'http://lucy.c4cneu.com/api/v1';
+const baseUrl = 'https://lucy.c4cneu.com/api/v1';
 
 function formatTimestamp(date, time) {
   const res = moment(date, 'YYYY-MM-DD"');
@@ -35,6 +35,16 @@ async function createEvent(event) {
   return res;
 }
 
+async function getEvent(id) {
+  try {
+    const { data } = await protectedResourceAxios.get(`${baseUrl}/protected/events/${id}`);
+    return data;
+  } catch (err) {
+    return err;
+  }
+}
+
 export default {
   createEvent,
+  getEvent,
 };
