@@ -46,6 +46,7 @@ export default {
         // TODO: Implement an actual error message.
         // eslint-disable-next-line
         alert('Error placing order');
+        // eslint-disable-next-line
         console.error(e);
       }
     },
