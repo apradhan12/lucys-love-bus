@@ -2,13 +2,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable arrow-parens */
 /* eslint-disable no-unused-vars */
-import {
-  API_REFRESH_TOKEN,
-} from '../../../api/endpoints';
 import tokenService from '../tokenService';
-import userState from '../state/userState';
-// eslint-disable-next-line import/no-cycle
-import authApi from '../../../api/authApi';
 
 const INVALID_ACCESS_TOKEN = 'Given access token is expired or invalid';
 
@@ -26,16 +20,21 @@ const refreshStatusCodes = [
  * contained in refreshStatusCodes.
  */
 export async function refreshToken(instance, pastRequest) {
-  const refresh_token = tokenService.getRefreshToken();
-  try {
-    const { data } = await authApi.refresh(refresh_token);
-    tokenService.setAccessToken(data.access_token);
-    pastRequest.response.config.headers['X-Access-Token'] = data.access_token;
-    return Promise.resolve();
-  } catch (error) {
-    userState.logout();
-    throw new Error('Original request failed. Refresh attempted and failed');
-  }
+  // TODO:
+  // This is the code that is logically creating the dependency cycle
+  // authApi.refresh uses the protectedResourceAxios, which contains a response interceptor that
+  // calls this function, which calls authApi.refresh.... ad absurdum
+
+  // const refresh_token = tokenService.getRefreshToken();
+  // try {
+  //   const { data } = await authApi.refresh(refresh_token);
+  //   tokenService.setAccessToken(data.access_token);
+  //   pastRequest.response.config.headers['X-Access-Token'] = data.access_token;
+  //   return Promise.resolve();
+  // } catch (error) {
+  //   userState.logout();
+  //   throw new Error('Original request failed. Refresh attempted and failed');
+  // }
 }
 
 /**
