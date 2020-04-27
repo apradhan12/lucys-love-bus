@@ -33,11 +33,10 @@ async function createEvent(event) {
   return res;
 }
 
-async function createCheckoutSession(lineItems) {
+async function createCheckoutSession() {
   const body = {
     payment_method_types: ['card'],
     line_items: [
-      { ...lineItems },
       {
         name: 'T-shirt',
         description: 'Comfortable cotton t-shirt',
@@ -50,14 +49,7 @@ async function createCheckoutSession(lineItems) {
     cancel_url: 'https://example.com/cancel',
   };
 
-  let res;
-  try {
-    res = await protectedResourceAxios.post('https://localhost:8081/api/v1/protected/checkout/', body);
-  } catch (err) {
-    return err;
-  }
-
-  return res;
+  return protectedResourceAxios.post(`${process.env.VUE_APP_API_DOMAIN}/api/v1/protected/checkout/`, body);
 }
 
 async function getEvent(id) {

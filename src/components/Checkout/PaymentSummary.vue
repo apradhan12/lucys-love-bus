@@ -15,7 +15,7 @@ import { mapGetters } from 'vuex';
 import { loadStripe } from '@stripe/stripe-js';
 import API from '../../api/api';
 
-const stripePromise = loadStripe('pk_test_BUZH61WwkfQGWgCw9a9GtaSJ00hxB4qgcU');
+const stripePromise = loadStripe(process.env.VUE_APP_STRIPE_PUBLISHABLE_KEY);
 
 export default {
   name: 'PaymentSummary',
@@ -32,38 +32,22 @@ export default {
   },
   methods: {
     async onClickCheckout() {
-      // https://stripe.com/docs/payments/checkout/one-time
-      // const { sessionId } = await createStripeSession();
-      // const session = await stripe.checkout.sessions.create({
-      //   payment_method_types: ['card'],
-      //   line_items: [{
-      //     name: 'T-shirt',
-      //     description: 'Comfortable cotton t-shirt',
-      //     images: ['https://example.com/t-shirt.png'],
-      //     amount: 500,
-      //     currency: 'usd',
-      //     quantity: 1,
-      //   }],
-      //   success_url: 'https://example.com/success?session_id={CHECKOUT_SESSION_ID}',
-      //   cancel_url: 'https://example.com/cancel',
-      // });
-      // console.log(session);
-      //
-      // This code is to create a Checkout Session in Stripe's platform
-      // In their tutorial, a Checkout Session is supposed to be created in the backend
-      // so we want something like GET /api/v1/fetch_checkout_session
-      // If that function can return a valid session ID, the code below will
-      // redirect them to the session
-      // I would imagine there are massive security implications to managing
-      // the creation of Checkout Sessions in the client-side code
-
-      const { data } = await API.createCheckoutSession();
-
-      const stripeResponse = await stripePromise;
-      const { error } = await stripeResponse.redirectToCheckout({
-        sessionId: data,
-      });
-      if (error) console.error(error);
+      try {
+        // TODO: check if the server says they are a participating family, and if so,
+        // skip all of this and redirect to the confirmation page.
+        // TODO: transform events into line items and pass into createCheckoutSession
+        // TODO: move this method to a more appropriate place, need to determine where
+        const { data } = await API.createCheckoutSession();
+        const stripeResponse = await stripePromise;
+        await stripeResponse.redirectToCheckout({
+          sessionId: data,
+        });
+      } catch (e) {
+        // TODO: Implement an actual error message.
+        // eslint-disable-next-line
+        alert('Error placing order');
+        console.error(e);
+      }
     },
 
   },
