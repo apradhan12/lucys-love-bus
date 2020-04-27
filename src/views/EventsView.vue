@@ -1,5 +1,5 @@
 <template>
-  <events-list :events="allEvents">
+  <events-list :events="allEvents" currentRole="user">
     <template v-slot:noEventsMsg>
       <h3>Sorry, there are no currently availible events!</h3>
     </template>

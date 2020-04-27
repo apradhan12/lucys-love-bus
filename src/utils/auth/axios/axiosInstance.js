@@ -3,10 +3,6 @@
 /* eslint-disable arrow-parens */
 /* eslint-disable no-unused-vars */
 import axios from 'axios';
-import {
-  API_DOMAIN,
-} from '../../../api/endpoints';
-// eslint-disable-next-line import/no-cycle
 import { refreshToken, createRequestInterceptor, createResponseInterceptor } from './axiosUtils';
 
 /** MODULE SUMMARY:
@@ -17,7 +13,7 @@ import { refreshToken, createRequestInterceptor, createResponseInterceptor } fro
  */
 
 const protectedResourceAxios = axios.create({
-  baseURL: API_DOMAIN,
+  baseURL: process.env.VUE_APP_API_DOMAIN,
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
@@ -25,7 +21,7 @@ const protectedResourceAxios = axios.create({
 });
 
 const publicResourceAxios = axios.create({
-  baseURL: API_DOMAIN,
+  baseURL: process.env.VUE_APP_API_DOMAIN,
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 /* eslint-disable camelcase */
 import { publicResourceAxios, protectedResourceAxios } from '../utils/auth/axios/axiosInstance';
 import {
