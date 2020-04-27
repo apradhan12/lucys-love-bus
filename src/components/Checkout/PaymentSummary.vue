@@ -13,7 +13,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import { loadStripe } from '@stripe/stripe-js';
-// import API from '../../api/api';
+import API from '../../api/api';
 
 const stripePromise = loadStripe('pk_test_BUZH61WwkfQGWgCw9a9GtaSJ00hxB4qgcU');
 
@@ -57,11 +57,11 @@ export default {
       // I would imagine there are massive security implications to managing
       // the creation of Checkout Sessions in the client-side code
 
-      // const apiReponse = await API.createCheckoutSession();
+      const { data } = await API.createCheckoutSession();
 
       const stripeResponse = await stripePromise;
       const { error } = await stripeResponse.redirectToCheckout({
-        sessionId: 'cs_test_QQxilvV7et44ON84UDayMpkXNWMqqWd0M4c0LuzuaB5QYeN6F145Y6lE',
+        sessionId: data,
       });
       if (error) console.error(error);
     },
