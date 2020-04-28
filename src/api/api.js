@@ -25,7 +25,7 @@ async function createEvent(event) {
 
   let res;
   try {
-    res = await protectedResourceAxios.post(`${process.env.VUE_APP_API_DOMAIN}/api/v1/protected/events/`, body);
+    res = await protectedResourceAxios.post('/api/v1/protected/events/', body);
   } catch (err) {
     return err;
   }
@@ -35,7 +35,7 @@ async function createEvent(event) {
 
 async function getEvent(id) {
   try {
-    const { data } = await protectedResourceAxios.get(`${process.env.VUE_APP_API_DOMAIN}/api/v1/protected/events/${id}`);
+    const { data } = await protectedResourceAxios.get(`/api/v1/protected/events/${id}`);
     return data;
   } catch (err) {
     return err;
