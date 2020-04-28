@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1>My Profile</h1>
-
     <Welcome :name="username"/>
     <div class="flex-horizontal">
       <div class='dash'>
@@ -33,13 +32,21 @@
 
 <script>
 import Welcome from '../components/Profile/Welcome.vue';
+<<<<<<< HEAD
 import AnnouncementsList from '../components/Announcements/AnnouncementsList.vue';
+=======
+import Announcements from '../components/Announcements.vue';
+>>>>>>> 4a88459... started work
 
 export default {
   name: 'Profile',
   components: {
     Welcome,
+<<<<<<< HEAD
     AnnouncementsList,
+=======
+    Announcements,
+>>>>>>> 4a88459... started work
   },
   props: {
     username: {
