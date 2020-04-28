@@ -25,7 +25,7 @@ async function createEvent(event) {
 
   let res;
   try {
-    res = await protectedResourceAxios.post(`${process.env.VUE_APP_API_DOMAIN}/api/v1/protected/events/`, body);
+    res = await protectedResourceAxios.post('/api/v1/protected/events/', body);
   } catch (err) {
     return err;
   }
@@ -35,26 +35,23 @@ async function createEvent(event) {
 
 async function createCheckoutSession() {
   const body = {
-    payment_method_types: ['card'],
-    line_items: [
+    lineItems: [
       {
         name: 'T-shirt',
         description: 'Comfortable cotton t-shirt',
-        images: ['https://example.com/t-shirt.png'],
         amount: 500,
         currency: 'usd',
         quantity: 1,
       }],
-    success_url: 'https://example.com/success?session_id={CHECKOUT_SESSION_ID}',
-    cancel_url: 'https://example.com/cancel',
+    successUrl: `https://${process.env.VUE_APP_API_DOMAIN}/event/eventid?session_id={CHECKOUT_SESSION_ID}`,
+    cancelUrl: `https://${process.env.VUE_APP_API_DOMAIN}/checkout`,
   };
-
-  return protectedResourceAxios.post(`${process.env.VUE_APP_API_DOMAIN}/api/v1/protected/checkout/`, body);
+  return protectedResourceAxios.post('/api/v1/protected/checkout/', body);
 }
 
 async function getEvent(id) {
   try {
-    const { data } = await protectedResourceAxios.get(`${process.env.VUE_APP_API_DOMAIN}/api/v1/protected/events/${id}`);
+    const { data } = await protectedResourceAxios.get(`/api/v1/protected/events/${id}`);
     return data;
   } catch (err) {
     return err;
