@@ -48,6 +48,8 @@ html {
   font-family: var(--main-font);
   min-height: 100%;
   background-color: var(--body-color);
+  display: flex;
+  flex-direction: column;
 }
 
 .content-wrap-for-footer {
