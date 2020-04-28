@@ -2,6 +2,7 @@
   <div>
     <h1>My Profile</h1>
     <Welcome :name="user.name" :familyImg="user.img"/>
+    <Announcements></Announcements>
     <div class='three-buttons'>
       <div class='button'>
         <router-link to='/events'>
@@ -27,11 +28,13 @@
 
 <script>
 import Welcome from '../components/Profile/Welcome.vue';
+import Announcements from '../components/Announcements.vue';
 
 export default {
   name: 'Profile',
   components: {
     Welcome,
+    Announcements,
   },
 
   data() {
