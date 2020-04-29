@@ -36,39 +36,53 @@ async function createEvent(event) {
 
 const stripePromise = loadStripe(process.env.VUE_APP_STRIPE_PUBLISHABLE_KEY);
 
-async function createCheckoutSession() {
-  const body = {
-    lineItems: [
-      {
-        name: 'T-shirt',
-        description: 'Comfortable cotton t-shirt',
-        amount: 500,
+async function handleClickCheckout(cartEvents, userLevel) {
+  if (userLevel === 'ADMIN' || userLevel === 'PF') {
+    const body = {
+      lineItems: cartEvents.map(event => ({
+        id: event.id,
+        name: event.name,
+        description: event.description,
+        amount: event.price,
         currency: 'usd',
         quantity: 1,
-      }],
-    successUrl: `https://${process.env.VUE_APP_API_DOMAIN}/event/eventid?session_id={CHECKOUT_SESSION_ID}`,
-    cancelUrl: `https://${process.env.VUE_APP_API_DOMAIN}/checkout`,
-  };
-  return protectedResourceAxios.post('/api/v1/protected/checkout/', body);
-}
+      })),
+      successUrl: `${process.env.VUE_APP_API_DOMAIN}/event/eventid?session_id={CHECKOUT_SESSION_ID}`,
+      cancelUrl: `${process.env.VUE_APP_API_DOMAIN}/checkout`,
+    };
 
-async function handleClickCheckout() {
-  try {
-    // TODO: check if the server says they are a participating family, and if so,
-    // skip all of this and redirect to the confirmation page.
-    // TODO: transform events into line items and pass into createCheckoutSession
-    // TODO: move this method to a more appropriate place, need to determine where
-    const { data } = await createCheckoutSession();
-    const stripeResponse = await stripePromise;
-    await stripeResponse.redirectToCheckout({
-      sessionId: data,
-    });
-  } catch (e) {
-    // TODO: Implement an actual error message.
-    // eslint-disable-next-line
-    alert('Error placing order');
-    // eslint-disable-next-line
-    console.error(e);
+    try {
+      protectedResourceAxios.post('/api/v1/protected/checkout/event', body);
+    } catch (e) {
+      console.error(e);
+    }
+  } else {
+    try {
+      const body = {
+        lineItems: cartEvents.map(event => ({
+          id: event.id,
+          name: event.name,
+          description: event.description,
+          amount: event.price,
+          currency: 'usd',
+          quantity: 1,
+        })),
+        successUrl: 'http://localhost:8080/event/eventid?session_id={CHECKOUT_SESSION_ID}',
+        cancelUrl: 'http://localhost:8080/checkout',
+      };
+      const { data } = await protectedResourceAxios.post('/api/v1/protected/checkout/session', body);
+      console.log(data);
+      const stripeResponse = await stripePromise;
+      await stripeResponse.redirectToCheckout({
+        sessionId: data,
+      });
+    } catch (e) {
+      // TODO: Implement an actual error message.
+      // eslint-disable-next-line
+      alert('Error placing order');
+      // eslint-disable-next-line
+      console.error(e);
+    }
   }
 }
 
@@ -84,6 +98,5 @@ async function getEvent(id) {
 export default {
   handleClickCheckout,
   createEvent,
-  createCheckoutSession,
   getEvent,
 };

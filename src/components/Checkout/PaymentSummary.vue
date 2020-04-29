@@ -11,14 +11,17 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import api from '../../api/api';
+import { mapGetters, mapState } from 'vuex';
+import API from '../../api/api';
 
 export default {
   name: 'PaymentSummary',
   computed: {
     ...mapGetters('cart', {
       subtotal: 'getSubTotal',
+    }),
+    ...mapState('cart', {
+      registeredEvents: 'registeredEvents',
     }),
     taxes() {
       return 0;
@@ -29,7 +32,7 @@ export default {
   },
   methods: {
     onClickCheckout() {
-      api.handleClickCheckout();
+      API.handleClickCheckout(this.registeredEvents, 'GP');
     },
   },
 };
