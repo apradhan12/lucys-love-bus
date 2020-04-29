@@ -70,9 +70,9 @@ export default {
         };
         try {
           await authService.actions.login(user);
+          // switch this to the profile component once it's made.
+          this.$router.push(`/profile/${this.email}`);
           this.resetInput();
-          // switch this to the home component once it's made.
-          this.$router.push('/events');
         } catch (error) {
           this.error = error.message;
         }

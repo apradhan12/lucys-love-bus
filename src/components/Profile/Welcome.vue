@@ -1,6 +1,6 @@
 <template functional>
   <div class="welcome">
-    <img :src="props.familyImg"/>
+    <img :src="familyImg"/>
     <div>
       <span class="title">Welcome, the {{ props.name }} Family!</span>
       <p>Lorem ipsum...</p>
@@ -11,10 +11,13 @@
 <script>
 export default {
   name: 'Welcome',
-
   props: {
     name: String,
-    familyImg: String,
+  },
+  data() {
+    return {
+      familyImg: 'https://www.kiplinger.com/kipimages/pages/18048.jpg',
+    };
   },
 };
 </script>

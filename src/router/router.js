@@ -65,12 +65,13 @@ export default new Router({
       component: SignUpView,
     },
     {
-      path: '/:username/profile',
+      path: '/profile/:username',
       name: 'profile',
       component: ProfileView,
+      props: true,
     },
     {
-      path: '/:username/my-events',
+      path: '/my-events/:username',
       name: 'my-events',
       component: MyEventsView,
       props: true,
