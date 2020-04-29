@@ -12,10 +12,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { loadStripe } from '@stripe/stripe-js';
-import API from '../../api/api';
-
-const stripePromise = loadStripe(process.env.VUE_APP_STRIPE_PUBLISHABLE_KEY);
+import api from '../../api/api';
 
 export default {
   name: 'PaymentSummary',
@@ -31,26 +28,9 @@ export default {
     },
   },
   methods: {
-    async onClickCheckout() {
-      try {
-        // TODO: check if the server says they are a participating family, and if so,
-        // skip all of this and redirect to the confirmation page.
-        // TODO: transform events into line items and pass into createCheckoutSession
-        // TODO: move this method to a more appropriate place, need to determine where
-        const { data } = await API.createCheckoutSession();
-        const stripeResponse = await stripePromise;
-        await stripeResponse.redirectToCheckout({
-          sessionId: data,
-        });
-      } catch (e) {
-        // TODO: Implement an actual error message.
-        // eslint-disable-next-line
-        alert('Error placing order');
-        // eslint-disable-next-line
-        console.error(e);
-      }
+    onClickCheckout() {
+      api.handleClickCheckout();
     },
-
   },
 };
 </script>

@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { loadStripe } from '@stripe/stripe-js';
 import { protectedResourceAxios } from '../utils/auth/axios/axiosInstance';
 import events from '../store/modules/events';
 
@@ -33,6 +34,8 @@ async function createEvent(event) {
   return res;
 }
 
+const stripePromise = loadStripe(process.env.VUE_APP_STRIPE_PUBLISHABLE_KEY);
+
 async function createCheckoutSession() {
   const body = {
     lineItems: [
@@ -49,6 +52,26 @@ async function createCheckoutSession() {
   return protectedResourceAxios.post('/api/v1/protected/checkout/', body);
 }
 
+async function handleClickCheckout() {
+  try {
+    // TODO: check if the server says they are a participating family, and if so,
+    // skip all of this and redirect to the confirmation page.
+    // TODO: transform events into line items and pass into createCheckoutSession
+    // TODO: move this method to a more appropriate place, need to determine where
+    const { data } = await createCheckoutSession();
+    const stripeResponse = await stripePromise;
+    await stripeResponse.redirectToCheckout({
+      sessionId: data,
+    });
+  } catch (e) {
+    // TODO: Implement an actual error message.
+    // eslint-disable-next-line
+    alert('Error placing order');
+    // eslint-disable-next-line
+    console.error(e);
+  }
+}
+
 async function getEvent(id) {
   try {
     const { data } = await protectedResourceAxios.get(`/api/v1/protected/events/${id}`);
@@ -59,6 +82,7 @@ async function getEvent(id) {
 }
 
 export default {
+  handleClickCheckout,
   createEvent,
   createCheckoutSession,
   getEvent,
