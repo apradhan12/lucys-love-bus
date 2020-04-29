@@ -55,6 +55,7 @@
 
 <script>
 
+import { mapMutations } from 'vuex';
 import authService from '../utils/service/authService';
 
 export default {
@@ -70,6 +71,9 @@ export default {
     };
   },
   methods: {
+    ...mapMutations('user', {
+      setUser: 'setUser',
+    }),
     resetInput() {
       this.firstName = '';
       this.lastName = '';
@@ -129,6 +133,7 @@ export default {
           await authService.actions.signup(user);
           this.$router.push(`/profile/${this.email}`);
           this.resetInput();
+          this.setUser();
         } catch (error) {
           this.serverError = error.message;
         }

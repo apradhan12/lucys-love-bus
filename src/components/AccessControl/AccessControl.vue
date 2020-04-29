@@ -7,6 +7,9 @@
 <script>
 import { mapState, mapMutations } from 'vuex';
 import userState from '../../utils/auth/state/userState';
+import {
+  USER,
+} from '../../utils/constants/user';
 
 export default {
   name: 'access-control',
@@ -36,14 +39,7 @@ export default {
       adminLevel: 'adminLevel',
     }),
     userRole() {
-      switch (this.userRoleNum) {
-        case 0:
-          return 'user';
-        case 2:
-          return 'admin';
-        default:
-          return 'guest';
-      }
+      return USER[this.userRoleNum];
     },
     hasRole() {
       return (this.roles.length === 0 || this.roles.includes(this.userRole));

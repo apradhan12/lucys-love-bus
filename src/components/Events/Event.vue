@@ -10,13 +10,13 @@
           </div>
       </div>
        <div class="event-btns--user">
-        <access-control :roles="['user']" :role="currentRole">
+        <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF], USER[ROLE.ADMIN]]">
           <slot name="btn1" :event="event" />
           <slot name="btn2" :event="event" />
         </access-control>
       </div>
       <div class="event-btns--admin_container">
-        <access-control :roles="['admin']" :role="currentRole"
+        <access-control :roles="[USER[ROLE.ADMIN]]"
         :_class="['event-btns--admin_wrapper']">
           <router-link
             :to="{ name: 'create-event', params: { eventId: event.id}}"
@@ -40,18 +40,26 @@
 
 <script>
 import AccessControl from '../AccessControl/AccessControl.vue';
+import {
+  USER, ROLE,
+} from '../../utils/constants/user';
 
 export default {
   name: 'Event',
   components: {
     AccessControl,
   },
+  data() {
+    return {
+      USER,
+      ROLE,
+    };
+  },
   props: {
     event: {
       type: Object,
       required: true,
     },
-    currentRole: String,
   },
   methods: {
     announce(payload) {

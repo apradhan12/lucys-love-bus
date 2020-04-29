@@ -55,6 +55,8 @@ class UserState {
 
   /**
    * Will retrieve the current user's accountStatus as specified in the access token.
+   *
+   * TODO: This doesn't work. Is it deprecated?
    */
   getUserAccountStatus() {
     if (this.getIsSignedIn()) {
