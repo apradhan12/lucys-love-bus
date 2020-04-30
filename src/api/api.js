@@ -1,7 +1,6 @@
 import moment from 'moment';
 import { loadStripe } from '@stripe/stripe-js';
 import { protectedResourceAxios } from '../utils/auth/axios/axiosInstance';
-import events from '../store/modules/events';
 
 function formatTimestamp(date, time) {
   const res = moment(date, 'YYYY-MM-DD"');
@@ -15,7 +14,7 @@ async function createEvent(event) {
   const body = {
     title: event.name,
     spotsAvailable: 10,
-    thumbnail: events.img,
+    thumbnail: event.img,
     details: {
       description: event.description,
       location: event.location,
@@ -95,8 +94,28 @@ async function getEvent(id) {
   }
 }
 
+async function getUpcomingEvents() {
+  try {
+    const { data } = await protectedResourceAxios.get('/api/v1/protected/events/qualified');
+    return data.events;
+  } catch (err) {
+    return err;
+  }
+}
+
+async function getMyEvents(start) {
+  try {
+    const { data } = await protectedResourceAxios.get(`/api/v1//protected/events/signed_up?start=${start}`);
+    return data.events;
+  } catch (err) {
+    return err;
+  }
+}
+
 export default {
   handleClickCheckout,
   createEvent,
   getEvent,
+  getUpcomingEvents,
+  getMyEvents,
 };
