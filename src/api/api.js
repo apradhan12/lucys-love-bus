@@ -6,7 +6,7 @@ function formatTimestamp(date, time) {
   const hour = time.substring(0, 2);
   const minute = time.substring(3);
   res.add(hour, 'h').add(minute, 'm');
-  return res.unix();
+  return res.unix() * 1000;
 }
 
 async function createEvent(event) {
