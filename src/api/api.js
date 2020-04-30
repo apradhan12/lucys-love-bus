@@ -54,7 +54,7 @@ async function handleClickCheckout(cartEvents, userLevel) {
     try {
       protectedResourceAxios.post('/api/v1/protected/checkout/event', body);
     } catch (e) {
-      console.error(e);
+      // console.error(e);
     }
   } else {
     try {
@@ -71,7 +71,7 @@ async function handleClickCheckout(cartEvents, userLevel) {
         cancelUrl: 'http://localhost:8080/checkout',
       };
       const { data } = await protectedResourceAxios.post('/api/v1/protected/checkout/session', body);
-      console.log(data);
+      // console.log(data);
       const stripeResponse = await stripePromise;
       await stripeResponse.redirectToCheckout({
         sessionId: data,
