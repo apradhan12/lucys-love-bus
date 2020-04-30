@@ -46,12 +46,10 @@ async function handleClickCheckout(cartEvents, userLevel) {
         currency: 'usd',
         quantity: 1,
       })),
-      successUrl: `${process.env.VUE_APP_API_DOMAIN}/my-events/?session_id={CHECKOUT_SESSION_ID}`,
-      cancelUrl: `${process.env.VUE_APP_API_DOMAIN}/checkout`,
     };
 
     try {
-      await protectedResourceAxios.post('/api/v1/protected/checkout/event', body);
+      await protectedResourceAxios.post('/api/v1/protected/checkout/events', body);
       // eslint-disable-next-line
       alert('successfully placed order');
     } catch (e) {

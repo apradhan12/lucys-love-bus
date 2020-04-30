@@ -1,12 +1,12 @@
 <template>
   <div class="event__container">
       <div class="event-img">
-          <img :src="event.img" />
+          <img :src="event.thumbnail" />
       </div>
       <div class="event-content">
           <div class="content-wrapper">
-              <h3>{{ event.name }}</h3>
-              <p>{{ event.description }}</p>
+              <h3>{{ event.title }}</h3>
+              <p>{{ event.details.description }}</p>
           </div>
       </div>
        <div class="event-btns--user">
