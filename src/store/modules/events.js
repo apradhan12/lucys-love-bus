@@ -33,7 +33,7 @@ export default {
     },
     async setMyEventsFromNow({ commit }) {
       const now = moment().format('YYYY-MM-DD HH:MM:SS');
-      const events = api.getMyEvents(now);
+      const events = await api.getMyEvents(now);
       commit('setMyEvents', { events });
     },
   },
