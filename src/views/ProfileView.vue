@@ -2,7 +2,7 @@
   <div>
     <h1>My Profile</h1>
 
-    <Welcome :name="username" :familyImg="user.img"/>
+    <Welcome :name="username"/>
     <div class="flex-horizontal">
       <div class='dash'>
         <router-link to='/events'>
