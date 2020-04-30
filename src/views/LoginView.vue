@@ -4,8 +4,8 @@
       <router-link :to="{name: 'home'}" tag="div" class="left-tab">
         Back to Landing Page
       </router-link>
-      <h4>Welcome!</h4>
-      <p>A very detailed login description</p>
+      <h2>Welcome!</h2>
+      <p>Lorum Ipsum</p>
     </div>
     <div class="auth-container">
       <span class="form-title">Sign in to your account</span>
@@ -91,9 +91,17 @@ export default {
 @import '../../assets/global-classes.less';
 
 .login {
-  background-color: #bbbbbb;
   width: 100%;
   padding: 1em 0 3em 0;
+}
+
+.center h2 {
+  font-family: Dekko, cursive;
+  font-weight: normal
+}
+
+.auth-container {
+  background-color: @form-bg-color;
 }
 
 .remember-me {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <router-link :to="{name: 'login'}" tag="div" class="left-tab">
-        Back to Log In
+      Back to Log In
     </router-link>
     <div class="center">
       <h2> Join the Sajni Center! </h2>
@@ -14,30 +14,30 @@
       <span class="form-title"> Sign up for a general member account </span>
       <div class="h-fields">
         <input
-          v-model="firstName"
-          class="input-primary half-input"
-          type="text"
-          placeholder="First Name">
+                v-model="firstName"
+                class="input-primary half-input"
+                type="text"
+                placeholder="First Name">
         <input
-        v-model="lastName"
-        class="input-primary half-input"
-        type="text"
-        placeholder="Last Name">
+                v-model="lastName"
+                class="input-primary half-input"
+                type="text"
+                placeholder="Last Name">
       </div>
       <input v-model="email" class="input-primary" type="text" placeholder="Email">
       <input type="text" class="input-primary" placeholder="Some other field">
       <input type="text"  class="input-primary" placeholder="Some other field">
       <div class="h-fields">
         <input
-          v-model="password[0]"
-          class="input-primary half-input"
-          type="password"
-          placeholder="Password">
+                v-model="password[0]"
+                class="input-primary half-input"
+                type="password"
+                placeholder="Password">
         <input
-          v-model="password[1]"
-          class="input-primary half-input"
-          type="password"
-          placeholder="Retype Password">
+                v-model="password[1]"
+                class="input-primary half-input"
+                type="password"
+                placeholder="Retype Password">
       </div>
       <div>
         <button @click="signup" class="btn--tertiary"> Request </button> &nbsp;
@@ -144,29 +144,29 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import '../../assets/global-classes.less';
+  @import '../../assets/global-classes.less';
 
-.auth-container {
-  background-color: #fff1d4;
-}
+  .auth-container {
+    background-color: #fff1d4;
+  }
 
-.text-wrap {
-  margin: auto;
-  width: 30em;
-  padding-bottom: 1em;
-}
+  .text-wrap {
+    margin: auto;
+    width: 30em;
+    padding-bottom: 1em;
+  }
 
-.half-input {
-  width: 43%;
-}
+  .half-input {
+    width: 43%;
+  }
 
-.center h2 {
-  font-family: Dekko, cursive;
-}
+  .center h2 {
+    font-family: Dekko, cursive;
+  }
 
-a {
-  text-decoration: none;
-  color: gray;
-}
+  a {
+    text-decoration: none;
+    color: gray;
+  }
 
 </style>
