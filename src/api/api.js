@@ -69,7 +69,7 @@ async function handleClickCheckout(cartEvents, userLevel) {
           currency: 'usd',
           quantity: 1,
         })),
-        successUrl: 'http://localhost:8080/my-events/?session_id={CHECKOUT_SESSION_ID}',
+        successUrl: 'http://localhost:8080/?session_id={CHECKOUT_SESSION_ID}',
         cancelUrl: 'http://localhost:8080/checkout',
       };
       const { data } = await protectedResourceAxios.post('/api/v1/protected/checkout/session', body);
