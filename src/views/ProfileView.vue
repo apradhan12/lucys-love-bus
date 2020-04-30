@@ -21,17 +21,22 @@
           <span>Account Info</span>
         </router-link>
       </div>
+      <div class="announcements-list__container">
+        <announcements-list />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import Welcome from '../components/Profile/Welcome.vue';
+import AnnouncementsList from '../components/Announcements/AnnouncementsList.vue';
 
 export default {
   name: 'Profile',
   components: {
     Welcome,
+    AnnouncementsList,
   },
   props: {
     username: {
