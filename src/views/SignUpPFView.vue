@@ -218,9 +218,39 @@ export default {
       setUser: 'setUser',
     }),
     resetInput() {
-      this.parentName = '';
-      this.phoneNumber = '';
-      this.email = '';
+      this.parents = [
+        {
+          id: 0,
+          name: '',
+          phoneNumber: '',
+          address: '',
+          city: '',
+          state: '',
+          zipCode: '',
+          email: '',
+          allergies: '',
+        },
+      ];
+      this.children = [
+        {
+          id: 0,
+          name: '',
+          dateOfBirth: '',
+          pronouns: '',
+          schoolyear: '',
+          school: '',
+          diagnosis: '',
+          medications: '',
+          notes: '',
+        },
+      ];
+      this.noVisitAfterSick = false;
+      this.parentsRemain = false;
+      this.upToDateVaccination = false;
+      this.photoVideoReleaseConsent = undefined;
+      this.parentGuardianName = '';
+      this.parentGuardianInitials = '';
+      this.dateOfSignature = '';
       this.password = ['', ''];
       this.inputError = [];
       this.serverError = '';
@@ -277,40 +307,90 @@ export default {
     },
     validate() {
       this.inputError = [];
-      const err1 = this.validateUser();
-      const err2 = this.validateEmail();
-      const err3 = this.validatePassword();
-      return err1 && err2 && err3;
+      const validParents = this.validateParents();
+      const validChildren = this.validateChildren();
+      const validAgreements = this.validateAgreements();
+      return validParents && validChildren && validAgreements;
     },
-    validateUser() {
-      if (!this.firstName || !this.lastName[1]) {
-        this.inputError.push('Name cannot be empty');
-      } else {
-        return true;
-      }
-      return false;
+    validateParents() {
+      const missingMsg = (who, id, what) => `${who} ${id} is missing ${what}`;
+      let validParents = true;
+      this.parents.forEach((parent) => {
+        if (!parent.name) {
+          this.inputError.push(missingMsg('Parent', parent.id, 'a name'));
+          validParents = false;
+        }
+        if (!parent.phoneNumber) {
+          this.inputError.push(missingMsg('Parent', parent.id, 'a phone number'));
+          validParents = false;
+        }
+        if (!parent.address) {
+          this.inputError.push(missingMsg('Parent', parent.id, 'an address'));
+          validParents = false;
+        }
+        if (!parent.city) {
+          this.inputError.push(missingMsg('Parent', parent.id, 'a city'));
+          validParents = false;
+        }
+        if (!parent.state) {
+          this.inputError.push(missingMsg('Parent', parent.id, 'a state'));
+          validParents = false;
+        }
+        if (!parent.zipCode) {
+          this.inputError.push(missingMsg('Parent', parent.id, 'a zip code'));
+          validParents = false;
+        }
+        if (!parent.email) {
+          this.inputError.push('Invalid email');
+          validParents = false;
+        }
+        return 1;
+      });
+      return validParents;
     },
-    validateEmail() {
-      // eslint-disable-next-line no-useless-escape
-      const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      if (!this.email) {
-        this.inputError.push('Email cannot be empty');
-      } else if (!emailRegex.test(this.email)) {
-        this.inputError.push('Invalid Email');
-      } else {
-        return true;
-      }
-      return false;
+    validateChildren() {
+      const missingMsg = (who, id, what) => `${who} ${id} is missing ${what}`;
+      let validChildren = true;
+      this.children.forEach((child) => {
+        if (!child.name) {
+          this.inputError.push(missingMsg('Child', child.id, 'a name'));
+          validChildren = false;
+        }
+        if (!child.dateOfBirth) {
+          this.inputError.push(missingMsg('Child', child.id, 'a date of birth'));
+          validChildren = false;
+        }
+        if (!child.pronouns) {
+          this.inputError.push(missingMsg('Child', child.id, 'preferred pronouns'));
+          validChildren = false;
+        }
+        if (!child.schoolyear) {
+          this.inputError.push(missingMsg('Child', child.id, 'a school year (grade)'));
+          validChildren = false;
+        }
+        if (!child.school) {
+          this.inputError.push(missingMsg('Child', child.id, 'a school'));
+          validChildren = false;
+        }
+        return 1;
+      });
+      return validChildren;
     },
-    validatePassword() {
-      if (!this.password[0] && !this.password[1]) {
-        this.inputError.push('Password cannot be empty');
-      } else if (this.password[0] !== this.password[1]) {
-        this.inputError.push('Passwords do not match');
-      } else {
-        return true;
+    validateAgreements() {
+      let isValid = true;
+      if (!this.noVisitAfterSick) {
+        this.inputError.push('Missing agreement to sick policy');
+        isValid = false;
       }
-      return false;
+      if (!this.parentsRemain) {
+        this.inputError.push('Missing agreement to parent policy');
+        isValid = false;
+      }
+      if (!this.upToDateVaccination) {
+        this.inputError.push('Missing agreement to vaccination policy');
+        isValid = false;
+      }
+      return isValid;
     },
     async signup() {
       this.submitted = true;
@@ -342,7 +422,8 @@ export default {
   .auth-container {
     text-align: left;
     display: flex;
-    background-color: #fff1d4;
+    background-color: @form-bg-color;
+    border-radius: 5px;
   }
 
   .text-wrap {
@@ -386,6 +467,10 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+  .pronoun-wrapper h4 {
+    font-weight: normal;
   }
 
 </style>
