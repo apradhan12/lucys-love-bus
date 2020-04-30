@@ -8,11 +8,11 @@
         <p>Event Description: {{ singleEvent.details.description }}</p>
       </div>
       <div class="event-buttons">
-        <access-control :roles="['user']" role="user">
+        <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF], USER[ROLE.ADMIN]]">
           <button v-if="registered">Unregister</button>
           <button v-else>Register!</button>
         </access-control>
-        <access-control :roles="['admin']" role="admin">
+        <access-control :roles="[USER[ROLE.ADMIN]]">
           <button>Edit Event</button>
         </access-control>
         <router-link to="events">
@@ -33,6 +33,9 @@
 <script>
 import api from '../api/api';
 import AccessControl from '../components/AccessControl/AccessControl.vue';
+import {
+  USER, ROLE,
+} from '../utils/constants/user';
 
 export default {
   name: 'SingleEvent',
@@ -50,6 +53,8 @@ export default {
       singleEvent: {
         details: {},
       },
+      USER,
+      ROLE,
     };
   },
   computed: {
