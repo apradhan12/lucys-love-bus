@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 import authService from '../utils/service/authService';
 
 export default {
@@ -48,6 +49,9 @@ export default {
     };
   },
   methods: {
+    ...mapMutations('user', {
+      setUser: 'setUser',
+    }),
     resetInput() {
       this.email = '';
       this.password = '';
@@ -70,9 +74,10 @@ export default {
         };
         try {
           await authService.actions.login(user);
+          // switch this to the profile component once it's made.
+          this.$router.push(`/profile/${this.email}`);
           this.resetInput();
-          // switch this to the home component once it's made.
-          this.$router.push('/events');
+          this.setUser();
         } catch (error) {
           this.error = error.message;
         }

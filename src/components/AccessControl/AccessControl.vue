@@ -5,20 +5,50 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex';
+import userState from '../../utils/auth/state/userState';
+import {
+  USER,
+} from '../../utils/constants/user';
+
 export default {
   name: 'access-control',
   props: {
-    roles: { type: Array, default: () => [] },
-    role: { type: String, default: '' },
-    componentUserId: { type: Number, default: -1 },
-    userId: { type: Number, default: -2 },
+    roles: { type: Array, required: true },
     _class: { type: Array, default: () => [] },
   },
-  computed: {
-    hasRole() {
-      return (this.roles.length === 0 || this.roles.includes(this.role))
-          || (this.componentUserId === this.userId);
+  data() {
+    return {
+      userRoleNum: -1,
+    };
+  },
+  watch: {
+    adminLevel: {
+      immediate: true,
+      handler() {
+        this.userRoleNum = userState.getUserAdminLevel();
+
+        if (this.adminLevel !== this.userRoleNum) {
+          this.setUser();
+        }
+      },
     },
+  },
+  computed: {
+    ...mapState('user', {
+      adminLevel: 'adminLevel',
+    }),
+    userRole() {
+      return USER[this.userRoleNum];
+    },
+    hasRole() {
+      return (this.roles.length === 0 || this.roles.includes(this.userRole));
+    },
+  },
+  methods: {
+    ...mapMutations('user', {
+      setUser: 'setUser',
+    }),
   },
 };
 </script>

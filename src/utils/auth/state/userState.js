@@ -47,7 +47,7 @@ class UserState {
     if (this.getIsSignedIn()) {
       const payload = jwtUtils.getTokenPayload(tokenService.getAccessToken());
       if (payload !== null) {
-        return payload.adminLevel;
+        return payload.privilegeLevel;
       }
     }
     return -1;
@@ -55,6 +55,8 @@ class UserState {
 
   /**
    * Will retrieve the current user's accountStatus as specified in the access token.
+   *
+   * TODO: This doesn't work. Is it deprecated?
    */
   getUserAccountStatus() {
     if (this.getIsSignedIn()) {
