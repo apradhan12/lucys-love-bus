@@ -13,6 +13,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex';
 import API from '../../api/api';
+import { USER } from '../../utils/constants/user';
 
 export default {
   name: 'PaymentSummary',
@@ -23,6 +24,9 @@ export default {
     ...mapState('cart', {
       registeredEvents: 'registeredEvents',
     }),
+    ...mapState('user', {
+      adminLevel: 'adminLevel',
+    }),
     taxes() {
       return 0;
     },
@@ -32,7 +36,7 @@ export default {
   },
   methods: {
     onClickCheckout() {
-      API.handleClickCheckout(this.registeredEvents, 'GP');
+      API.handleClickCheckout(this.registeredEvents, USER[this.adminLevel]);
     },
   },
 };

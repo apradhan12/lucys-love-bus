@@ -40,33 +40,36 @@ async function handleClickCheckout(cartEvents, userLevel) {
     const body = {
       lineItems: cartEvents.map(event => ({
         id: event.id,
-        name: event.name,
-        description: event.description,
-        amount: event.price,
+        name: event.title,
+        description: event.details.description,
+        amount: 5,
         currency: 'usd',
         quantity: 1,
       })),
-      successUrl: `${process.env.VUE_APP_API_DOMAIN}/event/eventid?session_id={CHECKOUT_SESSION_ID}`,
+      successUrl: `${process.env.VUE_APP_API_DOMAIN}/my-events/?session_id={CHECKOUT_SESSION_ID}`,
       cancelUrl: `${process.env.VUE_APP_API_DOMAIN}/checkout`,
     };
 
     try {
-      protectedResourceAxios.post('/api/v1/protected/checkout/event', body);
+      await protectedResourceAxios.post('/api/v1/protected/checkout/event', body);
+      // eslint-disable-next-line
+      alert('successfully placed order');
     } catch (e) {
-      // console.error(e);
+      // eslint-disable-next-line
+      alert('failed to place order')
     }
   } else {
     try {
       const body = {
         lineItems: cartEvents.map(event => ({
           id: event.id,
-          name: event.name,
-          description: event.description,
-          amount: event.price,
+          name: event.title,
+          description: event.details.description,
+          amount: 5,
           currency: 'usd',
           quantity: 1,
         })),
-        successUrl: 'http://localhost:8080/event/eventid?session_id={CHECKOUT_SESSION_ID}',
+        successUrl: 'http://localhost:8080/my-events/?session_id={CHECKOUT_SESSION_ID}',
         cancelUrl: 'http://localhost:8080/checkout',
       };
       const { data } = await protectedResourceAxios.post('/api/v1/protected/checkout/session', body);
@@ -76,11 +79,8 @@ async function handleClickCheckout(cartEvents, userLevel) {
         sessionId: data,
       });
     } catch (e) {
-      // TODO: Implement an actual error message.
       // eslint-disable-next-line
       alert('Error placing order');
-      // eslint-disable-next-line
-      console.error(e);
     }
   }
 }
