@@ -23,7 +23,7 @@
         type="password"
         placeholder="Password"
       />
-      <button @click="submit" class="btn-primary">Login</button>
+      <button @click="submit" class="btn--tertiary">Login</button>
       <router-link to="sign-up" tag="a">Don't have an account? Sign up here!</router-link>
     </div>
     <div class="error">
