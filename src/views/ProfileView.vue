@@ -2,24 +2,26 @@
   <div>
     <h1>My Profile</h1>
     <Welcome :name="user.name" :familyImg="user.img"/>
-    <Announcements></Announcements>
-    <div class='three-buttons'>
-      <div class='button'>
+    <div class="flex-horizontal">
+      <Announcements/>
+      <div class='dash'>
         <router-link to='/events'>
-          <img src='https://images.pexels.com/photos/273011/pexels-photo-273011.jpeg?cs=srgb&dl=black-calendar-close-up-composition-273011.jpg&fm=jpg'/>
-          <span>New Events</span>
+          <div class='dash-item'>
+            <img class="thumb" src='https://images.pexels.com/photos/273011/pexels-photo-273011.jpeg?cs=srgb&dl=black-calendar-close-up-composition-273011.jpg&fm=jpg'/>
+            <button class="btn--tertiary">New Events</button>
+          </div>
         </router-link>
-      </div>
-      <div class='button'>
         <router-link :to='{name: "my-events", params: {username: username}}'>
-          <img src='https://static5.depositphotos.com/1037987/476/i/450/depositphotos_4767995-stock-photo-couple-giving-two-young-children.jpg'/>
-          <span>My Events</span>
+          <div class='dash-item'>
+            <img class="thumb" src='https://static5.depositphotos.com/1037987/476/i/450/depositphotos_4767995-stock-photo-couple-giving-two-young-children.jpg'/>
+            <button class="btn--tertiary">My Events</button>
+          </div>
         </router-link>
-      </div>
-      <div class='button'>
         <router-link :to='{name: "account", params: {username: username}}'>
-          <img src='https://static.thenounproject.com/png/17337-200.png'/>
-          <span>Account Info</span>
+          <div class='dash-item'>
+            <img class="thumb" src='https://static.thenounproject.com/png/17337-200.png'/>
+            <button class="btn--tertiary">Account Info</button>
+          </div>
         </router-link>
       </div>
     </div>
@@ -28,7 +30,7 @@
 
 <script>
 import Welcome from '../components/Profile/Welcome.vue';
-import Announcements from '../components/Announcements.vue';
+import Announcements from '../components/Profile/Announcements.vue';
 
 export default {
   name: 'Profile',
@@ -67,17 +69,4 @@ export default {
 </script>
 
 <style scoped>
-.three-buttons {
-  display: grid;
-  grid-template-columns: 33% 33% 33%;
-}
-
-.button img {
-  height: 50px;
-  width: 50px;
-}
-
-.button span {
-  display: block;
-}
 </style>

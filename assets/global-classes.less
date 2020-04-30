@@ -1,5 +1,20 @@
 @import './color-constants.less';
 
+h1 {
+  margin-left: 8em;
+}
+
+.flex-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.flex-vertical {
+  display: flex;
+  flex-direction: column;
+}
+
 .auth-container {
   display: flex;
   flex-direction: column;
@@ -26,6 +41,21 @@
   background-color: @tangerine;
   color: white;
   cursor: pointer;
+}
+
+.dash {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2em;
+}
+
+.dash-item {
+  .flex-vertical();
+  width: 8em;
+
+  .thumb {
+    width: 100%;
+  }
 }
 
 
@@ -108,6 +138,17 @@
   border-radius: 4px;
 }
 
+.btn--tertiary {
+  background-color: @tangerine;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 2px;
+  border: none;
+  color: white;
+  margin: 1em 0 1em 0;
+  cursor: pointer;
+}
+
 
 // -------------- FORMS & INPUT ------------------
 
@@ -130,18 +171,6 @@
   font-size: 16px;
   padding: .5em;
   margin: .5em 0 .5em 0;
-}
-
-.btn-primary {
-  background-color: @tangerine;
-  padding: 8px;
-  font-size: 16px;
-  border-radius: 2px;
-  border: none;
-  color: white;
-  min-width: 10em;
-  margin: 1em 0 1em 0;
-  cursor: pointer;
 }
 
 .med-pad-left {

@@ -4,7 +4,7 @@
     <div class="announcements-box">
       <div v-for="announcement in announcements" class="announcement" :key="announcement.id">
         <p class="title">{{ announcement.title }}</p>
-        <p class="created">{{ announcement.created }}</p>
+        <p class="created">{{ toStringDate(announcement.created) }}</p>
         <p class="desc">{{ announcement.description }}</p>
       </div>
     </div>
@@ -12,7 +12,8 @@
 </template>
 
 <script>
-import api from '../api/api';
+import moment from 'moment';
+import api from '../../api/api';
 
 export default {
   name: 'Announcements',
@@ -26,8 +27,12 @@ export default {
   },
   methods: {
     async getAnnouncements() {
-      const res = await api.getEvent(this.eventId);
-      return res;
+      const res = await api.getSitewideAnnouncements({});
+      return res.announcements;
+    },
+    toStringDate(date) {
+      const d = moment(date);
+      return d.format('M/DD/YYYY');
     },
   },
   async created() {
@@ -38,15 +43,23 @@ export default {
 
 <style scoped>
 .announcements-box {
-  height: 10em;
-  width: 5em;
+  height: 25em;
+  width: 15em;
   overflow: scroll;
   display: flex;
   flex-direction: column;
+  padding: 2em;
+  border: 1px solid lightgray;
 }
 
 .announcement {
-  border: 1px solid black;
+  border: 1px solid gray;
   padding: 1em;
+  margin-bottom: 2em;
+  text-align: left;
+}
+
+.title {
+  font-weight: 700;
 }
 </style>

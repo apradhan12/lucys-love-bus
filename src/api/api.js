@@ -10,8 +10,7 @@ function formatTimestamp(date, time) {
   return res.unix();
 }
 
-// objToParams: takes a Javascript object and returns a string
-// that can be used as GET query parameters
+// converts a JS object to a string that can be used as GET query parameters
 // e.g. { length: 4, name: "None" } -> ?length=4&name=none
 async function objToParams(obj) {
   let res = '';
