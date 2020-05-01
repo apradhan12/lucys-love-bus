@@ -111,30 +111,30 @@
         agreement boxes below in order to participate
         in programs through Lucy’s Love Bus to ensure
         the safety and comfort of all participants. </p>
-      <input type="checkbox"
-             v-model="noVisitAfterSick"
-             name="noVisitAfterSickCheckbox"
-             id="noVisitAfterSickCheckbox">
-      <label for="noVisitAfterSickCheckbox">No family member or attendee will visit The
+      <label class="checkbox-container">
+        <input type="checkbox" checked="checked" v-model="noVisitAfterSick">
+        <span class="checkmark"></span>
+        No family member or attendee will visit The
         Sajni Center if they have been sick in the past 24 hours,
         are feeling ill, have been exposed to a virus,
-        or do not have the appropriate age required immunizations. </label>
-      <input type="checkbox"
-             v-model="parentsRemain"
-             name="parentsRemainCheckbox"
-             id="parentsRemainCheckbox" />
-      <label for="parentsRemainCheckbox">All parents are to remain at
-        The Sajni Center during programs.</label>
-      <input type="checkbox"
-             v-model="upToDateVaccination"
-             name="upToDateVaccination"
-             id="upToDateVaccination" />
-      <label for="upToDateVaccination">My children are up to date on all vaccinations
+        or do not have the appropriate age required immunizations.
+      </label>
+      <label class="checkbox-container">
+        <input type="checkbox" checked="checked" v-model="parentsRemain">
+        <span class="checkmark"></span>
+        All parents are to remain at
+        The Sajni Center during programs.
+      </label>
+      <label class="checkbox-container">
+        <input type="checkbox" checked="checked" v-model="upToDateVaccination">
+        <span class="checkmark"></span>
+        My children are up to date on all vaccinations
         and I will provide a copy of my children’s immunization records prior to
         attending any programs. (Children who are being treated for cancer often
         have severely compromised immune systems, so we are required to collect
         this information for their safety. All medical information will be stored
-        in a HIPPA-compliant manner.) </label>
+        in a HIPPA-compliant manner.)
+      </label>
       <p style="font-weight:bold">Photo/Video Release</p>
       <p>I
         <button style="margin-right: .75rem; margin-bottom: .5rem"
@@ -156,11 +156,13 @@
           Already have an account? Log in here!
         </router-link>
       </div>
+      <div v-if="isValidForm === false" class="invalid_form--container">
+        <ul>
+          <li v-for="(err, index) in inputError" :key="index"> {{err}} </li>
+          <li v-if="this.serverError"> {{this.serverError}} </li>
+        </ul>
+      </div>
     </div>
-    <ul class="error">
-      <li v-for="(err, index) in inputError" :key="index"> {{err}} </li>
-      <li v-if="this.serverError"> {{this.serverError}} </li>
-    </ul>
   </div>
 </template>
 
@@ -211,6 +213,7 @@ export default {
       password: ['', ''],
       inputError: [],
       serverError: '',
+      isValidForm: undefined,
     };
   },
   methods: {
@@ -310,6 +313,7 @@ export default {
       const validParents = this.validateParents();
       const validChildren = this.validateChildren();
       const validAgreements = this.validateAgreements();
+      this.isValidForm = validParents && validChildren && validAgreements;
       return validParents && validChildren && validAgreements;
     },
     validateParents() {
@@ -388,6 +392,10 @@ export default {
       }
       if (!this.upToDateVaccination) {
         this.inputError.push('Missing agreement to vaccination policy');
+        isValid = false;
+      }
+      if (!this.photoVideoReleaseConsent) {
+        this.inputError.push('Must consent to photo/video release');
         isValid = false;
       }
       return isValid;
@@ -471,6 +479,15 @@ export default {
 
   .pronoun-wrapper h4 {
     font-weight: normal;
+  }
+
+  .invalid_form--container {
+    left: 0;
+    top: 10rem;
+    text-align: left;
+    background: rgba(255, 0, 0, 0.4);
+    border-radius: 5px;
+    padding: 1rem;
   }
 
 </style>
