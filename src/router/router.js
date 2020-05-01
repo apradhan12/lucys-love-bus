@@ -71,16 +71,14 @@ export default new Router({
       component: SignUpView,
     },
     {
-      path: '/profile/',
+      path: '/profile',
       name: 'profile',
       component: ProfileView,
-      props: true,
     },
     {
-      path: '/my-events/',
+      path: '/my-events',
       name: 'my-events',
       component: MyEventsView,
-      props: true,
     },
     {
       path: '*',

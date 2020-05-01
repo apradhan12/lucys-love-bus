@@ -1,6 +1,5 @@
 <template>
   <div class="event-container">
-    <router-view></router-view>
       <div class="event-name">
         <h1>{{ singleEvent.title }}</h1>
       </div>

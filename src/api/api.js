@@ -33,54 +33,40 @@ async function createEvent(event) {
   return res;
 }
 
-const stripePromise = loadStripe(process.env.VUE_APP_STRIPE_PUBLISHABLE_KEY);
+const stripeApp = loadStripe(process.env.VUE_APP_STRIPE_PUBLISHABLE_KEY);
 
-async function handleClickCheckout(cartEvents, userLevel) {
-  if (userLevel === 'ADMIN' || userLevel === 'PF') {
-    const body = {
-      lineItems: cartEvents.map(event => ({
-        id: event.id,
-        name: event.title,
-        description: event.details.description,
-        amount: 5,
-        currency: 'usd',
-        quantity: 1,
-      })),
-    };
+async function createEventRegistration(registeredEvents) {
+  const body = {
+    lineItems: registeredEvents.map(event => ({
+      id: event.id,
+      name: event.title,
+      description: event.details.description,
+      amount: 5,
+      currency: 'usd',
+      quantity: 1,
+    })),
+  };
+  return protectedResourceAxios.post('/api/v1/protected/checkout/events', body);
+}
 
-    try {
-      await protectedResourceAxios.post('/api/v1/protected/checkout/events', body);
-      // eslint-disable-next-line
-      alert('successfully placed order');
-    } catch (e) {
-      // eslint-disable-next-line
-      alert('failed to place order')
-    }
-  } else {
-    try {
-      const body = {
-        lineItems: cartEvents.map(event => ({
-          id: event.id,
-          name: event.title,
-          description: event.details.description,
-          amount: 5,
-          currency: 'usd',
-          quantity: 1,
-        })),
-        successUrl: 'http://localhost:8080/?session_id={CHECKOUT_SESSION_ID}',
-        cancelUrl: 'http://localhost:8080/checkout',
-      };
-      const { data } = await protectedResourceAxios.post('/api/v1/protected/checkout/session', body);
-      // console.log(data);
-      const stripeResponse = await stripePromise;
-      await stripeResponse.redirectToCheckout({
-        sessionId: data,
-      });
-    } catch (e) {
-      // eslint-disable-next-line
-      alert('Error placing order');
-    }
-  }
+async function createEventRegistrationAndCheckoutSession(registeredEvents) {
+  const body = {
+    lineItems: registeredEvents.map(event => ({
+      id: event.id,
+      name: event.title,
+      description: event.details.description,
+      amount: 5,
+      currency: 'usd',
+      quantity: 1,
+    })),
+    successUrl: 'http://localhost:8080/my-events',
+    cancelUrl: 'http://localhost:8080/checkout',
+  };
+  const { data } = await protectedResourceAxios.post('/api/v1/protected/checkout/session', body);
+  const stripe = await stripeApp;
+  await stripe.redirectToCheckout({
+    sessionId: data,
+  });
 }
 
 async function getEvent(id) {
@@ -111,8 +97,9 @@ async function getMyEvents(start) {
 }
 
 export default {
-  handleClickCheckout,
   createEvent,
+  createEventRegistration,
+  createEventRegistrationAndCheckoutSession,
   getEvent,
   getUpcomingEvents,
   getMyEvents,
