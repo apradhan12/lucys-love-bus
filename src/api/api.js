@@ -46,7 +46,7 @@ async function createEventRegistration(registeredEvents) {
       quantity: 1,
     })),
   };
-  return protectedResourceAxios.post('/api/v1/protected/checkout/events', body);
+  return protectedResourceAxios.post('/api/v1/protected/checkout/register', body);
 }
 
 async function createEventRegistrationAndCheckoutSession(registeredEvents) {
@@ -62,7 +62,7 @@ async function createEventRegistrationAndCheckoutSession(registeredEvents) {
     successUrl: 'http://localhost:8080/my-events',
     cancelUrl: 'http://localhost:8080/checkout',
   };
-  const { data } = await protectedResourceAxios.post('/api/v1/protected/checkout/session', body);
+  const { data } = await protectedResourceAxios.post('/api/v1/protected/checkout/payment', body);
   const stripe = await stripeApp;
   await stripe.redirectToCheckout({
     sessionId: data,
