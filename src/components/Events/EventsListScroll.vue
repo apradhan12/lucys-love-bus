@@ -34,10 +34,5 @@ export default {
 
 <style lang="less" scoped>
   @import '../../../assets/color-constants.less';
-
-  .scroll-container {
-    position: relative;
-    overflow-x: hidden;
-    overflow-y: auto;
-  }
+  @import '../../../assets/global-classes.less';
 </style>

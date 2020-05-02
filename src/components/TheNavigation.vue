@@ -6,23 +6,46 @@
     <div class="navlinks">
       <router-link to="/about-us" tag="button">About Us</router-link>
       <router-link to="/events" tag="button">Events</router-link>
-      <router-link to="/login" tag="button">Log In</router-link>
-      <button v-on:click="logout">Log Out</button>
+      <access-control :roles="[USER[ROLE.GUEST]]">
+        <router-link to="/login" tag="button">Log In</router-link>
+      </access-control>
+      <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF], USER[ROLE.ADMIN]]">
+        <button v-on:click="logout">Log Out</button>
+      </access-control>
       <router-link to="/checkout" tag="button">Checkout</router-link>
     </div>
   </div>
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 import authService from '../utils/service/authService';
+import AccessControl from './AccessControl/AccessControl.vue';
+import { USER, ROLE } from '../utils/constants/user';
 
 export default {
   name: 'the-navigation',
+  data() {
+    return {
+      USER,
+      ROLE,
+    };
+  },
+  components: {
+    AccessControl,
+  },
   methods: {
+    ...mapMutations('user', {
+      setUser: 'setUser',
+    }),
     async logout() {
       let res = '';
       try {
         res = await authService.actions.logout();
+        // eslint-disable-next-line no-alert
+        alert('You successfully logged out!');
+        this.setUser();
+        this.$router.push('/');
       } catch (err) {
         res = err;
       }

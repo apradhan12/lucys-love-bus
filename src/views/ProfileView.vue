@@ -1,9 +1,15 @@
 <template>
   <div>
     <h1>My Profile</h1>
+<<<<<<< HEAD
     <Welcome :name="user.name" :familyImg="user.img"/>
     <div class="flex-horizontal">
       <Announcements/>
+=======
+
+    <Welcome :name="username"/>
+    <div class="flex-horizontal">
+>>>>>>> a6ac89e9e0152b9db8271ffd341963dbcf1a492c
       <div class='dash'>
         <router-link to='/events'>
           <div class='dash-item'>
@@ -24,49 +30,28 @@
           </div>
         </router-link>
       </div>
+      <div class="announcements-list__container">
+        <announcements-list />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import Welcome from '../components/Profile/Welcome.vue';
-import Announcements from '../components/Profile/Announcements.vue';
+import AnnouncementsList from '../components/Announcements/AnnouncementsList.vue';
 
 export default {
   name: 'Profile',
   components: {
     Welcome,
-    Announcements,
+    AnnouncementsList,
   },
-
-  data() {
-    return {
-      users: [
-        {
-          username: 'robinsons',
-          name: 'Robinson',
-          img: 'https://www.kiplinger.com/kipimages/pages/18048.jpg',
-        },
-        {
-          username: 'reaves',
-          name: 'Reaves',
-          img: 'https://assets.change.org/photos/0/kx/ah/hjkxAHxAKbytEHg-800x450-noPad.jpg?1560309500',
-        },
-      ],
-    };
-  },
-
-  computed: {
-    username() {
-      return this.$route.params.username;
-    },
-
-    user() {
-      return this.users.find(user => user.username === this.username);
+  props: {
+    username: {
+      required: true,
+      type: String,
     },
   },
 };
 </script>
-
-<style scoped>
-</style>

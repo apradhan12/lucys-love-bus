@@ -4,6 +4,12 @@ h1 {
   margin-left: 8em;
 }
 
+.scroll-container {
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 .flex-horizontal {
   display: flex;
   flex-direction: row;
@@ -51,6 +57,8 @@ h1 {
 
 .dash-item {
   .flex-vertical();
+  display: flex;
+  flex-direction: column;
   width: 8em;
 
   .thumb {
