@@ -1,9 +1,15 @@
 <template>
   <div>
     <h1>My Profile</h1>
+<<<<<<< HEAD
 
     <Welcome :name="username"/>
     <div class="flex-horizontal">
+=======
+    <Welcome :name="user.name" :familyImg="user.img"/>
+    <div class="flex-horizontal">
+      <Announcements/>
+>>>>>>> f24e4bc599c02940166a9f27fddc12197faf62e0
       <div class='dash'>
         <router-link to='/events'>
           <div class='dash-item'>
