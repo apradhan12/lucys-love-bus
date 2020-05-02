@@ -158,16 +158,6 @@ async function getSitewideAnnouncements(paramObj) {
   }
 }
 
-async function getSitewideAnnouncements(paramObj) {
-  try {
-    const params = await objToParams(paramObj);
-    const { data } = await protectedResourceAxios.get(`${process.env.VUE_APP_API_DOMAIN}/api/v1/protected/announcements${params}`);
-    return data;
-  } catch (err) {
-    return err;
-  }
-}
-
 export default {
   handleClickCheckout,
   createEvent,
