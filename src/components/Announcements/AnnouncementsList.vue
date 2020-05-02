@@ -1,21 +1,39 @@
 <template>
   <div class="scroll-container announcements-container" v-bind:style="{ 'maxHeight': '20rem' }">
-      <div v-for="a in allAnnouncements" v-bind:key="a.id" class="announcement-wrapper">
+      <div v-for="a in announcements" v-bind:key="a.id" class="announcement-wrapper">
         <h3>{{a.title}}</h3>
+        <p>{{ toStringDate(a.created) }}</p>
         <p>{{a.description}}</p>
       </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import moment from 'moment';
+import api from '../../api/api';
 
 export default {
   name: 'AnnouncementsList',
-  computed: {
-    ...mapGetters('announcements', {
-      allAnnouncements: 'getAllAnnouncements',
-    }),
+  props: {
+    number: Number,
+  },
+  data() {
+    return {
+      announcements: [],
+    };
+  },
+  methods: {
+    async getAnnouncements() {
+      const res = await api.getSitewideAnnouncements({});
+      return res.announcements;
+    },
+    toStringDate(date) {
+      const d = moment(date);
+      return d.format('M/DD/YYYY');
+    },
+  },
+  async created() {
+    this.announcements = await this.getAnnouncements();
   },
 };
 </script>
