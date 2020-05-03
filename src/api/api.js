@@ -151,7 +151,7 @@ async function getMyEvents(start) {
 async function getSitewideAnnouncements(paramObj) {
   try {
     const params = await objToParams(paramObj);
-    const { data } = await protectedResourceAxios.get(`${process.env.VUE_APP_API_DOMAIN}/api/v1/protected/announcements${params}`);
+    const { data } = await protectedResourceAxios.get(`/api/v1/protected/announcements${params}`);
     return data;
   } catch (err) {
     return err;
