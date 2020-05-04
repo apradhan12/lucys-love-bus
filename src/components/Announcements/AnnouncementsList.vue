@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import moment from 'moment';
+import DateUtils from '../../utils/DateUtils';
 import api from '../../api/api';
 
 export default {
@@ -28,8 +28,7 @@ export default {
       return res.announcements;
     },
     toStringDate(date) {
-      const d = moment(date);
-      return d.format('M/DD/YYYY');
+      return DateUtils.toStringDate(date);
     },
   },
   async created() {
