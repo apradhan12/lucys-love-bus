@@ -5,11 +5,13 @@
   "scripts": {
     "serve": "vue-cli-service serve --host localhost",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit",
+    "test:e2e": "vue-cli-service test:e2e",
+    "cypress": "cypress open",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@stripe/stripe-js": "^1.4.0",
+    "@stripe/stripe-js": "^1.5.0",
     "axios": "^0.19.0",
     "core-js": "^3.3.2",
     "moment": "^2.24.0",
@@ -22,6 +24,7 @@
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.0.0",
+    "@vue/cli-plugin-e2e-cypress": "^4.3.1",
     "@vue/cli-plugin-eslint": "^4.0.0",
     "@vue/cli-plugin-pwa": "^4.0.0",
     "@vue/cli-plugin-unit-jest": "^4.0.0",

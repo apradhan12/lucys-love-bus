@@ -1,8 +1,7 @@
 <template>
   <div>
     <h1>My Profile</h1>
-
-    <Welcome />
+    <Welcome :name="username"/>
     <div class="flex-horizontal">
       <div class='dash'>
         <router-link to='/events'>
@@ -43,3 +42,6 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+</style>
