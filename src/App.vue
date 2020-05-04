@@ -6,21 +6,20 @@
         <router-view />
       </div>
     </div>
-    <!-- <the-footer /> -->
+    <the-footer />
   </div>
 </template>
 
 <script>
 import TheNavigation from './components/TheNavigation.vue';
 import authService from './utils/service/authService';
-// import TheFooter from './components/TheFooter.vue';
-// TODO: Looks better without the footer, as it currently is
+import TheFooter from './components/TheFooter.vue';
 
 export default {
   name: 'App',
   components: {
     TheNavigation,
-    // TheFooter,
+    TheFooter,
   },
   beforeCreate() {
     authService.actions.persistUser();

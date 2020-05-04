@@ -26,7 +26,7 @@
       </div>
       <payment-summary
         class="payment component-wrapper"
-        @onClickCheckout="onClickCheckout" />
+        v-on:onClickCheckout="onClickCheckout" />
       <promo-code class="codes component-wrapper"></promo-code>
     </div>
   </div>
@@ -59,15 +59,16 @@ export default {
     ...mapMutations('cart', {
       cancelRegistration: 'cancelRegistration',
     }),
-    async onClickCheckout() {
+    onClickCheckout() {
       if (USER[this.adminLevel] === USER[ROLE.ADMIN] || USER[this.adminLevel] === USER[ROLE.PF]) {
-        API.createEventRegistration(this.registeredEvents).then(() => {
+        try {
+          API.createEventRegistration(this.registeredEvents);
           // eslint-disable-next-line
-          alert("Successfully placed order");
-        }).error(() => {
+          alert('Successfully placed order');
+        } catch (e) {
           // eslint-disable-next-line
-          alert("Error");
-        });
+          alert("Error: " + e);
+        }
       } else {
         API.createEventRegistrationAndCheckoutSession(this.registeredEvents);
       }

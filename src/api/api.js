@@ -62,11 +62,16 @@ async function createEventRegistrationAndCheckoutSession(registeredEvents) {
     successUrl: 'http://localhost:8080/my-events',
     cancelUrl: 'http://localhost:8080/checkout',
   };
-  const { data } = await protectedResourceAxios.post('/api/v1/protected/checkout/payment', body);
-  const stripe = await stripeApp;
-  await stripe.redirectToCheckout({
-    sessionId: data,
-  });
+  try {
+    const { data } = await protectedResourceAxios.post('/api/v1/protected/checkout/payment', body);
+    const stripe = await stripeApp;
+    await stripe.redirectToCheckout({
+      sessionId: data,
+    });
+  } catch (e) {
+    // eslint-disable-next-line
+    alert("Error creating Stripe checkout session: " + e);
+  }
 }
 
 async function getEvent(id) {

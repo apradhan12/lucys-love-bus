@@ -6,7 +6,7 @@
         <h3>Total: ${{totalPrice.toFixed(2)}}</h3>
         <button
           class="event-btn btn--primary"
-          @click="clicked">Proceed to checkout</button>
+          v-on:click="clicked">Proceed to checkout</button>
     </div>
 </template>
 
