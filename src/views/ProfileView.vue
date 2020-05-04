@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1>My Profile</h1>
-
     <Welcome :name="username"/>
     <div class="flex-horizontal">
       <div class='dash'>
@@ -49,3 +48,6 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+</style>
