@@ -79,7 +79,7 @@ export default {
         try {
           await authService.actions.login(user);
           // switch this to the profile component once it's made.
-          this.$router.push(`/profile/${this.email}`);
+          this.$router.push('/profile');
           this.resetInput();
           this.setUser();
         } catch (error) {

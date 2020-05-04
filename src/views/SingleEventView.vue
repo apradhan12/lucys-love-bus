@@ -1,6 +1,5 @@
 <template>
   <div class="event-container">
-    <router-view></router-view>
       <div class="event-name">
         <h1>{{ singleEvent.title }}</h1>
       </div>
@@ -15,7 +14,7 @@
         <access-control :roles="[USER[ROLE.ADMIN]]">
           <button>Edit Event</button>
         </access-control>
-        <router-link to="events">
+        <router-link to="/events">
             <button>Back to Events</button>
         </router-link>
       </div>
@@ -24,7 +23,7 @@
         <p>Time: {{ singleEvent.details.start }}</p>
       </div>
       <div class="event-img">
-        <img :src="singleEvent.img" alt="Event Image">
+        <img :src="singleEvent.thumbnail" alt="Event Image">
       </div>
     </div>
 </template>
