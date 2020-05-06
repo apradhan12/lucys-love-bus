@@ -4,12 +4,14 @@
         <h3>Subtotal: ${{subtotal.toFixed(2)}}</h3>
         <h3>Taxes: ${{taxes.toFixed(2)}}</h3>
         <h3>Total: ${{totalPrice.toFixed(2)}}</h3>
-        <button class="event-btn btn--primary">Proceed to checkout</button>
+        <button
+          class="event-btn btn--primary"
+          v-on:click="clicked">Proceed to checkout</button>
     </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
   name: 'PaymentSummary',
@@ -17,11 +19,19 @@ export default {
     ...mapGetters('cart', {
       subtotal: 'getSubTotal',
     }),
+    ...mapState('cart', {
+      registeredEvents: 'registeredEvents',
+    }),
     taxes() {
       return 0;
     },
     totalPrice() {
       return this.subtotal + this.taxes;
+    },
+  },
+  methods: {
+    clicked() {
+      this.$emit('onClickCheckout');
     },
   },
 };

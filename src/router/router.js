@@ -77,16 +77,14 @@ export default new Router({
       component: SignUpPFView,
     },
     {
-      path: '/profile/:username',
+      path: '/profile',
       name: 'profile',
       component: ProfileView,
-      props: true,
     },
     {
-      path: '/my-events/:username',
+      path: '/my-events',
       name: 'my-events',
       component: MyEventsView,
-      props: true,
     },
     {
       path: '*',
