@@ -129,16 +129,54 @@
   cursor: pointer;
 }
 
-.btn--primary {
-  color: white;
-  background-color: @green-apple;
+.btn {
+  border: 0;
+  background: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: .5rem;
+}
+
+.btn--disabled {
+  &:extend(.btn);
+  color: @button-color;
+  background-color: darkgrey;
+  border: 1px solid darkgrey;
+}
+
+.btn--secondary {
+   &:extend(.btn);
+   color: @tangerine;
+   background-color: @button-color;
+   border: 1px solid @tangerine;
+ }
+
+.btn--secondary-selected {
+  &:extend(.btn);
+  color: @button-color;
+  background-color: @tangerine;
+  border: 1px solid @tangerine;
+}
+
+&--selected {
+  color: @button-color;
+  background-color: @tangerine;
 }
 
 .btn--secondary {
   color: @tangerine;
-  background-color: white;
+  background-color: @button-color;
   border: 1px solid @tangerine;
-  border-radius: 4px;
+}
+
+.btn--secondary-selected {
+
+}
+
+.btn--primary-selected {
+  color: @button-color;
+  background-color: @green-apple;
+  border: 1px solid @green-apple;
 }
 
 .btn--tertiary {

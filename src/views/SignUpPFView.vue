@@ -79,15 +79,15 @@
           </div>
           <div class="pronoun-wrapper">
             <h4>Preferred Pronouns</h4>
-            <button class="form-btn-basic"
-                    v-on:click="child.pronouns = 'M'"
-                    :class="{'selected-form-btn' : child.pronouns === 'M'}">He/Him</button>
-            <button class="form-btn-basic"
-                    v-on:click="child.pronouns = 'F'"
-                    :class="{'selected-form-btn' : child.pronouns === 'F'}">She/Her</button>
-            <button class="form-btn-basic"
-                    v-on:click="child.pronouns = 'A'"
-                    :class="{'selected-form-btn' : child.pronouns === 'A'}">They/Them</button>
+            <button v-on:click="child.pronouns = 'M'"
+                    :class="{'btn--secondary' : child.pronouns !== 'M',
+                         'btn--secondary-selected' : child.pronouns === 'M'}">He/Him</button>
+            <button v-on:click="child.pronouns = 'F'"
+                    :class="{'btn--secondary' : child.pronouns !== 'F',
+                         'btn--secondary-selected' : child.pronouns === 'F'}">She/Her</button>
+            <button v-on:click="child.pronouns = 'A'"
+                    :class="{'btn--secondary' : child.pronouns !== 'A',
+                         'btn--secondary-selected' : child.pronouns === 'A'}">They/Them</button>
           </div>
           <div class="h-fields">
             <input v-model="child.schoolyear" type="text"
@@ -138,12 +138,12 @@
       <p style="font-weight:bold">Photo/Video Release</p>
       <p>I
         <button style="margin-right: .75rem; margin-bottom: .5rem"
-                class="form-btn-basic"
                 v-on:click="photoVideoReleaseConsent = true"
-                :class="{'selected-form-btn' : photoVideoReleaseConsent}">consent</button>
-        <button class="form-btn-basic"
-                v-on:click="photoVideoReleaseConsent = false"
-                :class="{'selected-form-btn' : photoVideoReleaseConsent === false}">
+                :class="{'btn--secondary-selected' : photoVideoReleaseConsent,
+                         'btn--secondary' : photoVideoReleaseConsent !== true}">consent</button>
+        <button v-on:click="photoVideoReleaseConsent = false"
+                :class="{'btn--secondary-selected' : photoVideoReleaseConsent === false,
+                         'btn--secondary' : photoVideoReleaseConsent !== false}">
           do not consent</button>
         and authorize the use
         and reproduction by Lucy’s Love Bus of any and all photographs and any
@@ -151,12 +151,14 @@
         educational activities, exhibitions or for any other use for the benefit
         of the organization. </p>
       <div>
-        <button @click="signup" class="btn--tertiary"> Request </button> &nbsp;
+        <button @click="signup"
+                class="btn--secondary-selected">Request</button>
         <router-link :to="{name: 'login'}" class="med-pad-left" tag="a">
           Already have an account? Log in here!
         </router-link>
       </div>
       <div v-if="isValidForm === false" class="invalid_form--container">
+        <h4>There were one or more issues with the form:</h4>
         <ul>
           <li v-for="(err, index) in inputError" :key="index"> {{err}} </li>
           <li v-if="this.serverError"> {{this.serverError}} </li>
@@ -321,31 +323,31 @@ export default {
       let validParents = true;
       this.parents.forEach((parent) => {
         if (!parent.name) {
-          this.inputError.push(missingMsg('Parent', parent.id, 'a name'));
+          this.inputError.push(missingMsg('Parent', parent.id + 1, 'a name'));
           validParents = false;
         }
         if (!parent.phoneNumber) {
-          this.inputError.push(missingMsg('Parent', parent.id, 'a phone number'));
+          this.inputError.push(missingMsg('Parent', parent.id + 1, 'a phone number'));
           validParents = false;
         }
         if (!parent.address) {
-          this.inputError.push(missingMsg('Parent', parent.id, 'an address'));
+          this.inputError.push(missingMsg('Parent', parent.id + 1, 'an address'));
           validParents = false;
         }
         if (!parent.city) {
-          this.inputError.push(missingMsg('Parent', parent.id, 'a city'));
+          this.inputError.push(missingMsg('Parent', parent.id + 1, 'a city'));
           validParents = false;
         }
         if (!parent.state) {
-          this.inputError.push(missingMsg('Parent', parent.id, 'a state'));
+          this.inputError.push(missingMsg('Parent', parent.id + 1, 'a state'));
           validParents = false;
         }
         if (!parent.zipCode) {
-          this.inputError.push(missingMsg('Parent', parent.id, 'a zip code'));
+          this.inputError.push(missingMsg('Parent', parent.id + 1, 'a zip code'));
           validParents = false;
         }
         if (!parent.email) {
-          this.inputError.push('Invalid email');
+          this.inputError.push(`Parent ${parent.id + 1}'s email is not valid`);
           validParents = false;
         }
         return 1;
@@ -357,23 +359,23 @@ export default {
       let validChildren = true;
       this.children.forEach((child) => {
         if (!child.name) {
-          this.inputError.push(missingMsg('Child', child.id, 'a name'));
+          this.inputError.push(missingMsg('Child', child.id + 1, 'a name'));
           validChildren = false;
         }
         if (!child.dateOfBirth) {
-          this.inputError.push(missingMsg('Child', child.id, 'a date of birth'));
+          this.inputError.push(missingMsg('Child', child.id + 1, 'a date of birth'));
           validChildren = false;
         }
         if (!child.pronouns) {
-          this.inputError.push(missingMsg('Child', child.id, 'preferred pronouns'));
+          this.inputError.push(missingMsg('Child', child.id + 1, 'preferred pronouns'));
           validChildren = false;
         }
         if (!child.schoolyear) {
-          this.inputError.push(missingMsg('Child', child.id, 'a school year (grade)'));
+          this.inputError.push(missingMsg('Child', child.id + 1, 'a school year (grade)'));
           validChildren = false;
         }
         if (!child.school) {
-          this.inputError.push(missingMsg('Child', child.id, 'a school'));
+          this.inputError.push(missingMsg('Child', child.id + 1, 'a school'));
           validChildren = false;
         }
         return 1;
@@ -401,7 +403,8 @@ export default {
       return isValid;
     },
     async signup() {
-      this.submitted = true;
+      // TODO when backend routes are set up
+      // this is old code from the other sign up form. Must be adjusted.
       this.serverError = '';
       if (this.validate()) {
         const user = {
@@ -482,8 +485,7 @@ export default {
   }
 
   .invalid_form--container {
-    left: 0;
-    top: 10rem;
+    margin-top: 1rem;
     text-align: left;
     background: rgba(255, 0, 0, 0.4);
     border-radius: 5px;
