@@ -140,6 +140,16 @@ async function getSitewideAnnouncements(paramObj) {
   }
 }
 
+async function getEventAnnouncements(id) {
+  try {
+    const path = `/api/v1/protected/announcements/${id}`;
+    const { data } = await protectedResourceAxios.get(path);
+    return data;
+  } catch (err) {
+    return err;
+  }
+}
+
 export default {
   handleClickCheckout,
   createEvent,
@@ -147,4 +157,5 @@ export default {
   getUpcomingEvents,
   getMyEvents,
   getSitewideAnnouncements,
+  getEventAnnouncements,
 };

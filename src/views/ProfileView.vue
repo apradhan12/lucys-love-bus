@@ -24,7 +24,7 @@
         </router-link>
       </div>
       <div class="announcements-list__container">
-        <announcements-list />
+        <announcements-list sitewide count="10"/>
       </div>
     </div>
   </div>
