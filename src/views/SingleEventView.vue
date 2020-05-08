@@ -14,6 +14,12 @@
         <access-control :roles="[USER[ROLE.ADMIN]]">
           <button>Edit Event</button>
         </access-control>
+        <access-control :roles="[USER[ROLE.ADMIN]]">
+          <router-link
+          :to='{name: "create-announcement", params: {eventName: singleEvent.details.name}}'>
+            <button>Announce Event</button>
+          </router-link>
+        </access-control>
         <router-link to="/events">
             <button>Back to Events</button>
         </router-link>
