@@ -2,6 +2,7 @@
 // This command logs you in as either a GP (General Participant), PF (Participating Family) or Admin
 // ** Right now just logs you in as an example user **
 Cypress.Commands.add("login", () => {
+<<<<<<< HEAD
     const user = {
         email: 'user@example.com',
         password: 'secret'
@@ -15,5 +16,8 @@ Cypress.Commands.add("login", () => {
     cy.get('.auth-container > button').click();
 
     cy.wait(2000);
+=======
+
+>>>>>>> master
 
 });
