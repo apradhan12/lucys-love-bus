@@ -1,15 +1,15 @@
 
 describe('Testing Navigation', () => {
   it('Test that urls take you to correct page', () => {
-    //landing page
+    // landing page
     cy.visit('/');
     cy.contains('p', 'HOME');
 
-    //about us
+    // about us
     cy.visit('/about-us');
     cy.contains('p', 'About Us');
 
-    /*//events
+    /* //events
     cy.visit('/events');
     cy.contains('span', 'Page 1');
 
@@ -22,8 +22,8 @@ describe('Testing Navigation', () => {
     cy.contains('h1', 'My Cart');
     */
   });
-  
-  /*it('Visits all pages from landing page', () => {
+
+  /* it('Visits all pages from landing page', () => {
     cy.visit('/');
 
     cy.contains('About Us').click();
@@ -170,5 +170,4 @@ describe('Testing Navigation', () => {
 
   });
   */
-
 });
