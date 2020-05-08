@@ -1,12 +1,12 @@
 <template>
   <div class="event__container">
       <div class="event-img">
-          <img :src="event.img" />
+          <img :src="event.thumbnail" />
       </div>
       <div class="event-content">
           <div class="content-wrapper">
-              <h3>{{ event.name }}</h3>
-              <p>{{ event.description }}</p>
+              <h3>{{ event.title }}</h3>
+              <p>{{ event.details.description }}</p>
           </div>
       </div>
        <div class="event-btns--user">
@@ -23,11 +23,11 @@
             class="event-btn" tag="button">
             Edit
           </router-link>
-          <button
-            v-on:click="announce({event: event})"
-            class="event-btn">
+          <router-link
+            :to="{ name: 'create-announcement', params: { eventName: event.name}}"
+            class="event-btn" tag="button">
             Announce
-          </button>
+          </router-link>
           <button
             v-on:click="viewRSVP({event: event})"
             class="event-btn">
@@ -64,11 +64,11 @@ export default {
   methods: {
     announce(payload) {
       // eslint-disable-next-line no-alert
-      alert(`Once created, link create-announcement component here for ${payload.event.name}.`);
+      alert(`Once created, link create-announcement component here for ${payload.event.title}.`);
     },
     viewRSVP(payload) {
       // eslint-disable-next-line no-alert
-      alert(`The users registered for ${payload.event.name} are ${payload.event.users}.`);
+      alert(`The users registered for ${payload.event.title} are ${payload.event.users}.`);
     },
   },
 };

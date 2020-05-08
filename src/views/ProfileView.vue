@@ -10,21 +10,27 @@
             <button class="btn--tertiary">New Events</button>
           </div>
         </router-link>
-        <router-link :to='{name: "my-events", params: {username: username}}'>
+        <router-link to='/my-events'>
           <div class='dash-item'>
             <img class="thumb" src='https://static5.depositphotos.com/1037987/476/i/450/depositphotos_4767995-stock-photo-couple-giving-two-young-children.jpg'/>
             <button class="btn--tertiary">My Events</button>
           </div>
         </router-link>
-        <router-link :to='{name: "account", params: {username: username}}'>
+        <router-link to='/account'>
           <div class='dash-item'>
             <img class="thumb" src='https://static.thenounproject.com/png/17337-200.png'/>
             <button class="btn--tertiary">Account Info</button>
           </div>
         </router-link>
+        <router-link :to='{name: "create-announcement", params: {eventName: "sitewide"}}'>
+          <div class='dash-item'>
+            <img class="thumb" src='https://images.pexels.com/photos/273011/pexels-photo-273011.jpeg?cs=srgb&dl=black-calendar-close-up-composition-273011.jpg&fm=jpg'/>
+            <button class="btn--tertiary">Sitewide Announcement</button>
+          </div>
+        </router-link>
       </div>
       <div class="announcements-list__container">
-        <announcements-list sitewide count="10"/>
+        <announcements-list sitewide :count="announcementsCount"/>
       </div>
     </div>
   </div>
@@ -33,6 +39,7 @@
 <script>
 import Welcome from '../components/Profile/Welcome.vue';
 import AnnouncementsList from '../components/Announcements/AnnouncementsList.vue';
+import ANNOUNCEMENT_COUNT from '../utils/constants/announcements';
 
 export default {
   name: 'Profile',
@@ -40,10 +47,9 @@ export default {
     Welcome,
     AnnouncementsList,
   },
-  props: {
-    username: {
-      required: true,
-      type: String,
+  computed: {
+    announcementsCount() {
+      return ANNOUNCEMENT_COUNT;
     },
   },
 };
