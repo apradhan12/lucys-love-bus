@@ -1,7 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HomeView from '../views/HomeView.vue';
-import AboutUsView from '../views/AboutUsView.vue';
 import EventsView from '../views/EventsView.vue';
 import LoginView from '../views/LoginView.vue';
 import SignUpView from '../views/SignUpView.vue';
@@ -13,6 +11,7 @@ import CheckoutView from '../views/CheckoutView.vue';
 import SingleEventView from '../views/SingleEventView.vue';
 import CreateEventView from '../views/CreateEventView.vue';
 import UpcomingEventsView from '../views/UpcomingEventsView.vue';
+import CreateAnnouncementView from '../views/CreateAnnouncementView.vue';
 
 Vue.use(Router);
 
@@ -21,13 +20,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView,
-    },
-    {
-      path: '/about-us',
-      name: 'about-us',
-      component: AboutUsView,
+      name: 'login',
+      component: LoginView,
     },
     {
       path: '/events',
@@ -38,6 +32,12 @@ export default new Router({
       path: '/create-event',
       name: 'create-event',
       component: CreateEventView,
+    },
+    {
+      path: '/create-announcement',
+      name: 'create-announcement',
+      component: CreateAnnouncementView,
+      props: true,
     },
     {
       path: '/upcoming-events',
@@ -59,11 +59,6 @@ export default new Router({
       path: '/checkout',
       name: 'checkout',
       component: CheckoutView,
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: LoginView,
     },
     {
       path: '/sign-up',

@@ -61,6 +61,24 @@
                     {{ errors.first('what to bring') }}
                 </span>
             </div>
+
+            <div class="form-element img-upload">
+                <label>Event Image:</label>
+                <input id="input-img-upload"
+                       name="event image"
+                       type="file"
+                       v-on:change="updateEventImage"
+                       v-validate="'required'"
+                       accept="image/*"/>
+                <div v-if="imageUploaded === 1">Loading image...</div>
+                <div v-else-if="imageUploaded === 2">Loading complete!</div>
+                <div v-else-if="imageUploaded === 3">An error occurred, please try again!</div>
+            </div>
+            <div class="form-errors">
+                <span v-show="errors.has('event image')">
+                    {{ errors.first('event image') }}
+                </span>
+            </div>
         </div>
         <div class="buttons">
             <input type="submit" class="button" value="Create">
@@ -88,17 +106,63 @@ export default {
         description: String,
         whatToBring: String,
       */
+      imageUploaded: 0,
       event: {},
       error: '',
     };
   },
   methods: {
+    /**
+     * Encode the given file in base64 format.
+     *
+     * @param file the file to encode.
+     * @returns {Promise<unknown>} returns the base64 encoding of the file on a
+     *  successful encoding, otherwise returns the error.
+     */
+    convertImage(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+      });
+    },
+    /**
+     * Called the user selects an image for the event thumbnail.
+     * Encodes the image as a base64 String and saves
+     * the encoded string to this.event.thumbnail.
+     *
+     * @param event the change event for the file input.
+     */
+    updateEventImage(event) {
+      const { files } = event.target;
+      if (files.length > 0) {
+        this.imageUploaded = 1; // Indicates the selected image is loading
+        this.convertImage(files[0]).then((result) => {
+          this.imageUploaded = 2; // Indicates the selected image was loaded successfully
+          this.event = {
+            ...this.event,
+            thumbnail: result.toString(),
+          };
+        }).catch(() => {
+          this.imageUploaded = 3; // Indicates the selected image failed to load
+        });
+      }
+    },
+    /**
+     * Validates and sends the event (included the encoded image) to the web server,
+     * where the web server will validate and upload the image to S3 and return the URL.
+     */
     onSubmit() {
       this.$validator.validateAll().then(async (result) => {
-        if (result) {
+        if (result && this.imageUploaded) {
           try {
-            await api.createEvent(this.event);
-            this.event = {};
+            const resp = await api.createEvent(this.event);
+            if (resp.status && resp.status === 200) {
+              this.event = {};
+              this.imageUploaded = 0; // Reset image load status
+              document.getElementById('input-img-upload').value = null; // Deselect image
+            } // else display error
           } catch (err) {
             this.error = err;
           }
@@ -150,6 +214,19 @@ input[type=text], input[type=date], input[type=time], textarea {
     font-size: 12pt;
 }
 
+input[type=file] {
+    margin: 0 0.8rem;
+    font-family: 'Montserrat';
+    font-size: 12pt;
+}
+
+.img-upload {
+    margin: 0.8rem;
+    font-family: 'Montserrat';
+    font-size: 12pt;
+}
+
+
 .button {
     margin: 1rem;
     font-family: 'Raleway';
@@ -164,7 +241,6 @@ span {
     font-family: 'Montserrat';
     color: red;
     font-weight: bold;
-
 }
 
 </style>
