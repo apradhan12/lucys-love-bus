@@ -30,7 +30,7 @@
         </router-link>
       </div>
       <div class="announcements-list__container">
-        <announcements-list />
+        <announcements-list sitewide :count="announcementsCount"/>
       </div>
     </div>
   </div>
@@ -39,12 +39,18 @@
 <script>
 import Welcome from '../components/Profile/Welcome.vue';
 import AnnouncementsList from '../components/Announcements/AnnouncementsList.vue';
+import ANNOUNCEMENT_COUNT from '../utils/constants/announcements';
 
 export default {
   name: 'Profile',
   components: {
     Welcome,
     AnnouncementsList,
+  },
+  computed: {
+    announcementsCount() {
+      return ANNOUNCEMENT_COUNT;
+    },
   },
 };
 </script>
