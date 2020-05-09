@@ -32,7 +32,7 @@ async function createEvent(event) {
   const body = {
     title: event.name,
     spotsAvailable: 10,
-    thumbnail: event.thumbnail,
+    thumbnail: event.thumbnail ? event.thumbnail : null,
     details: {
       description: event.description,
       location: event.location,
@@ -43,7 +43,9 @@ async function createEvent(event) {
 
   let res;
   try {
-    res = await protectedResourceAxios.post('/api/v1/protected/events/', body);
+    res = await protectedResourceAxios.post('/api/v1/protected/events/', body, {
+      timeout: 10000,
+    });
   } catch (err) {
     return err;
   }

@@ -63,21 +63,16 @@
             </div>
 
             <div class="form-element img-upload">
-                <label>Event Image:</label>
+                <label>Event Image (Optional):</label>
                 <input id="input-img-upload"
                        name="event image"
                        type="file"
                        v-on:change="updateEventImage"
-                       v-validate="'required'"
                        accept="image/*"/>
                 <div v-if="imageUploaded === 1">Loading image...</div>
                 <div v-else-if="imageUploaded === 2">Loading complete!</div>
                 <div v-else-if="imageUploaded === 3">An error occurred, please try again!</div>
-            </div>
-            <div class="form-errors">
-                <span v-show="errors.has('event image')">
-                    {{ errors.first('event image') }}
-                </span>
+                <div v-else-if="imageUploaded === 4">Please select an image smaller than 8 Mb.</div>
             </div>
         </div>
         <div class="buttons">
@@ -138,6 +133,12 @@ export default {
       const { files } = event.target;
       if (files.length > 0) {
         this.imageUploaded = 1; // Indicates the selected image is loading
+        const file = files[0];
+        if (file.size > 8388608) {
+          this.imageUploaded = 4; // Indicates image is too large
+          return;
+        }
+
         this.convertImage(files[0]).then((result) => {
           this.imageUploaded = 2; // Indicates the selected image was loaded successfully
           this.event = {
@@ -155,7 +156,7 @@ export default {
      */
     onSubmit() {
       this.$validator.validateAll().then(async (result) => {
-        if (result && this.imageUploaded) {
+        if (result) {
           try {
             const resp = await api.createEvent(this.event);
             if (resp.status && resp.status === 200) {
