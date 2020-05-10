@@ -20,7 +20,6 @@ async function objToParams(obj) {
 }
 
 async function createEvent(event) {
-  console.log('create');
   try {
     return await protectedResourceAxios.post('/api/v1/protected/events/', event);
   } catch (err) {
@@ -29,7 +28,6 @@ async function createEvent(event) {
 }
 
 async function editEvent(event) {
-  console.log('edit');
   try {
     return await protectedResourceAxios.post(`/api/v1/protected/events/${event.id}`, event);
   } catch (err) {
@@ -38,7 +36,6 @@ async function editEvent(event) {
 }
 
 async function deleteEvent(eventId) {
-  console.log('api');
   try {
     return protectedResourceAxios.delete(`api/v1/protected/events/${eventId}`);
   } catch (err) {

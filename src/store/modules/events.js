@@ -41,7 +41,6 @@ export default {
       commit('setMyEvents', { events });
     },
     async deleteEvent({ commit }, eventId) {
-      console.log('delete');
       try {
         const res = await api.deleteEvent(eventId);
         commit('deleteEvent', eventId);
