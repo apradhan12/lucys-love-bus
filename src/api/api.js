@@ -53,6 +53,35 @@ async function createEvent(event) {
   return res;
 }
 
+async function editEvent(event) {
+  const body = {
+    title: event.name,
+    spotsAvailable: 10,
+    thumbnail: event.img,
+    details: {
+      description: event.description,
+      location: event.location,
+      start: formatTimestamp(event.date, event.startTime),
+      end: formatTimestamp(event.date, event.endTime),
+    },
+  };
+
+  try {
+    return await protectedResourceAxios.post(`/api/v1/protected/events/${event.id}`, body);
+  } catch (err) {
+    return err;
+  }
+}
+
+async function deleteEvent(eventId) {
+  console.log('api');
+  try {
+    return protectedResourceAxios.delete(`api/v1/protected/events/${eventId}`);
+  } catch (err) {
+    return err;
+  }
+}
+
 const stripeApp = loadStripe(process.env.VUE_APP_STRIPE_PUBLISHABLE_KEY);
 
 async function createEventRegistration(registeredEvents) {
@@ -143,6 +172,8 @@ async function getEventAnnouncements(id) {
 
 export default {
   createEvent,
+  editEvent,
+  deleteEvent,
   createEventRegistration,
   createEventRegistrationAndCheckoutSession,
   getEvent,

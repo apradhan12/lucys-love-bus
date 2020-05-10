@@ -1,7 +1,7 @@
 <template>
     <form @submit.prevent="onSubmit">
     <div class="container">
-        <input v-validate="'required|max:80'" v-model="event.name"
+        <input v-validate="'required|max:80'" v-model="event.title"
         name="name" class="event-name" placeholder="Name of Event">
         <span class="form-errors" v-show="errors.has('name')">{{ errors.first('name') }}</span>
         <div class="form">
@@ -46,20 +46,12 @@
                 <span v-show="errors.has('end time')">{{ errors.first('end time') }}</span>
             </div>
             <div class="form-element">
-                <textarea v-validate="'required'" v-model="event.description" rows="10" cols="100"
-                name="description" placeholder="Description"></textarea>
-            </div>
-            <div class="form-errors">
-                <span v-show="errors.has('description')">{{ errors.first('description') }}</span>
+                <input v-validate="'required|number'" v-model="event.spotsAvailible"
+                 name="name"  type="number" placeholder="Spots Availible">
             </div>
             <div class="form-element">
-                <textarea v-validate="'required'" v-model="event.whatToBring" rows="7" cols="100"
-                name="what to bring" placeholder="What to Bring"></textarea>
-            </div>
-            <div class="form-errors">
-                <span v-show="errors.has('what to bring')">
-                    {{ errors.first('what to bring') }}
-                </span>
+                <textarea v-validate="'required'" v-model="event.description" rows="10" cols="100"
+                name="description" placeholder="Description"></textarea>
             </div>
 
             <div class="form-element img-upload">
@@ -85,26 +77,55 @@
 <script>
 import Vue from 'vue';
 import VeeValidate from 'vee-validate';
+import { mapGetters } from 'vuex';
 import api from '../api/api';
 
 Vue.use(VeeValidate);
 export default {
   name: 'CreateEvent',
+  props: {
+    eventId: {
+      type: String,
+      default: '',
+    },
+  },
   data() {
     return {
       /*
-        name: String,
-        date: Date,
-        location: String,
-        startTime: String,
-        endTime: String,
-        description: String,
-        whatToBring: String,
+        "title": STRING,
+        "spotsAvailable": INT,
+        "thumbnail": URL,
+        "details": {
+            "description": STRING,
+            "location": STRING,
+            "start": TIMESTAMP,
+            "end": TIMESTAMP
+        }
       */
       imageUploaded: 0,
       event: {},
       error: '',
     };
+  },
+  computed: {
+    ...mapGetters('events', {
+      getEventById: 'getEventById',
+    }),
+    isEditing() {
+      return parseInt(this.eventId, 10) > -1;
+    },
+  },
+  watch: {
+    eventId: {
+      immediate: true,
+      async handler() {
+        if (this.isEditing) {
+          const eventCopy = await api.getEvent(parseInt(this.eventId, 10));
+          console.log(eventCopy);
+          this.event = { ...eventCopy };
+        }
+      },
+    },
   },
   methods: {
     /**
@@ -158,9 +179,18 @@ export default {
       this.$validator.validateAll().then(async (result) => {
         if (result) {
           try {
-            const resp = await api.createEvent(this.event);
+            let resp;
+
+            if (!this.isEditing) {
+              resp = await api.createEvent(this.event);
+            } else {
+              resp = await api.editEvent(this.event);
+            }
+
             if (resp.status && resp.status === 200) {
+              const eventId = this.event.id;
               this.event = {};
+              this.$router.push(`/event/${eventId}`);
               this.imageUploaded = 0; // Reset image load status
               document.getElementById('input-img-upload').value = null; // Deselect image
             } // else display error

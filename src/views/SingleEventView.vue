@@ -12,7 +12,14 @@
         <button v-else>Register!</button>
       </access-control>
       <access-control :roles="[USER[ROLE.ADMIN]]">
-        <button>Edit Event</button>
+        <button
+          v-on:click="$router.push(`/edit-event/${singleEvent.id}`)">
+          Edit Event
+        </button>
+        <button
+          v-on:click="deleteEvent(singleEvent.id), $router.push('/events')">
+          Delete Event
+        </button>
       </access-control>
       <router-link to="events">
           <button>Back to Events</button>
@@ -36,6 +43,7 @@
 
 
 <script>
+import { mapActions } from 'vuex';
 import api from '../api/api';
 import AccessControl from '../components/AccessControl/AccessControl.vue';
 import {
@@ -51,7 +59,7 @@ export default {
   },
   props: {
     eventId: { // id is a number, but props are always passed as strings
-      type: String,
+      type: Number,
       required: true,
     },
   },
@@ -70,6 +78,9 @@ export default {
     },
   },
   methods: {
+    ...mapActions('events', {
+      deleteEvent: 'deleteEvent',
+    }),
     async getSingleEvent() {
       const res = await api.getEvent(this.eventId);
       return res;
