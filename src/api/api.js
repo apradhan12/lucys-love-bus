@@ -1,14 +1,5 @@
-import moment from 'moment';
 import { loadStripe } from '@stripe/stripe-js';
 import { protectedResourceAxios } from '../utils/auth/axios/axiosInstance';
-
-function formatTimestamp(date, time) {
-  const res = moment(date, 'YYYY-MM-DD"');
-  const hour = time.substring(0, 2);
-  const minute = time.substring(3);
-  res.add(hour, 'h').add(minute, 'm');
-  return res.unix() * 1000;
-}
 
 // objToParams: takes a Javascript object and returns a string
 // that can be used as GET query parameters
@@ -29,45 +20,18 @@ async function objToParams(obj) {
 }
 
 async function createEvent(event) {
-  const body = {
-    title: event.name,
-    spotsAvailable: 10,
-    thumbnail: event.thumbnail ? event.thumbnail : null,
-    details: {
-      description: event.description,
-      location: event.location,
-      start: formatTimestamp(event.date, event.startTime),
-      end: formatTimestamp(event.date, event.endTime),
-    },
-  };
-
-  let res;
+  console.log('create');
   try {
-    res = await protectedResourceAxios.post('/api/v1/protected/events/', body, {
-      timeout: 10000,
-    });
+    return await protectedResourceAxios.post('/api/v1/protected/events/', event);
   } catch (err) {
     return err;
   }
-
-  return res;
 }
 
 async function editEvent(event) {
-  const body = {
-    title: event.name,
-    spotsAvailable: 10,
-    thumbnail: event.img,
-    details: {
-      description: event.description,
-      location: event.location,
-      start: formatTimestamp(event.date, event.startTime),
-      end: formatTimestamp(event.date, event.endTime),
-    },
-  };
-
+  console.log('edit');
   try {
-    return await protectedResourceAxios.post(`/api/v1/protected/events/${event.id}`, body);
+    return await protectedResourceAxios.post(`/api/v1/protected/events/${event.id}`, event);
   } catch (err) {
     return err;
   }

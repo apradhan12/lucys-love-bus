@@ -3,57 +3,45 @@
     <div class="container">
         <input v-validate="'required|max:80'" v-model="event.title"
         name="name" class="event-name" placeholder="Name of Event">
-        <span class="form-errors" v-show="errors.has('name')">{{ errors.first('name') }}</span>
+        <span class="form-errors" v-show="errors.has('title')">{{ errors.first('title') }}</span>
         <div class="form">
             <div class="form-element">
                 <input
-                    v-validate="'required'"
-                    v-model="event.date"
-                    name="date"
-                    type="date"
-                    size="50">
-                <input
                     v-validate="'required|max:80'"
-                    v-model="event.location"
+                    v-model="event.details.location"
                     name="location"
                     type="text"
                     size="60"
                     placeholder="Location">
             </div>
             <div class="form-errors">
-                <span v-show="errors.has('date')">{{ errors.first('date') }}</span>
                 <span v-show="errors.has('location')">{{ errors.first('location') }}</span>
             </div>
             <div class="form-element">
                 <input
                     v-validate="'required'"
-                    v-model="event.startTime"
+                    v-model="event.details.start"
                     name="start time"
-                    type="time"
+                    type="datetime-local"
                     step="300"
                     size="30">
                 <p>to</p>
                 <input
                     v-validate="'required'"
-                    v-model="event.endTime"
+                    v-model="event.details.end"
                     name="end time"
-                    type="time"
+                    type="datetime-local"
                     step="300"
                     size="30">
             </div>
-            <div class="form-errors">
-                <span v-show="errors.has('start time')">{{ errors.first('start time') }}</span>
-                <span v-show="errors.has('end time')">{{ errors.first('end time') }}</span>
-            </div>
             <div class="form-element">
-                <input v-validate="'required|number'" v-model="event.spotsAvailible"
+                <input v-validate="'required|integer'" v-model="event.spotsAvailible"
                  name="name"  type="number" placeholder="Spots Availible">
             </div>
             <div class="form-element">
-                <textarea v-validate="'required'" v-model="event.description" rows="10" cols="100"
-                name="description" placeholder="Description"></textarea>
+                <textarea v-validate="'required'" v-model="event.details.description" rows="10"
+                cols="100" name="description" placeholder="Description"></textarea>
             </div>
-
             <div class="form-element img-upload">
                 <label>Event Image (Optional):</label>
                 <input id="input-img-upload"
@@ -78,6 +66,7 @@
 import Vue from 'vue';
 import VeeValidate from 'vee-validate';
 import { mapGetters } from 'vuex';
+import moment from 'moment';
 import api from '../api/api';
 
 Vue.use(VeeValidate);
@@ -103,7 +92,9 @@ export default {
         }
       */
       imageUploaded: 0,
-      event: {},
+      event: {
+        details: {},
+      },
       error: '',
     };
   },
@@ -121,7 +112,8 @@ export default {
       async handler() {
         if (this.isEditing) {
           const eventCopy = await api.getEvent(parseInt(this.eventId, 10));
-          console.log(eventCopy);
+          eventCopy.details.start = moment(eventCopy.details.start).format('YYYY-MM-DDTHH:mm');
+          eventCopy.details.end = moment(eventCopy.details.end).format('YYYY-MM-DDTHH:mm');
           this.event = { ...eventCopy };
         }
       },
@@ -181,6 +173,9 @@ export default {
           try {
             let resp;
 
+            this.event.details.start = moment(this.event.details.start).format('X');
+            this.event.details.end = moment(this.event.details.end).format('X');
+
             if (!this.isEditing) {
               resp = await api.createEvent(this.event);
             } else {
@@ -198,6 +193,9 @@ export default {
             this.error = err;
           }
         }
+      }).catch((error) => {
+        // eslint-disable-next-line no-alert
+        alert(error);
       });
     },
   },
@@ -236,7 +234,7 @@ export default {
     font-family: 'Montserrat';
 }
 
-input[type=text], input[type=date], input[type=time], textarea {
+input[type=text], input[type=datetime-local], input[type=number], textarea {
     margin: 0.8rem;
     padding: 0.8rem;
     border: 0.1rem solid #ccc;
