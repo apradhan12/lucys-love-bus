@@ -103,6 +103,7 @@ export default {
       getEventById: 'getEventById',
     }),
     isEditing() {
+      // eventId is a string because its a prop from the url
       return parseInt(this.eventId, 10) > -1;
     },
   },
@@ -111,6 +112,7 @@ export default {
       immediate: true,
       async handler() {
         if (this.isEditing) {
+          // eventId is a string because its a prop from the url
           const eventCopy = await api.getEvent(parseInt(this.eventId, 10));
           eventCopy.details.start = moment(eventCopy.details.start).format('YYYY-MM-DDTHH:mm');
           eventCopy.details.end = moment(eventCopy.details.end).format('YYYY-MM-DDTHH:mm');
