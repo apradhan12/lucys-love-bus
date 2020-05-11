@@ -19,7 +19,7 @@
         <access-control :roles="[USER[ROLE.ADMIN]]"
         :_class="['event-btns--admin_wrapper']">
           <router-link
-            :to="{ name: 'create-event', params: { eventId: event.id}}"
+            :to="{ name: 'edit-event', params: { eventId: event.id}}"
             class="event-btn" tag="button">
             Edit
           </router-link>
