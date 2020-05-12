@@ -1,31 +1,26 @@
 <template>
   <div>
-    <h1>My Profile</h1>
+    <div class="flex-vertical">
+    <h1 style="text-align:left">Homepage</h1>
     <Welcome :name="username"/>
     <div class="flex-horizontal">
-      <div class='dash'>
-        <router-link to='/events'>
-          <div class='dash-item'>
-            <img class="thumb" src='https://images.pexels.com/photos/273011/pexels-photo-273011.jpeg?cs=srgb&dl=black-calendar-close-up-composition-273011.jpg&fm=jpg'/>
-            <button class="btn--tertiary">New Events</button>
-          </div>
-        </router-link>
-        <router-link to='/my-events'>
-          <div class='dash-item'>
-            <img class="thumb" src='https://static5.depositphotos.com/1037987/476/i/450/depositphotos_4767995-stock-photo-couple-giving-two-young-children.jpg'/>
-            <button class="btn--tertiary">My Events</button>
-          </div>
-        </router-link>
-        <router-link to='/account'>
-          <div class='dash-item'>
-            <img class="thumb" src='https://static.thenounproject.com/png/17337-200.png'/>
-            <button class="btn--tertiary">Account Info</button>
-          </div>
-        </router-link>
-      </div>
       <div class="announcements-list__container">
+        <h3>Announcements</h3>
         <announcements-list />
       </div>
+      <div class='flex-vertical'>
+        <h3 style="text-align:center">Explore</h3>
+        <router-link class="explore-btn" tag="button" to='/events'>
+            Our Events
+        </router-link>
+        <router-link class="explore-btn" tag="button" to='/my-events'>
+            My Events
+        </router-link>
+        <router-link class="explore-btn" tag="button" to='/account'>
+            Settings
+        </router-link>
+      </div>
+    </div>
     </div>
   </div>
 </template>
@@ -43,5 +38,6 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+
 </style>

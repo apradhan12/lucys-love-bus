@@ -1,22 +1,24 @@
 <template>
   <div class="event-container">
       <div class="event-name">
-        <h1>{{ singleEvent.title }}</h1>
+        <h1 class="event-name">{{ singleEvent.title }}</h1>
       </div>
-      <div class="event-description">
-        <p>Event Description: {{ singleEvent.details.description }}</p>
-      </div>
-      <div class="event-buttons">
-        <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF], USER[ROLE.ADMIN]]">
-          <button v-if="registered">Unregister</button>
-          <button v-else>Register!</button>
-        </access-control>
-        <access-control :roles="[USER[ROLE.ADMIN]]">
-          <button>Edit Event</button>
-        </access-control>
-        <router-link to="/events">
-            <button>Back to Events</button>
-        </router-link>
+      <div class="description-buttons">
+        <div class="event-description">
+          <p>Event Description: {{ singleEvent.details.description }}</p>
+        </div>
+        <div class="event-buttons">
+          <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF], USER[ROLE.ADMIN]]">
+            <button v-if="registered" class="event-btn btn--primary">Unregister</button>
+            <button v-else class="event-btn btn--primary">Register!</button>
+          </access-control>
+          <access-control :roles="[USER[ROLE.ADMIN]]">
+            <button class="event-btn btn--secondary">Edit Event</button>
+          </access-control>
+          <router-link to="/events">
+              <button class="event-btn">Back to Events</button>
+          </router-link>
+        </div>
       </div>
       <div class="event-info">
         <p>Location: {{ singleEvent.details.location }}</p>
@@ -73,23 +75,26 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+@import '../../assets/global-classes.less';
     .event-container {
       margin: 3rem;
-      display: grid;
-      grid-template: 20% 30% 50% / 40% 40% 20%;
-      justify-items: start;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
     }
     .event-name {
-      grid-row: 1 / 2;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+    .description-buttons {
+      display: flex;
+      flex-direction: row;
     }
     .event-description{
-      grid-row: 2 / 3;
-      grid-column: 1 / 3;
+      text-align: left;
     }
     .event-buttons {
-      grid-row: 2 / 3;
-      grid-column: 3 / end;
       display: flex;
       flex-direction: column;
     }

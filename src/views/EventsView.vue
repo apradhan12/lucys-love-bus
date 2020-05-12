@@ -1,7 +1,7 @@
 <template>
   <events-list :events="upcomingEvents">
     <template v-slot:NoEventsMsg>
-      <h3>Sorry, there are no currently availible events!</h3>
+      <h3>Sorry, there are no currently available events!</h3>
     </template>
     <template v-slot:eventBtn1="slotProps">
       <button
