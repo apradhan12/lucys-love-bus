@@ -15,7 +15,9 @@ import api from '../../api/api';
 export default {
   name: 'AnnouncementsList',
   props: {
-    number: Number,
+    sitewide: Boolean,
+    count: Number, // count needed if and only if sitewide
+    eventID: Number, // eventID needed if and only if NOT sitewide
   },
   data() {
     return {
@@ -24,7 +26,14 @@ export default {
   },
   methods: {
     async getAnnouncements() {
-      const res = await api.getSitewideAnnouncements({});
+      let res;
+      if (this.sitewide) {
+        res = await api.getSitewideAnnouncements({
+          count: this.count,
+        });
+      } else {
+        res = await api.getEventAnnouncements(this.eventID);
+      }
       return res.announcements;
     },
     toStringDate(date) {
