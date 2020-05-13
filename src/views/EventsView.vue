@@ -1,4 +1,6 @@
 <template>
+<div>
+  <h1>Our Upcoming Events</h1>
   <events-list :events="upcomingEvents">
     <template v-slot:NoEventsMsg>
       <h3>Sorry, there are no currently available events!</h3>
@@ -18,6 +20,7 @@
       </router-link>
     </template>
   </events-list>
+  </div>
 </template>
 
 <script>

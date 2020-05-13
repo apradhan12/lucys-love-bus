@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex-vertical">
-    <h1 style="text-align:left">Homepage</h1>
+    <h1 style="text-align:left">My Profile</h1>
     <Welcome :name="username"/>
     <div class="flex-horizontal">
       <div class="announcements-list__container">
