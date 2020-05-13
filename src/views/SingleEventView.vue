@@ -1,42 +1,45 @@
 <template>
   <div class="event-container">
-    <div class="event-name">
+    <div class="event-name float-right">
       <h1>{{ singleEvent.title }}</h1>
+    </div>
+    <div class="event-img">
+      <img :src="singleEvent.img" alt="Event Image">
+    </div>
+     <div class="event-info">
+      <p>Location: {{ singleEvent.details.location }}</p>
+      <p>Time: {{ date }}, {{startTime}}-{{endTime}}</p>
+      <p>Event Announcements:</p>
+      <div class="announcements-list__container">
+        <announcements-list :eventID="eventId"/>
+      </div>
     </div>
     <div class="event-description">
       <p>Event Description: {{ singleEvent.details.description }}</p>
     </div>
     <div class="event-buttons">
-      <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF], USER[ROLE.ADMIN]]">
-        <button v-if="registered">Unregister</button>
-        <button v-else>Register!</button>
+      <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
+        <button v-if="registered" class="btn--primary">Unregister</button>
+        <button v-else class="btn--primary">Register!</button>
+        <router-link to="/events" tag="button" class="btn--tertiary">
+          Back To Events
+        </router-link>
       </access-control>
       <access-control :roles="[USER[ROLE.ADMIN]]">
         <button
+          class="btn--primary"
           v-on:click="$router.push(`/edit-event/${singleEvent.id}`)">
           Edit Event
         </button>
         <button
+          class="btn--tertiary"
           v-on:click="deleteEvent(singleEvent.id), $router.push('/events')">
           Delete Event
         </button>
+        <router-link to="/events" tag="button" class="btn--tertiary">
+          Back To Events
+        </router-link>
       </access-control>
-      <router-link to="events">
-          <button>Back to Events</button>
-      </router-link>
-    </div>
-    <div class="event-info">
-      <p>Location: {{ singleEvent.details.location }}</p>
-      <p>Time: {{ singleEvent.details.start }}</p>
-    </div>
-    <div class="event-announcements">
-      <p>Event Announcements</p>
-      <div class="announcements-list__container">
-        <announcements-list :eventID="eventId"/>
-      </div>
-    </div>
-    <div class="event-img">
-      <img :src="singleEvent.img" alt="Event Image">
     </div>
   </div>
 </template>
@@ -44,6 +47,7 @@
 
 <script>
 import { mapActions } from 'vuex';
+import moment from 'moment';
 import api from '../api/api';
 import AccessControl from '../components/AccessControl/AccessControl.vue';
 import {
@@ -76,6 +80,15 @@ export default {
     registered() {
       return true; // will be fetched from store in future
     },
+    date() {
+      return moment(this.singleEvent.details.start).format('dddd, MMMM Do YYYY');
+    },
+    startTime() {
+      return moment(this.singleEvent.details.start).format('h:ma');
+    },
+    endTime() {
+      return moment(this.singleEvent.details.end).format('h:ma');
+    },
   },
   methods: {
     ...mapActions('events', {
@@ -92,44 +105,66 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+@import '../../assets/global-classes.less';
+
 .event-container {
-  margin: 3rem;
   display: grid;
-  grid-template: auto / auto;
-  justify-items: start;
+  height: 100%;
+  max-width: 40em;
+  margin: auto;
+  grid-template-rows: 10% 25em auto;
+  grid-template-columns: 60% 40%;
+  font-family: 'Montserrat';
 }
 .event-name {
-  grid-row: 1 / 2;
-  grid-column: 1 / 4;
+  grid-row: 1 ;
+  grid-column: 1;
+  text-align: left;
+  h1 {
+    margin: 0em;
+  }
 }
 .event-description{
-  grid-row: 2 / 3;
-  grid-column: 1 / 3;
+  grid-row: 3;
+  grid-column: 1;
+  text-align: left;
 }
 .event-buttons {
-  grid-row: 2 / 3;
-  grid-column: 3 / end;
-  display: flex;
-  flex-direction: column;
+  grid-row: 3;
+  grid-column: 2;
+  button {
+    width: 8em;
+    display: block;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 2px;
+    border: none;
+    color: white;
+    margin: 1em auto 1em auto;
+    cursor: pointer;
+  }
 }
 .event-info {
-  grid-row: 3 / end;
-  grid-column: 1 / 2;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  grid-row: 2;
+  grid-column: 2;
+  text-align: left;
+  padding-left: 2em;
 }
-.event-announcements {
+/* .event-announcements {
   grid-row: 3 / 4;
   grid-column: 2 / 3;
-}
+} */
 .event-img {
-  grid-row: 3 / end;
-  grid-column: 3 / end;
-  justify-self: end;
+  grid-row: 2;
+  grid-column: 1;
+  width: 100%;
+  height: 100%;
+  background-color: grey;
 }
 img {
   width: 70%;
 }
+
+
 </style>
