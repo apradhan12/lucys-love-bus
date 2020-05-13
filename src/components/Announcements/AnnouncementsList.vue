@@ -17,7 +17,7 @@ export default {
   props: {
     sitewide: Boolean,
     count: Number, // count needed if and only if sitewide
-    eventID: Number, // eventID needed if and only if NOT sitewide
+    eventID: String, // eventID needed if and only if NOT sitewide
   },
   data() {
     return {
