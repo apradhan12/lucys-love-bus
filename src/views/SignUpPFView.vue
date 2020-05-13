@@ -19,23 +19,23 @@
             <button class="remove-btn"
                     v-if="parent.id > 0"
                     v-on:click="removeParent(parent.id)">
-              Remove</button>
+                    Remove</button>
           </h3>
           <div class="h-fields">
             <input
-                    v-model="parent.name"
-                    class="input-primary half-input"
-                    type="text"
-                    placeholder="Parent's Name">
+                   v-model="parent.name"
+                   class="input-primary half-input"
+                   type="text"
+                   placeholder="Parent's Name">
             <input
-                    v-model="parent.phoneNumber"
-                    class="input-primary half-input"
-                    type="text"
-                    placeholder="Phone Number">
+                   v-model="parent.phoneNumber"
+                   class="input-primary half-input"
+                   type="text"
+                   placeholder="Phone Number">
           </div>
-          <input class="input-primary" v-model="parent.address"
-                 type="text" placeholder="Address"
-                 style="width: 100%; box-sizing: border-box">
+            <input class="input-primary" v-model="parent.address"
+                   type="text" placeholder="Address"
+                   style="width: 100%; box-sizing: border-box">
           <div class="h-fields">
             <input v-model="parent.city" type="text"
                    class="input-primary" placeholder="City">
@@ -47,11 +47,11 @@
                    style="max-width: 6rem;">
           </div>
           <input v-model="parent.email" type="text"
-                 class="input-primary" placeholder="Email Address"
-                 style="width: 100%; box-sizing: border-box">
+                   class="input-primary" placeholder="Email Address"
+                   style="width: 100%; box-sizing: border-box">
           <textarea v-model="parent.allergies" type="text"
-                 class="input-primary" placeholder="Allergies"
-                    style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
+                   class="input-primary" placeholder="Allergies"
+                   style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
         </div>
 
         <button class="add-btn" v-on:click="addParent">+ Add Parent</button>
