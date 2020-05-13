@@ -5,11 +5,11 @@
     <Welcome :name="username"/>
     <div class="flex-horizontal">
       <div class="announcements-list__container">
-        <h3>Announcements</h3>
+        <h4 class="dekko-label">Announcements</h4>
         <announcements-list sitewide :count="announcementsCount"/>
       </div>
       <div class='flex-vertical'>
-        <h3 style="text-align:center">Explore</h3>
+        <h4 class="dekko-label">Explore</h4>
         <router-link class="explore-btn" tag="button" to='/events'>
             Our Events
         </router-link>

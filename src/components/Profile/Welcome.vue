@@ -32,13 +32,14 @@ export default {
 }
 
 .title {
-  font-size: 24px;
+  font-family: 'Dekko';
+  font-size: 26px;
   margin: 1rem;
 }
 
 .description {
   font-size: 14px;
-  margin: 1rem;
+  margin-left: 1.5rem;
 }
 
 </style>
