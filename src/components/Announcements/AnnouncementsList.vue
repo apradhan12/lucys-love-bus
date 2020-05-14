@@ -53,6 +53,7 @@ export default {
   .announcements-container {
     border: 1px solid grey;
     padding: 1rem;
+    background: linear-gradient(180deg, rgba(248, 134, 52, 0.5) 0%, rgba(255, 201, 102, 0.5) 100%);
   }
 
   .announcement-wrapper {
