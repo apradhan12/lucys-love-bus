@@ -22,7 +22,7 @@ export default {
   display: flex;
   justify-content: space-around;
   height: 6em;
-  margin-top: -6em;
+  margin-top: 6em;
 
   .links {
     display: flex;
