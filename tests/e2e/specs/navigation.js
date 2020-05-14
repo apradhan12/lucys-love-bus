@@ -21,7 +21,7 @@ describe('Testing Navigation', () => {
 
     // events
     cy.visit(eventsPath);
-    cy.contains('h3', 'Sorry, there are no currently availible events!');
+    cy.contains('h1', 'Our Upcoming Events');
 
     // checkout
     cy.visit(checkoutPath);
