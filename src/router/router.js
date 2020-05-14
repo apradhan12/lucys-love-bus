@@ -3,12 +3,12 @@ import Router from 'vue-router';
 import EventsView from '../views/EventsView.vue';
 import LoginView from '../views/LoginView.vue';
 import SignUpView from '../views/SignUpView.vue';
-import AccessControlDemonstration from '../components/AccessControl/AccessControlDemonstration.vue';
 import NotFoundView from '../views/NotFoundView.vue';
 import ProfileView from '../views/ProfileView.vue';
 import MyEventsView from '../views/MyEventsView.vue';
 import CheckoutView from '../views/CheckoutView.vue';
 import SingleEventView from '../views/SingleEventView.vue';
+import SignUpLandingView from '../views/SignUpLandingView.vue';
 import CreateEventView from '../views/CreateEventView.vue';
 import UpcomingEventsView from '../views/UpcomingEventsView.vue';
 import CreateAnnouncementView from '../views/CreateAnnouncementView.vue';
@@ -56,14 +56,19 @@ export default new Router({
       props: true,
     },
     {
-      path: '/acl',
-      name: 'acl',
-      component: AccessControlDemonstration,
-    },
-    {
       path: '/checkout',
       name: 'checkout',
       component: CheckoutView,
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView,
+    },
+    {
+      path: '/sign-up-landing',
+      name: 'signup-landing',
+      component: SignUpLandingView,
     },
     {
       path: '/sign-up',
