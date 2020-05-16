@@ -2,7 +2,7 @@
   <div class="scroll-container announcements-container" v-bind:style="{ 'maxHeight': '20rem' }">
     <div v-if="announcements.length === 0">
       <div class="blank-card">
-        <p>There are no upcoming announcements!</p>
+        <p>There is nothing to be announced!</p>
       </div>
     </div>
     <div v-else v-for="a in announcements" v-bind:key="a.id" @click="showAnnouncement(a)" >
