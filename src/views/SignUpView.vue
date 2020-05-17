@@ -45,7 +45,7 @@ export default {
     async signup(user) {
       try {
         await authService.actions.signup(user);
-        this.$router.push(`/profile/${user.email}`);
+        this.$router.push(`/sign-up-pf-2/${user.email}`);
         this.resetInput();
         this.setUser();
       } catch (error) {

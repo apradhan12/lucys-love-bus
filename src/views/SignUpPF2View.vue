@@ -1,100 +1,191 @@
 <template>
   <div>
-    <router-link :to="{name: 'login'}" tag="div" class="left-tab">
-      Back to Log In
-    </router-link>
     <div class="center">
-      <h2> Join the Sajni Center! </h2>
+      <h2> Registering as a Participating Family! </h2>
       <p class="text-wrap">
-        If you wish to join events for free and learn about more opportunities,
-        sign this form to request to be approved by our team!
+        Tell us more about you, your children, and/or
+        any other members you are registering under this account.
       </p>
     </div>
     <div class="auth-container">
-      <span class="form-title"> Sign up for a participating family account </span>
-      <div class="parents">
-        <div v-for="parent in parents" :key="parent.id">
-          <h3>
-            Parent {{parent.id + 1}}
+      <h3>More About You (Account Owner)</h3>
+      <div class="h-fields">
+        <input
+          v-model="mainContact.firstName"
+          class="input-primary half-input"
+          type="text"
+          placeholder="First Name">
+        <input
+          v-model="mainContact.lastName"
+          class="input-primary half-input"
+          type="text"
+          placeholder="Last Name">
+      </div>
+      <div class="pronoun-wrapper">
+        <h4>Preferred Pronouns</h4>
+        <button v-on:click="mainContact.pronouns = 'HE/HIM'"
+                :class="{'btn--secondary' : mainContact.pronouns !== 'HE/HIM',
+                         'btn--secondary-selected' : mainContact.pronouns === 'HE/HIM'}">
+          He/Him</button>
+        <button v-on:click="mainContact.pronouns = 'SHE/HER'"
+                :class="{'btn--secondary' : mainContact.pronouns !== 'SHE/HER',
+                         'btn--secondary-selected' : mainContact.pronouns === 'SHE/HER'}">
+          She/Her</button>
+        <button v-on:click="mainContact.pronouns = 'THEY/THEM'"
+                :class="{'btn--secondary' : mainContact.pronouns !== 'THEY/THEM',
+                         'btn--secondary-selected' : mainContact.pronouns === 'THEY/THEM'}">
+          They/Them</button>
+      </div>
+      <input
+        class="input-primary"
+        type="text"
+        v-bind:placeholder="this.$route.params.email"
+        disabled="True">
+      <div class="h-fields">
+        <input
+          v-model="mainContact.phoneNumber"
+          class="input-primary half-input"
+          type="text"
+          placeholder="Phone Number">
+        <input
+          v-model="mainContact.dateOfBirth"
+          class="input-primary half-input"
+          type="text"
+          placeholder="Date of Birth    DD/MM/YYYY">
+      </div>
+      <textarea v-model="mainContact.allergies" type="text"
+                class="input-primary" placeholder="Allergies"
+                style="min-width: 100%; max-width: 100%; box-sizing: border-box;"/>
+      <input
+        v-model="mainContact.diagnosis"
+        class="input-primary"
+        type="text"
+        placeholder="Diagnosis (if applicable)">
+      <input
+        v-model="mainContact.medication"
+        class="input-primary"
+        type="text"
+        placeholder="Medication (if applicable)">
+      <textarea v-model="mainContact.notes" type="text"
+                class="input-primary" placeholder="Other Notes"
+                style="min-width: 100%; max-width: 100%; box-sizing: border-box;"/>
+
+      <div class="contacts">
+        <h3>Additional Guardians or Adults (18+ yrs)</h3>
+        <div v-for="contact in additionalContacts" :key="contact.id">
+          <h4>
+            Guardian/Parent {{contact.id + 1}}
             <button class="remove-btn"
-                    v-if="parent.id > 0"
-                    v-on:click="removeParent(parent.id)">
+                    v-if="contact.id > 0"
+                    v-on:click="removeParent(contact.id)">
               Remove</button>
-          </h3>
+          </h4>
           <div class="h-fields">
             <input
-                    v-model="parent.name"
-                    class="input-primary half-input"
-                    type="text"
-                    placeholder="Parent's Name">
+              v-model="contact.firstName"
+              class="input-primary half-input"
+              type="text"
+              placeholder="First Name">
             <input
-                    v-model="parent.phoneNumber"
-                    class="input-primary half-input"
-                    type="text"
-                    placeholder="Phone Number">
+              v-model="contact.lastName"
+              class="input-primary half-input"
+              type="text"
+              placeholder="Last Name">
           </div>
-          <input class="input-primary" v-model="parent.address"
-                 type="text" placeholder="Address"
-                 style="width: 100%; box-sizing: border-box">
           <div class="h-fields">
-            <input v-model="parent.city" type="text"
-                   class="input-primary" placeholder="City">
-            <input v-model="parent.state" type="text"
-                   class="input-primary" placeholder="State"
-                   style="max-width: 4rem;">
-            <input v-model="parent.zipCode" type="text"
-                   class="input-primary" placeholder="Zip Code"
-                   style="max-width: 6rem;">
+            <input v-model="contact.email" type="text"
+              class="input-primary"
+              placeholder="Email Address"
+              style="width: 60%">
+            <label class="checkbox-container input-primary"
+                    style="margin-bottom: .5rem;
+                    display: flex; border: none">
+              <input type="checkbox" checked="checked" v-model="contact.shouldSendEmails">
+              <span class="checkmark" style="position: relative; height: 2rem; width: 2rem;"></span>
+              Receive News & Updates?
+            </label>
           </div>
-          <input v-model="parent.email" type="text"
-                 class="input-primary" placeholder="Email Address"
-                 style="width: 100%; box-sizing: border-box">
-          <textarea v-model="parent.allergies" type="text"
+          <div class="h-fields">
+            <input v-model="contact.phoneNumber" type="text"
+               class="input-primary half-input"
+               placeholder="PhoneNumber">
+            <input v-model="contact.dateOfBirth" type="text"
+                   class="input-primary half-input"
+                   placeholder="Date of Birth    DD/MM/YYYY">
+          </div>
+          <textarea v-model="contact.allergies" type="text"
                     class="input-primary" placeholder="Allergies"
                     style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
+          <input
+            v-model="contact.diagnosis"
+            class="input-primary"
+            type="text"
+            style="width: 100%; box-sizing: border-box"
+            placeholder="Diagnosis (if applicable)">
+          <input
+            v-model="contact.medication"
+            class="input-primary"
+            type="text"
+            style="width: 100%; box-sizing: border-box"
+            placeholder="Medication (if applicable)">
+          <textarea v-model="contact.notes" type="text"
+                    class="input-primary" placeholder="Other Notes"
+                    style="min-width: 100%; max-width: 100%; box-sizing: border-box;"/>
         </div>
-
-        <button class="add-btn" v-on:click="addParent">+ Add Parent</button>
+        <button class="add-btn" v-on:click="addContact">+ Add Guardian or Adult</button>
       </div>
+
       <div class="children">
+        <h3>Children</h3>
         <div v-for="child in children" :key="child.id">
-          <h3>
+          <h4>
             Child {{child.id + 1}}
             <button class="remove-btn"
                     v-if="child.id > 0"
                     v-on:click="removeChild(child.id)">
               Remove</button>
-          </h3>
+          </h4>
           <div class="h-fields">
             <input
-                    v-model="child.name"
-                    class="input-primary half-input"
-                    type="text"
-                    placeholder="Child's Name">
+              v-model="child.firstName"
+              class="input-primary half-input"
+              type="text"
+              placeholder="First Name">
             <input
-                    v-model="child.dateOfBirth"
-                    class="input-primary half-input"
-                    type="text"
-                    placeholder="Date of Birth  DD/MM/YYYY">
+              v-model="child.lastName"
+              class="input-primary half-input"
+              type="text"
+              placeholder="Last Name">
           </div>
           <div class="pronoun-wrapper">
             <h4>Preferred Pronouns</h4>
-            <button v-on:click="child.pronouns = 'M'"
-                    :class="{'btn--secondary' : child.pronouns !== 'M',
-                         'btn--secondary-selected' : child.pronouns === 'M'}">He/Him</button>
-            <button v-on:click="child.pronouns = 'F'"
-                    :class="{'btn--secondary' : child.pronouns !== 'F',
-                         'btn--secondary-selected' : child.pronouns === 'F'}">She/Her</button>
-            <button v-on:click="child.pronouns = 'A'"
-                    :class="{'btn--secondary' : child.pronouns !== 'A',
-                         'btn--secondary-selected' : child.pronouns === 'A'}">They/Them</button>
+            <button v-on:click="child.pronouns = 'HE/HIM'"
+                    :class="{'btn--secondary' : child.pronouns !== 'HE/HIM',
+                         'btn--secondary-selected' : child.pronouns === 'HE/HIM'}">
+              He/Him</button>
+            <button v-on:click="child.pronouns = 'SHE/HER'"
+                    :class="{'btn--secondary' : child.pronouns !== 'SHE/HER',
+                         'btn--secondary-selected' : child.pronouns === 'SHE/HER'}">
+              She/Her</button>
+            <button v-on:click="child.pronouns = 'THEY/THEM'"
+                    :class="{'btn--secondary' : child.pronouns !== 'THEY/THEM',
+                         'btn--secondary-selected' : child.pronouns === 'THEY/THEM'}">
+              They/Them</button>
           </div>
+          <input
+            v-model="child.dateOfBirth"
+            class="input-primary half-input"
+            type="text"
+            placeholder="Date of Birth  DD/MM/YYYY">
           <div class="h-fields">
-            <input v-model="child.schoolyear" type="text"
-                   class="input-primary half-input" placeholder="Grade">
             <input v-model="child.school" type="text"
                    class="input-primary half-input" placeholder="School">
+            <input v-model="child.schoolYear" type="text"
+                   class="input-primary half-input" placeholder="School Year">
           </div>
+          <textarea v-model="child.allergies" type="text"
+                    class="input-primary" placeholder="Allergies"
+                    style="min-width: 100%; max-width: 100%; box-sizing: border-box;"/>
           <input v-model="child.diagnosis" type="text"
                  class="input-primary" placeholder="Diagnosis (if applicable)"
                  style="width: 100%; box-sizing: border-box">
@@ -107,6 +198,7 @@
         </div>
         <button class="add-btn" v-on:click="addChild">+ Add Child</button>
       </div>
+
       <p style="font-weight: bold">Please carefully read, review, and check the
         agreement boxes below in order to participate
         in programs through Lucy’s Love Bus to ensure
@@ -177,34 +269,54 @@ export default {
   name: 'SignupPFForm',
   data() {
     return {
-      parents:
-          [
-            {
-              id: 0,
-              name: '',
-              phoneNumber: '',
-              address: '',
-              city: '',
-              state: '',
-              zipCode: '',
-              email: '',
-              allergies: '',
-            },
-          ],
-      children:
-          [
-            {
-              id: 0,
-              name: '',
-              dateOfBirth: '',
-              pronouns: '',
-              schoolyear: '',
-              school: '',
-              diagnosis: '',
-              medications: '',
-              notes: '',
-            },
-          ],
+      mainContact: {
+        firstName: '',
+        lastName: '',
+        pronouns: '',
+        email: '',
+        phoneNumber: '',
+        dateOfBirth: '',
+        location: {
+          address: '',
+          city: '',
+          state: '',
+          zipCode: '',
+        },
+        allergies: '',
+        diagnosis: '',
+        medications: '',
+        notes: '',
+      },
+      additionalContacts: [
+        {
+          id: 0,
+          firstName: '',
+          lastName: '',
+          email: '',
+          shouldSendEmails: false,
+          phoneNumber: '',
+          dateOfBirth: '',
+          allergies: '',
+          diagnosis: '',
+          medication: '',
+          notes: '',
+        },
+      ],
+      children: [
+        {
+          id: 0,
+          firstName: '',
+          lastName: '',
+          pronouns: '',
+          dateOfBirth: '',
+          school: '',
+          schoolYear: '',
+          allergies: '',
+          diagnosis: '',
+          medications: '',
+          notes: '',
+        },
+      ],
       noVisitAfterSick: false,
       parentsRemain: false,
       upToDateVaccination: false,
@@ -260,22 +372,20 @@ export default {
       this.inputError = [];
       this.serverError = '';
     },
-    addParent() {
+    addContact() {
       let tempId;
-      if (this.parents.length > 0) {
-        tempId = this.parents[this.parents.length - 1].id + 1;
+      if (this.additionalContacts.length > 0) {
+        tempId = this.additionalContacts[this.additionalContacts.length - 1].id + 1;
       } else {
         tempId = 0;
       }
-      this.parents.push({
+      this.additionalContacts.push({
         id: tempId,
-        name: '',
+        firstName: '',
+        lastName: '',
         phoneNumber: '',
-        address: '',
-        city: '',
-        state: '',
-        zipCode: '',
         email: '',
+        shouldSendEmails: false,
         allergies: '',
       });
     },
@@ -299,9 +409,9 @@ export default {
       });
     },
     removeParent(id) {
-      this.parents = this.parents.filter(parent => parent.id !== id);
-      for (let i = 0; i < this.parents.length; i += 1) {
-        this.parents[i].id = i;
+      this.additionalContacts = this.additionalContacts.filter(parent => parent.id !== id);
+      for (let i = 0; i < this.additionalContacts.length; i += 1) {
+        this.additionalContacts[i].id = i;
       }
     },
     removeChild(id) {
@@ -429,13 +539,6 @@ export default {
 
 <style lang="less" scoped>
   @import '../../assets/global-classes.less';
-
-  .auth-container {
-    text-align: left;
-    display: flex;
-    background-color: @form-bg-color;
-    border-radius: 5px;
-  }
 
   .text-wrap {
     margin: auto;

@@ -14,6 +14,7 @@ import CheckoutView from '../views/CheckoutView.vue';
 import SingleEventView from '../views/SingleEventView.vue';
 import CreateEventView from '../views/CreateEventView.vue';
 import UpcomingEventsView from '../views/UpcomingEventsView.vue';
+import SignUpPF2View from '../views/SignUpPF2View.vue';
 
 Vue.use(Router);
 
@@ -72,9 +73,14 @@ export default new Router({
       component: SignUpView,
     },
     {
-      path: '/sign-up-pf',
+      path: '/sign-up-pf/',
       name: 'sign-up-pf',
       component: SignUpPFView,
+    },
+    {
+      path: '/sign-up-pf-2/:email',
+      name: 'sign-up-pf-2',
+      component: SignUpPF2View,
     },
     {
       path: '/profile',
