@@ -31,7 +31,7 @@
       type="password"
       placeholder="Confirm Password">
     <div>
-      <button @click="completeForm" class="btn--tertiary"> Request </button> &nbsp;
+      <button @click="formCompleted" class="btn--tertiary"> Request </button> &nbsp;
       <router-link :to="{name: 'login'}" class="med-pad-left" tag="a">
         Already have an account? Log in here!
       </router-link>
@@ -72,11 +72,18 @@ export default {
       this.firstName = '';
       this.lastName = '';
       this.email = '';
+      this.phone = '';
+      this.address = '';
+      this.city = '';
+      this.state = '';
+      this.zip = '';
+      this.allergies = '';
       this.password = ['', ''];
       this.inputError = [];
       this.serverError = '';
     },
     validate() {
+      // TODO check if a user with same email already exists in DB
       this.inputError = [];
       const err1 = this.validateUser();
       const err2 = this.validateEmail();
@@ -84,7 +91,7 @@ export default {
       return err1 && err2 && err3;
     },
     validateUser() {
-      if (!this.firstName || !this.lastName[1]) {
+      if (!this.firstName || !this.lastName) {
         this.inputError.push('Name cannot be empty');
       } else {
         return true;
@@ -113,25 +120,30 @@ export default {
       }
       return false;
     },
-    completeForm() {
-      this.$emit('completeForm');
+    formCompleted() {
+      if (this.validate()) {
+        const user = {
+          email: this.email,
+          password: this.password,
+          firstName: this.firstName,
+          lastName: this.lastName,
+          phoneNumber: this.phoneNumber,
+          location: {
+            address: this.address,
+            city: this.city,
+            state: this.state,
+            zipCode: this.zip,
+          },
+        };
+        this.$emit('formCompleted', user);
+      }
     },
   },
 };
 </script>
 
-<style scoped>
+<style lang="less">
 @import '../../../assets/global-classes.less';
-
-.auth-container {
-  background-color: #fff1d4;
-}
-
-.text-wrap {
-  margin: auto;
-  width: 30em;
-  padding-bottom: 1em;
-}
 
 .center h2 {
   font-family: Dekko, cursive;

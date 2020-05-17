@@ -11,7 +11,7 @@
         After creating an account, your request will be reviewed by a member of our administration.
       </p>
     </div>
-    <SignUpForm />
+    <SignUpForm @formCompleted="signup"/>
   </div>
 </template>
 
@@ -30,63 +30,14 @@ export default {
     ...mapMutations('user', {
       setUser: 'setUser',
     }),
-    resetInput() {
-      this.parents = [
-        {
-          id: 0,
-          name: '',
-          phoneNumber: '',
-          address: '',
-          city: '',
-          state: '',
-          zipCode: '',
-          email: '',
-          allergies: '',
-        },
-      ];
-      this.children = [
-        {
-          id: 0,
-          name: '',
-          dateOfBirth: '',
-          pronouns: '',
-          schoolyear: '',
-          school: '',
-          diagnosis: '',
-          medications: '',
-          notes: '',
-        },
-      ];
-      this.noVisitAfterSick = false;
-      this.parentsRemain = false;
-      this.upToDateVaccination = false;
-      this.photoVideoReleaseConsent = undefined;
-      this.parentGuardianName = '';
-      this.parentGuardianInitials = '';
-      this.dateOfSignature = '';
-      this.password = ['', ''];
-      this.inputError = [];
-      this.serverError = '';
-    },
-    async signup() {
-      // TODO when backend routes are set up
-      // this is old code from the other sign up form. Must be adjusted.
-      this.serverError = '';
-      if (this.validate()) {
-        const user = {
-          firstName: this.firstName,
-          lastName: this.lastName,
-          email: this.email,
-          password: this.password[0],
-        };
-        try {
-          await authService.actions.signup(user);
-          this.$router.push(`/profile/${this.email}`);
-          this.resetInput();
-          this.setUser();
-        } catch (error) {
-          this.serverError = error.message;
-        }
+    async signup(user) {
+      try {
+        await authService.actions.signup(user);
+        this.$router.push(`/profile/${user.email}`);
+        this.resetInput();
+        this.setUser();
+      } catch (error) {
+        console.log(error.message);
       }
     },
   },
@@ -96,30 +47,10 @@ export default {
 <style lang="less" scoped>
   @import '../../assets/global-classes.less';
 
-  .auth-container {
-    text-align: left;
-    display: flex;
-    background-color: @form-bg-color;
-    border-radius: 5px;
-  }
-
   .text-wrap {
     margin: auto;
     width: 30em;
     padding-bottom: 1em;
-  }
-
-  .half-input {
-    width: 43%;
-  }
-
-  .center h2 {
-    font-family: Dekko, cursive;
-  }
-
-  a {
-    text-decoration: none;
-    color: gray;
   }
 
   .add-btn {
