@@ -6,7 +6,10 @@
     <div class="flex-horizontal">
       <div class="announcements-list__container">
         <h4 class="dekko-label">Announcements</h4>
-        <announcements-list sitewide :count="announcementsCount"/>
+        <announcements-list
+            sitewide
+            :count="announcementsCount"
+            @open-announcement="openAnnouncementModal"/>
       </div>
       <div class='flex-vertical'>
         <h4 class="dekko-label">Explore</h4>
@@ -27,6 +30,10 @@
         </router-link>
       </div>
       </div>
+      <AnnouncementModal
+          :open="openModal"
+          :announcement="modalAnnouncement"
+          @close-announcement="closeAnnouncementModal"/>
     </div>
   </div>
 </template>
@@ -34,6 +41,7 @@
 <script>
 import Welcome from '../components/Profile/Welcome.vue';
 import AnnouncementsList from '../components/Announcements/AnnouncementsList.vue';
+import AnnouncementModal from '../components/Announcements/AnnouncementModal.vue';
 import ANNOUNCEMENT_COUNT from '../utils/constants/announcements';
 import { USER, ROLE } from '../utils/constants/user';
 import AccessControl from '../components/AccessControl/AccessControl.vue';
@@ -44,16 +52,28 @@ export default {
     return {
       USER,
       ROLE,
+      openModal: false,
+      modalAnnouncement: null,
     };
   },
   components: {
     Welcome,
     AnnouncementsList,
+    AnnouncementModal,
     AccessControl,
   },
   computed: {
     announcementsCount() {
       return ANNOUNCEMENT_COUNT;
+    },
+  },
+  methods: {
+    openAnnouncementModal(announcement) {
+      this.openModal = true;
+      this.modalAnnouncement = announcement;
+    },
+    closeAnnouncementModal() {
+      this.openModal = false;
     },
   },
 };
