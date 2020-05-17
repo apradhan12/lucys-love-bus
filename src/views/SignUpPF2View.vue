@@ -198,57 +198,7 @@
         </div>
         <button class="add-btn" v-on:click="addChild">+ Add Child</button>
       </div>
-
-      <p style="font-weight: bold">Please carefully read, review, and check the
-        agreement boxes below in order to participate
-        in programs through Lucy’s Love Bus to ensure
-        the safety and comfort of all participants. </p>
-      <label class="checkbox-container">
-        <input type="checkbox" checked="checked" v-model="noVisitAfterSick">
-        <span class="checkmark"></span>
-        No family member or attendee will visit The
-        Sajni Center if they have been sick in the past 24 hours,
-        are feeling ill, have been exposed to a virus,
-        or do not have the appropriate age required immunizations.
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox" checked="checked" v-model="parentsRemain">
-        <span class="checkmark"></span>
-        All parents are to remain at
-        The Sajni Center during programs.
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox" checked="checked" v-model="upToDateVaccination">
-        <span class="checkmark"></span>
-        My children are up to date on all vaccinations
-        and I will provide a copy of my children’s immunization records prior to
-        attending any programs. (Children who are being treated for cancer often
-        have severely compromised immune systems, so we are required to collect
-        this information for their safety. All medical information will be stored
-        in a HIPPA-compliant manner.)
-      </label>
-      <p style="font-weight:bold">Photo/Video Release</p>
-      <p>I
-        <button style="margin-right: .75rem; margin-bottom: .5rem"
-                v-on:click="photoVideoReleaseConsent = true"
-                :class="{'btn--secondary-selected' : photoVideoReleaseConsent,
-                         'btn--secondary' : photoVideoReleaseConsent !== true}">consent</button>
-        <button v-on:click="photoVideoReleaseConsent = false"
-                :class="{'btn--secondary-selected' : photoVideoReleaseConsent === false,
-                         'btn--secondary' : photoVideoReleaseConsent !== false}">
-          do not consent</button>
-        and authorize the use
-        and reproduction by Lucy’s Love Bus of any and all photographs and any
-        other audio-visual materials taken of me for promotional material,
-        educational activities, exhibitions or for any other use for the benefit
-        of the organization. </p>
-      <div>
-        <button @click="signup"
-                class="btn--secondary-selected">Request</button>
-        <router-link :to="{name: 'login'}" class="med-pad-left" tag="a">
-          Already have an account? Log in here!
-        </router-link>
-      </div>
+      <button class="btn btn--secondary-selected" v-on:click="signup">Next Page</button>
       <div v-if="isValidForm === false" class="invalid_form--container">
         <h4>There were one or more issues with the form:</h4>
         <ul>
@@ -317,13 +267,6 @@ export default {
           notes: '',
         },
       ],
-      noVisitAfterSick: false,
-      parentsRemain: false,
-      upToDateVaccination: false,
-      photoVideoReleaseConsent: undefined,
-      parentGuardianName: '',
-      parentGuardianInitials: '',
-      dateOfSignature: '',
       password: ['', ''],
       inputError: [],
       serverError: '',
@@ -335,7 +278,7 @@ export default {
       setUser: 'setUser',
     }),
     resetInput() {
-      this.parents = [
+      this.additionalContacts = [
         {
           id: 0,
           name: '',
@@ -354,20 +297,13 @@ export default {
           name: '',
           dateOfBirth: '',
           pronouns: '',
-          schoolyear: '',
+          schoolYear: '',
           school: '',
           diagnosis: '',
           medications: '',
           notes: '',
         },
       ];
-      this.noVisitAfterSick = false;
-      this.parentsRemain = false;
-      this.upToDateVaccination = false;
-      this.photoVideoReleaseConsent = undefined;
-      this.parentGuardianName = '';
-      this.parentGuardianInitials = '';
-      this.dateOfSignature = '';
       this.password = ['', ''];
       this.inputError = [];
       this.serverError = '';
@@ -401,7 +337,7 @@ export default {
         name: '',
         dateOfBirth: '',
         pronouns: '',
-        schoolyear: '',
+        schoolYear: '',
         school: '',
         diagnosis: '',
         medications: '',
@@ -424,40 +360,27 @@ export default {
       this.inputError = [];
       const validParents = this.validateParents();
       const validChildren = this.validateChildren();
-      const validAgreements = this.validateAgreements();
-      this.isValidForm = validParents && validChildren && validAgreements;
-      return validParents && validChildren && validAgreements;
+      this.isValidForm = validParents && validChildren;
+      return validParents && validChildren;
     },
     validateParents() {
       const missingMsg = (who, id, what) => `${who} ${id} is missing ${what}`;
       let validParents = true;
-      this.parents.forEach((parent) => {
-        if (!parent.name) {
-          this.inputError.push(missingMsg('Parent', parent.id + 1, 'a name'));
+      this.additionalContacts.forEach((contact) => {
+        if (!contact.firstName) {
+          this.inputError.push(missingMsg('Parent/Guardian', contact.id + 1, 'a first name'));
           validParents = false;
         }
-        if (!parent.phoneNumber) {
-          this.inputError.push(missingMsg('Parent', parent.id + 1, 'a phone number'));
+        if (!contact.lastName) {
+          this.inputError.push(missingMsg('Parent/Guardian', contact.id + 1, 'a last name'));
           validParents = false;
         }
-        if (!parent.address) {
-          this.inputError.push(missingMsg('Parent', parent.id + 1, 'an address'));
+        if (!contact.phoneNumber) {
+          this.inputError.push(missingMsg('Parent/Guardian', contact.id + 1, 'a phone number'));
           validParents = false;
         }
-        if (!parent.city) {
-          this.inputError.push(missingMsg('Parent', parent.id + 1, 'a city'));
-          validParents = false;
-        }
-        if (!parent.state) {
-          this.inputError.push(missingMsg('Parent', parent.id + 1, 'a state'));
-          validParents = false;
-        }
-        if (!parent.zipCode) {
-          this.inputError.push(missingMsg('Parent', parent.id + 1, 'a zip code'));
-          validParents = false;
-        }
-        if (!parent.email) {
-          this.inputError.push(`Parent ${parent.id + 1}'s email is not valid`);
+        if (!contact.email) {
+          this.inputError.push(`Parent/Guardian ${contact.id + 1}'s email is not valid`);
           validParents = false;
         }
         return 1;
@@ -468,64 +391,48 @@ export default {
       const missingMsg = (who, id, what) => `${who} ${id} is missing ${what}`;
       let validChildren = true;
       this.children.forEach((child) => {
-        if (!child.name) {
-          this.inputError.push(missingMsg('Child', child.id + 1, 'a name'));
+        if (!child.firstName) {
+          this.inputError.push(missingMsg('Child', child.id + 1, 'a first name'));
           validChildren = false;
         }
-        if (!child.dateOfBirth) {
-          this.inputError.push(missingMsg('Child', child.id + 1, 'a date of birth'));
+        if (!child.lastName) {
+          this.inputError.push(missingMsg('Child', child.id + 1, 'a last name'));
           validChildren = false;
         }
         if (!child.pronouns) {
           this.inputError.push(missingMsg('Child', child.id + 1, 'preferred pronouns'));
           validChildren = false;
         }
-        if (!child.schoolyear) {
-          this.inputError.push(missingMsg('Child', child.id + 1, 'a school year (grade)'));
+        if (!child.dateOfBirth) {
+          this.inputError.push(missingMsg('Child', child.id + 1, 'a date of birth'));
           validChildren = false;
         }
         if (!child.school) {
           this.inputError.push(missingMsg('Child', child.id + 1, 'a school'));
           validChildren = false;
         }
+        if (!child.schoolYear) {
+          this.inputError.push(missingMsg('Child', child.id + 1, 'a school year (grade)'));
+          validChildren = false;
+        }
         return 1;
       });
       return validChildren;
-    },
-    validateAgreements() {
-      let isValid = true;
-      if (!this.noVisitAfterSick) {
-        this.inputError.push('Missing agreement to sick policy');
-        isValid = false;
-      }
-      if (!this.parentsRemain) {
-        this.inputError.push('Missing agreement to parent policy');
-        isValid = false;
-      }
-      if (!this.upToDateVaccination) {
-        this.inputError.push('Missing agreement to vaccination policy');
-        isValid = false;
-      }
-      if (!this.photoVideoReleaseConsent) {
-        this.inputError.push('Must consent to photo/video release');
-        isValid = false;
-      }
-      return isValid;
     },
     async signup() {
       // TODO when backend routes are set up
       // this is old code from the other sign up form. Must be adjusted.
       this.serverError = '';
       if (this.validate()) {
-        const user = {
-          firstName: this.firstName,
-          lastName: this.lastName,
+        const family = {
+          firstName: this.mainContact.firstName,
+          lastName: this.mainContact.lastName,
           email: this.email,
           password: this.password[0],
         };
         try {
-          await authService.actions.signup(user);
-          this.$router.push(`/profile/${this.email}`);
+          await authService.actions.signup(family);
+          this.$router.push('/form-agreements');
           this.resetInput();
           this.setUser();
         } catch (error) {

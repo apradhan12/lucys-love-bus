@@ -104,10 +104,6 @@ export default {
   font-weight: normal
 }
 
-.auth-container {
-  background-color: @form-bg-color;
-}
-
 .remember-me {
   margin: 1em 0 1em 0;
 }

@@ -15,6 +15,7 @@ import SingleEventView from '../views/SingleEventView.vue';
 import CreateEventView from '../views/CreateEventView.vue';
 import UpcomingEventsView from '../views/UpcomingEventsView.vue';
 import SignUpPF2View from '../views/SignUpPF2View.vue';
+import FormAgreements from '../components/Forms/FormAgreements.vue';
 
 Vue.use(Router);
 
@@ -78,9 +79,14 @@ export default new Router({
       component: SignUpPFView,
     },
     {
-      path: '/sign-up-pf-2/:email',
+      path: '/sign-up-pf-2',
       name: 'sign-up-pf-2',
       component: SignUpPF2View,
+    },
+    {
+      path: '/form-agreements',
+      name: 'form-agreements',
+      component: FormAgreements,
     },
     {
       path: '/profile',

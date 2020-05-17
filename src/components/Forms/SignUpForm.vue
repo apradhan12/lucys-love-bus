@@ -31,7 +31,7 @@
       type="password"
       placeholder="Confirm Password">
     <div>
-      <button @click="formCompleted" class="btn--tertiary"> Request </button> &nbsp;
+      <button @click="formCompleted" class="btn--tertiary"> Next Page </button> &nbsp;
       <router-link :to="{name: 'login'}" class="med-pad-left" tag="a">
         Already have an account? Log in here!
       </router-link>
@@ -111,8 +111,10 @@ export default {
       return false;
     },
     validatePassword() {
-      if (!this.password[0] && !this.password[1]) {
+      if (!this.password[0]) {
         this.inputError.push('Password cannot be empty');
+      } else if (this.password[0].length < 8) {
+        this.inputError.push('Password must be at least 8 characters');
       } else if (this.password[0] !== this.password[1]) {
         this.inputError.push('Passwords do not match');
       } else {
@@ -124,10 +126,10 @@ export default {
       if (this.validate()) {
         const user = {
           email: this.email,
-          password: this.password,
+          password: this.password[0],
           firstName: this.firstName,
           lastName: this.lastName,
-          phoneNumber: this.phoneNumber,
+          phoneNumber: this.phone,
           location: {
             address: this.address,
             city: this.city,
