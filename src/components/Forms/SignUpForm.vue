@@ -1,6 +1,5 @@
 <template>
   <div class="auth-container">
-    <span class="form-title"> Sign up for a general member account </span>
     <div class="h-fields">
       <input
         v-model="firstName"
@@ -13,23 +12,26 @@
         type="text"
         placeholder="Last Name">
     </div>
-    <input v-model="email" class="input-primary" type="text" placeholder="Email">
-    <input type="text" class="input-primary" placeholder="Some other field">
-    <input type="text"  class="input-primary" placeholder="Some other field">
+    <input v-model="email" class="input-primary" type="text" placeholder="Email Address">
+    <input v-model="phone" class="input-primary half-input" type="text" placeholder="Phone Number">
+    <input v-model="address" class="input-primary" type="text"  placeholder="Address">
     <div class="h-fields">
-      <input
-        v-model="password[0]"
-        class="input-primary half-input"
-        type="password"
-        placeholder="Password">
-      <input
-        v-model="password[1]"
-        class="input-primary half-input"
-        type="password"
-        placeholder="Retype Password">
+      <input v-model="city" class="input-primary third-input" type="text" placeholder="City">
+      <input v-model="state" class="input-primary third-input" type="text" placeholder="State">
+      <input v-model="zip" class="input-primary third-input" type="text"  placeholder="Zip Code">
     </div>
+    <input
+      v-model="password[0]"
+      class="input-primary"
+      type="password"
+      placeholder="Password">
+    <input
+      v-model="password[1]"
+      class="input-primary"
+      type="password"
+      placeholder="Confirm Password">
     <div>
-      <button @click="signup" class="btn--tertiary"> Request </button> &nbsp;
+      <button @click="completeForm" class="btn--tertiary"> Request </button> &nbsp;
       <router-link :to="{name: 'login'}" class="med-pad-left" tag="a">
         Already have an account? Log in here!
       </router-link>
@@ -43,7 +45,6 @@
 
 <script>
 import { mapMutations } from 'vuex';
-import authService from '../../utils/service/authService';
 
 export default {
   name: 'SignupForm',
@@ -52,6 +53,12 @@ export default {
       firstName: '',
       lastName: '',
       email: '',
+      phone: '',
+      address: '',
+      city: '',
+      state: '',
+      zip: '',
+      allergies: '',
       password: ['', ''],
       inputError: [],
       serverError: '',
@@ -106,25 +113,8 @@ export default {
       }
       return false;
     },
-    async signup() {
-      this.submitted = true;
-      this.serverError = '';
-      if (this.validate()) {
-        const user = {
-          firstName: this.firstName,
-          lastName: this.lastName,
-          email: this.email,
-          password: this.password[0],
-        };
-        try {
-          await authService.actions.signup(user);
-          this.$router.push('/profile');
-          this.resetInput();
-          this.setUser();
-        } catch (error) {
-          this.serverError = error.message;
-        }
-      }
+    completeForm() {
+      this.$emit('completeForm');
     },
   },
 };
@@ -141,10 +131,6 @@ export default {
   margin: auto;
   width: 30em;
   padding-bottom: 1em;
-}
-
-.half-input {
-  width: 43%;
 }
 
 .center h2 {

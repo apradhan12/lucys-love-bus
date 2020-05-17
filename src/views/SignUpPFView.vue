@@ -1,7 +1,6 @@
 <template>
   <div>
-    <!-- TODO fix router link here -->
-    <router-link :to="{name: 'login'}" tag="div" class="left-tab">
+    <router-link :to="{name: 'profile'}" tag="div" class="left-tab">
       Back to Options
     </router-link>
     <div class="center">

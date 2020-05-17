@@ -10,7 +10,7 @@
         sign this form to request to be appoved by our team!
       </p>
     </div>
-    <SignUpForm />
+    <SignUpForm @completeForm="handleCompleteForm"/>
   </div>
 </template>
 
@@ -39,6 +39,9 @@ export default {
     ...mapMutations('user', {
       setUser: 'setUser',
     }),
+    handleCompleteForm() {
+      console.log('handled');
+    },
     resetInput() {
       this.firstName = '';
       this.lastName = '';
