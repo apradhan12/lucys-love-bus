@@ -12,6 +12,7 @@ import SignUpLandingView from '../views/SignUpLandingView.vue';
 import CreateEventView from '../views/CreateEventView.vue';
 import UpcomingEventsView from '../views/UpcomingEventsView.vue';
 import CreateAnnouncementView from '../views/CreateAnnouncementView.vue';
+import VerifyEmailView from '../views/VerifyEmailView.vue';
 
 Vue.use(Router);
 
@@ -84,6 +85,11 @@ export default new Router({
       path: '/my-events',
       name: 'my-events',
       component: MyEventsView,
+    },
+    {
+      path: '/verify-email/:secret_key',
+      name: 'verify-email',
+      component: VerifyEmailView,
     },
     {
       path: '*',
