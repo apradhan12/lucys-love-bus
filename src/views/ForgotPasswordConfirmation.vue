@@ -10,7 +10,10 @@
       <div class="body-text">
         Keep an eye on your inbox (and check your spam folder as well).
         If you still haven’t received an email, click
-        <span class="resend-link" @click="resend">here</span> to resend it
+        <span class="resend-link" @click="resend">here</span> to resend it.
+      </div>
+      <div v-if="emailResent" class="resend-text">
+        Email Resent!
       </div>
     </div>
     <div v-else>
@@ -30,6 +33,11 @@ import authApi from '../api/authApi';
 
 export default {
   name: 'ForgotPasswordConfirmation',
+  data() {
+    return {
+      emailResent: false,
+    };
+  },
   props: {
     request: {
       type: Boolean,
@@ -47,8 +55,8 @@ export default {
           email: this.email,
         };
         await authApi.requestPasswordReset(body);
+        this.emailResent = true;
       }
-      alert('Your email has been sent!');
     },
   },
 };
@@ -69,6 +77,11 @@ export default {
 
   .resend-link {
     cursor: pointer;
+    text-decoration: underline;
+  }
+  .resend-text {
+    color: green;
+    margin-top: 10px;
   }
 
   .body-text {
