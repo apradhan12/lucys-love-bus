@@ -226,11 +226,11 @@ export default {
   data() {
     return {
       mainContact: {
-        firstName: '',
-        lastName: '',
+        firstName: this.user.firstName,
+        lastName: this.user.lastName,
         pronouns: '',
         email: '',
-        phoneNumber: '',
+        phoneNumber: this.user.phoneNumber,
         dateOfBirth: '',
         location: {
           address: '',
