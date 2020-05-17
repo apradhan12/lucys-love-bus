@@ -13,6 +13,9 @@ import CreateEventView from '../views/CreateEventView.vue';
 import UpcomingEventsView from '../views/UpcomingEventsView.vue';
 import CreateAnnouncementView from '../views/CreateAnnouncementView.vue';
 import VerifyEmailView from '../views/VerifyEmailView.vue';
+import ForgotPasswordRequest from '../views/ForgotPasswordRequest.vue';
+import ForgotPasswordReset from '../views/ForgotPasswordReset.vue';
+import ForgotPasswordConfirmation from '../views/ForgotPasswordConfirmation.vue';
 
 Vue.use(Router);
 
@@ -90,6 +93,22 @@ export default new Router({
       path: '/verify-email/:secret_key',
       name: 'verify-email',
       component: VerifyEmailView,
+    },
+    {
+      path: '/forgot-password-request',
+      name: 'forgot-password-request',
+      component: ForgotPasswordRequest,
+    },
+    {
+      path: '/forgot-password-reset/:secret_key',
+      name: 'forgot-password-reset',
+      component: ForgotPasswordReset,
+    },
+    {
+      path: '/forgot-password-confirmation',
+      name: 'forgot-password-confirmation',
+      component: ForgotPasswordConfirmation,
+      props: true,
     },
     {
       path: '*',
