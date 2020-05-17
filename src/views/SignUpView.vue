@@ -10,46 +10,7 @@
         sign this form to request to be appoved by our team!
       </p>
     </div>
-    <div class="auth-container">
-      <span class="form-title"> Sign up for a general member account </span>
-      <div class="h-fields">
-        <input
-          v-model="firstName"
-          class="input-primary half-input"
-          type="text"
-          placeholder="First Name">
-        <input
-        v-model="lastName"
-        class="input-primary half-input"
-        type="text"
-        placeholder="Last Name">
-      </div>
-      <input v-model="email" class="input-primary" type="text" placeholder="Email">
-      <input type="text" class="input-primary" placeholder="Some other field">
-      <input type="text"  class="input-primary" placeholder="Some other field">
-      <div class="h-fields">
-        <input
-          v-model="password[0]"
-          class="input-primary half-input"
-          type="password"
-          placeholder="Password">
-        <input
-          v-model="password[1]"
-          class="input-primary half-input"
-          type="password"
-          placeholder="Retype Password">
-      </div>
-      <div>
-        <button @click="signup" class="btn--tertiary"> Request </button> &nbsp;
-        <router-link :to="{name: 'login'}" class="med-pad-left" tag="a">
-          Already have an account? Log in here!
-        </router-link>
-      </div>
-    </div>
-    <ul class="error">
-      <li v-for="(err, index) in inputError" :key="index"> {{err}} </li>
-      <li v-if="this.serverError"> {{this.serverError}} </li>
-    </ul>
+    <SignUpForm />
   </div>
 </template>
 
@@ -57,9 +18,13 @@
 
 import { mapMutations } from 'vuex';
 import authService from '../utils/service/authService';
+import SignUpForm from '../components/Forms/SignUpForm.vue';
 
 export default {
   name: 'SignupForm',
+  components: {
+    SignUpForm,
+  },
   data() {
     return {
       firstName: '',

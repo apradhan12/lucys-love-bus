@@ -5,17 +5,12 @@
     placeholder="Parent's Name"
     class="input-primary half-input"
     type="text">
-  <input
-      v-model="parent.name"
-
-
-      >
 </template>
 
 <script>
-  export default {
-    name: "FormInput"
-  }
+export default {
+  name: 'FormInput',
+};
 </script>
 
 <style scoped>
