@@ -18,7 +18,7 @@
 <script>
 
 import { mapMutations } from 'vuex';
-import authService from '../utils/service/authService';
+// import authService from '../utils/service/authService';
 import SignUpForm from '../components/Forms/SignUpForm.vue';
 
 export default {
@@ -31,10 +31,14 @@ export default {
       setUser: 'setUser',
     }),
     async signup(user) {
-      console.log(user);
       try {
-        await authService.actions.signup(user);
-        this.$router.push('/sign-up-pf-2');
+        // await authService.actions.signup(user);
+        this.$router.push({
+          name: 'sign-up-pf-2',
+          params: {
+            user,
+          },
+        });
         this.resetInput();
         this.setUser();
       } catch (error) {

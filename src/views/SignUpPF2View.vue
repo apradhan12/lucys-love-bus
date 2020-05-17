@@ -39,7 +39,7 @@
       <input
         class="input-primary"
         type="text"
-        v-bind:placeholder="this.$route.params.email"
+        v-bind:placeholder="this.user.email"
         disabled="True">
       <div class="h-fields">
         <input
@@ -217,6 +217,12 @@ import authService from '../utils/service/authService';
 
 export default {
   name: 'SignupPFForm',
+  props: {
+    user: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
       mainContact: {

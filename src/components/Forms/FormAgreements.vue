@@ -46,11 +46,8 @@
         educational activities, exhibitions or for any other use for the benefit
         of the organization. </p>
       <div>
-        <button @click="signup"
+        <button v-on:click="validate"
                 class="btn--secondary-selected">Sign Up!</button>
-        <router-link :to="{name: 'login'}" class="med-pad-left" tag="a">
-          Already have an account? Log in here!
-        </router-link>
       </div>
       <div v-if="isValidForm === false" class="invalid_form--container">
         <h4>There were one or more issues with the form:</h4>
@@ -78,6 +75,7 @@ export default {
       dateOfSignature: '',
       inputError: [],
       serverError: '',
+      isValidForm: true,
     };
   },
   methods: {
@@ -103,6 +101,7 @@ export default {
         this.inputError.push('Must consent to photo/video release');
         isValid = false;
       }
+      this.isValidForm = isValid;
       return isValid;
     },
   },

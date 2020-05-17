@@ -82,6 +82,7 @@ export default new Router({
       path: '/sign-up-pf-2',
       name: 'sign-up-pf-2',
       component: SignUpPF2View,
+      props: true,
     },
     {
       path: '/form-agreements',
