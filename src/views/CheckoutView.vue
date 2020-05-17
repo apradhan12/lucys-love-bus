@@ -24,10 +24,6 @@
           </template>
         </events-list-scroll>
       </div>
-      <payment-summary
-        class="payment component-wrapper"
-        v-on:onClickCheckout="onClickCheckout" />
-      <promo-code class="codes component-wrapper"></promo-code>
     </div>
   </div>
 </template>
@@ -35,8 +31,6 @@
 <script>
 import { mapState, mapMutations } from 'vuex';
 import EventsListScroll from '../components/Events/EventsListScroll.vue';
-import PaymentSummary from '../components/Checkout/PaymentSummary.vue';
-import PromoCode from '../components/Checkout/PromoCode.vue';
 import API from '../api/api';
 import { USER, ROLE } from '../utils/constants/user';
 
@@ -44,8 +38,6 @@ export default {
   name: 'Checkout',
   components: {
     EventsListScroll,
-    PaymentSummary,
-    PromoCode,
   },
   computed: {
     ...mapState('cart', {
@@ -81,13 +73,6 @@ export default {
 @import '../../assets/color-constants.less';
   .component-container {
     margin: 0 auto;
-    display: grid;
-    grid-template-areas: 'events payment'
-                         'events codes'
-                         'events _';
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: 2fr 1fr 1fr;
-    grid-gap: 1rem;
     max-height: 60vh;
   }
   .component-wrapper {

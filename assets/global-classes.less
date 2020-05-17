@@ -4,10 +4,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Dekko&display=swap.css');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap.css');
 
-h1 {
-  margin-left: 8em;
-}
-
 .scroll-container {
   position: relative;
   overflow-x: hidden;
@@ -74,7 +70,7 @@ h1 {
 .event__container {
   display: grid;
   grid-template-areas: "img content userbtns"
-                       "X admin admin";
+                       "img admin admin";
   grid-template-columns: 1fr 4fr 1fr;
   grid-template-rows: 2fr 1fr;
   margin-bottom: 2em;
@@ -85,6 +81,7 @@ h1 {
 }
 
 .event-img img {
+  margin-top: 30%;
   width: 80%;
 }
 
@@ -111,12 +108,13 @@ h1 {
   align-items: center;
   flex-direction: column;
   justify-content: center;
+  padding-top: 1em;
 }
 
 .event-btns--admin_container {
   grid-area: admin;
   display: block;
-  padding: 0rem 1rem;
+  padding-left: 1em;
 }
 
 .event-btns--admin_wrapper {
@@ -128,11 +126,11 @@ h1 {
 .event-btn {
   width: 12rem;
   display: inline-block;
-  margin-bottom: 1em;
+  margin-bottom: 2em;
   background-color: @button-bg;
   color: @button-color;
   border: none;
-  padding: 1rem;
+  padding: 0.5rem;
   border-radius: 4px;
   cursor: pointer;
 }
@@ -145,7 +143,7 @@ h1 {
 .btn--secondary {
   color: @tangerine;
   background-color: white;
-  border: 1px solid @tangerine;
+  border: 1px solid #FBA34A;
   border-radius: 4px;
 }
 
