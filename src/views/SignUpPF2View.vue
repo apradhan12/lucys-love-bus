@@ -1,15 +1,13 @@
 <template>
   <div>
-    <!-- TODO fix router link here -->
     <router-link :to="{name: 'login'}" tag="div" class="left-tab">
-      Back to Options
+      Back to Log In
     </router-link>
     <div class="center">
-      <h2> Registering as a Participating Family! </h2>
+      <h2> Join the Sajni Center! </h2>
       <p class="text-wrap">
-        Participating Families have early access to view events and are
-        elligible to attend free of charge.
-        After creating an account, your request will be reviewed by a member of our administration.
+        If you wish to join events for free and learn about more opportunities,
+        sign this form to request to be appoved by our team!
       </p>
     </div>
     <div class="auth-container">
@@ -21,23 +19,23 @@
             <button class="remove-btn"
                     v-if="parent.id > 0"
                     v-on:click="removeParent(parent.id)">
-                    Remove</button>
+              Remove</button>
           </h3>
           <div class="h-fields">
             <input
-                   v-model="parent.name"
-                   class="input-primary half-input"
-                   type="text"
-                   placeholder="Parent's Name">
+                    v-model="parent.name"
+                    class="input-primary half-input"
+                    type="text"
+                    placeholder="Parent's Name">
             <input
-                   v-model="parent.phoneNumber"
-                   class="input-primary half-input"
-                   type="text"
-                   placeholder="Phone Number">
+                    v-model="parent.phoneNumber"
+                    class="input-primary half-input"
+                    type="text"
+                    placeholder="Phone Number">
           </div>
-            <input class="input-primary" v-model="parent.address"
-                   type="text" placeholder="Address"
-                   style="width: 100%; box-sizing: border-box">
+          <input class="input-primary" v-model="parent.address"
+                 type="text" placeholder="Address"
+                 style="width: 100%; box-sizing: border-box">
           <div class="h-fields">
             <input v-model="parent.city" type="text"
                    class="input-primary" placeholder="City">
@@ -49,11 +47,11 @@
                    style="max-width: 6rem;">
           </div>
           <input v-model="parent.email" type="text"
-                   class="input-primary" placeholder="Email Address"
-                   style="width: 100%; box-sizing: border-box">
+                 class="input-primary" placeholder="Email Address"
+                 style="width: 100%; box-sizing: border-box">
           <textarea v-model="parent.allergies" type="text"
-                   class="input-primary" placeholder="Allergies"
-                   style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
+                    class="input-primary" placeholder="Allergies"
+                    style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
         </div>
 
         <button class="add-btn" v-on:click="addParent">+ Add Parent</button>
@@ -172,15 +170,60 @@
 
 <script>
 
-import { mapMutations } from 'vuex';
-import authService from '../utils/service/authService';
+  import { mapMutations } from 'vuex';
+  import authService from '../utils/service/authService';
 
-export default {
-  name: 'SignupPFForm',
-  data() {
-    return {
-      parents:
-        [
+  export default {
+    name: 'SignupPFForm',
+    data() {
+      return {
+        parents:
+          [
+            {
+              id: 0,
+              name: '',
+              phoneNumber: '',
+              address: '',
+              city: '',
+              state: '',
+              zipCode: '',
+              email: '',
+              allergies: '',
+            },
+          ],
+        children:
+          [
+            {
+              id: 0,
+              name: '',
+              dateOfBirth: '',
+              pronouns: '',
+              schoolyear: '',
+              school: '',
+              diagnosis: '',
+              medications: '',
+              notes: '',
+            },
+          ],
+        noVisitAfterSick: false,
+        parentsRemain: false,
+        upToDateVaccination: false,
+        photoVideoReleaseConsent: undefined,
+        parentGuardianName: '',
+        parentGuardianInitials: '',
+        dateOfSignature: '',
+        password: ['', ''],
+        inputError: [],
+        serverError: '',
+        isValidForm: undefined,
+      };
+    },
+    methods: {
+      ...mapMutations('user', {
+        setUser: 'setUser',
+      }),
+      resetInput() {
+        this.parents = [
           {
             id: 0,
             name: '',
@@ -192,42 +235,40 @@ export default {
             email: '',
             allergies: '',
           },
-        ],
-      children:
-      [
-        {
-          id: 0,
-          name: '',
-          dateOfBirth: '',
-          pronouns: '',
-          schoolyear: '',
-          school: '',
-          diagnosis: '',
-          medications: '',
-          notes: '',
-        },
-      ],
-      noVisitAfterSick: false,
-      parentsRemain: false,
-      upToDateVaccination: false,
-      photoVideoReleaseConsent: undefined,
-      parentGuardianName: '',
-      parentGuardianInitials: '',
-      dateOfSignature: '',
-      password: ['', ''],
-      inputError: [],
-      serverError: '',
-      isValidForm: undefined,
-    };
-  },
-  methods: {
-    ...mapMutations('user', {
-      setUser: 'setUser',
-    }),
-    resetInput() {
-      this.parents = [
-        {
-          id: 0,
+        ];
+        this.children = [
+          {
+            id: 0,
+            name: '',
+            dateOfBirth: '',
+            pronouns: '',
+            schoolyear: '',
+            school: '',
+            diagnosis: '',
+            medications: '',
+            notes: '',
+          },
+        ];
+        this.noVisitAfterSick = false;
+        this.parentsRemain = false;
+        this.upToDateVaccination = false;
+        this.photoVideoReleaseConsent = undefined;
+        this.parentGuardianName = '';
+        this.parentGuardianInitials = '';
+        this.dateOfSignature = '';
+        this.password = ['', ''];
+        this.inputError = [];
+        this.serverError = '';
+      },
+      addParent() {
+        let tempId;
+        if (this.parents.length > 0) {
+          tempId = this.parents[this.parents.length - 1].id + 1;
+        } else {
+          tempId = 0;
+        }
+        this.parents.push({
+          id: tempId,
           name: '',
           phoneNumber: '',
           address: '',
@@ -236,11 +277,17 @@ export default {
           zipCode: '',
           email: '',
           allergies: '',
-        },
-      ];
-      this.children = [
-        {
-          id: 0,
+        });
+      },
+      addChild() {
+        let tempId;
+        if (this.children.length > 0) {
+          tempId = this.children[this.children.length - 1].id + 1;
+        } else {
+          tempId = 0;
+        }
+        this.children.push({
+          id: tempId,
           name: '',
           dateOfBirth: '',
           pronouns: '',
@@ -249,184 +296,135 @@ export default {
           diagnosis: '',
           medications: '',
           notes: '',
-        },
-      ];
-      this.noVisitAfterSick = false;
-      this.parentsRemain = false;
-      this.upToDateVaccination = false;
-      this.photoVideoReleaseConsent = undefined;
-      this.parentGuardianName = '';
-      this.parentGuardianInitials = '';
-      this.dateOfSignature = '';
-      this.password = ['', ''];
-      this.inputError = [];
-      this.serverError = '';
+        });
+      },
+      removeParent(id) {
+        this.parents = this.parents.filter(parent => parent.id !== id);
+        for (let i = 0; i < this.parents.length; i += 1) {
+          this.parents[i].id = i;
+        }
+      },
+      removeChild(id) {
+        this.children = this.children.filter(child => child.id !== id);
+        for (let i = 0; i < this.children.length; i += 1) {
+          this.children[i].id = i;
+        }
+      },
+      validate() {
+        this.inputError = [];
+        const validParents = this.validateParents();
+        const validChildren = this.validateChildren();
+        const validAgreements = this.validateAgreements();
+        this.isValidForm = validParents && validChildren && validAgreements;
+        return validParents && validChildren && validAgreements;
+      },
+      validateParents() {
+        const missingMsg = (who, id, what) => `${who} ${id} is missing ${what}`;
+        let validParents = true;
+        this.parents.forEach((parent) => {
+          if (!parent.name) {
+            this.inputError.push(missingMsg('Parent', parent.id + 1, 'a name'));
+            validParents = false;
+          }
+          if (!parent.phoneNumber) {
+            this.inputError.push(missingMsg('Parent', parent.id + 1, 'a phone number'));
+            validParents = false;
+          }
+          if (!parent.address) {
+            this.inputError.push(missingMsg('Parent', parent.id + 1, 'an address'));
+            validParents = false;
+          }
+          if (!parent.city) {
+            this.inputError.push(missingMsg('Parent', parent.id + 1, 'a city'));
+            validParents = false;
+          }
+          if (!parent.state) {
+            this.inputError.push(missingMsg('Parent', parent.id + 1, 'a state'));
+            validParents = false;
+          }
+          if (!parent.zipCode) {
+            this.inputError.push(missingMsg('Parent', parent.id + 1, 'a zip code'));
+            validParents = false;
+          }
+          if (!parent.email) {
+            this.inputError.push(`Parent ${parent.id + 1}'s email is not valid`);
+            validParents = false;
+          }
+          return 1;
+        });
+        return validParents;
+      },
+      validateChildren() {
+        const missingMsg = (who, id, what) => `${who} ${id} is missing ${what}`;
+        let validChildren = true;
+        this.children.forEach((child) => {
+          if (!child.name) {
+            this.inputError.push(missingMsg('Child', child.id + 1, 'a name'));
+            validChildren = false;
+          }
+          if (!child.dateOfBirth) {
+            this.inputError.push(missingMsg('Child', child.id + 1, 'a date of birth'));
+            validChildren = false;
+          }
+          if (!child.pronouns) {
+            this.inputError.push(missingMsg('Child', child.id + 1, 'preferred pronouns'));
+            validChildren = false;
+          }
+          if (!child.schoolyear) {
+            this.inputError.push(missingMsg('Child', child.id + 1, 'a school year (grade)'));
+            validChildren = false;
+          }
+          if (!child.school) {
+            this.inputError.push(missingMsg('Child', child.id + 1, 'a school'));
+            validChildren = false;
+          }
+          return 1;
+        });
+        return validChildren;
+      },
+      validateAgreements() {
+        let isValid = true;
+        if (!this.noVisitAfterSick) {
+          this.inputError.push('Missing agreement to sick policy');
+          isValid = false;
+        }
+        if (!this.parentsRemain) {
+          this.inputError.push('Missing agreement to parent policy');
+          isValid = false;
+        }
+        if (!this.upToDateVaccination) {
+          this.inputError.push('Missing agreement to vaccination policy');
+          isValid = false;
+        }
+        if (!this.photoVideoReleaseConsent) {
+          this.inputError.push('Must consent to photo/video release');
+          isValid = false;
+        }
+        return isValid;
+      },
+      async signup() {
+        // TODO when backend routes are set up
+        // this is old code from the other sign up form. Must be adjusted.
+        this.serverError = '';
+        if (this.validate()) {
+          const user = {
+            firstName: this.firstName,
+            lastName: this.lastName,
+            email: this.email,
+            password: this.password[0],
+          };
+          try {
+            await authService.actions.signup(user);
+            this.$router.push(`/profile/${this.email}`);
+            this.resetInput();
+            this.setUser();
+          } catch (error) {
+            this.serverError = error.message;
+          }
+        }
+      },
     },
-    addParent() {
-      let tempId;
-      if (this.parents.length > 0) {
-        tempId = this.parents[this.parents.length - 1].id + 1;
-      } else {
-        tempId = 0;
-      }
-      this.parents.push({
-        id: tempId,
-        name: '',
-        phoneNumber: '',
-        address: '',
-        city: '',
-        state: '',
-        zipCode: '',
-        email: '',
-        allergies: '',
-      });
-    },
-    addChild() {
-      let tempId;
-      if (this.children.length > 0) {
-        tempId = this.children[this.children.length - 1].id + 1;
-      } else {
-        tempId = 0;
-      }
-      this.children.push({
-        id: tempId,
-        name: '',
-        dateOfBirth: '',
-        pronouns: '',
-        schoolyear: '',
-        school: '',
-        diagnosis: '',
-        medications: '',
-        notes: '',
-      });
-    },
-    removeParent(id) {
-      this.parents = this.parents.filter(parent => parent.id !== id);
-      for (let i = 0; i < this.parents.length; i += 1) {
-        this.parents[i].id = i;
-      }
-    },
-    removeChild(id) {
-      this.children = this.children.filter(child => child.id !== id);
-      for (let i = 0; i < this.children.length; i += 1) {
-        this.children[i].id = i;
-      }
-    },
-    validate() {
-      this.inputError = [];
-      const validParents = this.validateParents();
-      const validChildren = this.validateChildren();
-      const validAgreements = this.validateAgreements();
-      this.isValidForm = validParents && validChildren && validAgreements;
-      return validParents && validChildren && validAgreements;
-    },
-    validateParents() {
-      const missingMsg = (who, id, what) => `${who} ${id} is missing ${what}`;
-      let validParents = true;
-      this.parents.forEach((parent) => {
-        if (!parent.name) {
-          this.inputError.push(missingMsg('Parent', parent.id + 1, 'a name'));
-          validParents = false;
-        }
-        if (!parent.phoneNumber) {
-          this.inputError.push(missingMsg('Parent', parent.id + 1, 'a phone number'));
-          validParents = false;
-        }
-        if (!parent.address) {
-          this.inputError.push(missingMsg('Parent', parent.id + 1, 'an address'));
-          validParents = false;
-        }
-        if (!parent.city) {
-          this.inputError.push(missingMsg('Parent', parent.id + 1, 'a city'));
-          validParents = false;
-        }
-        if (!parent.state) {
-          this.inputError.push(missingMsg('Parent', parent.id + 1, 'a state'));
-          validParents = false;
-        }
-        if (!parent.zipCode) {
-          this.inputError.push(missingMsg('Parent', parent.id + 1, 'a zip code'));
-          validParents = false;
-        }
-        if (!parent.email) {
-          this.inputError.push(`Parent ${parent.id + 1}'s email is not valid`);
-          validParents = false;
-        }
-        return 1;
-      });
-      return validParents;
-    },
-    validateChildren() {
-      const missingMsg = (who, id, what) => `${who} ${id} is missing ${what}`;
-      let validChildren = true;
-      this.children.forEach((child) => {
-        if (!child.name) {
-          this.inputError.push(missingMsg('Child', child.id + 1, 'a name'));
-          validChildren = false;
-        }
-        if (!child.dateOfBirth) {
-          this.inputError.push(missingMsg('Child', child.id + 1, 'a date of birth'));
-          validChildren = false;
-        }
-        if (!child.pronouns) {
-          this.inputError.push(missingMsg('Child', child.id + 1, 'preferred pronouns'));
-          validChildren = false;
-        }
-        if (!child.schoolyear) {
-          this.inputError.push(missingMsg('Child', child.id + 1, 'a school year (grade)'));
-          validChildren = false;
-        }
-        if (!child.school) {
-          this.inputError.push(missingMsg('Child', child.id + 1, 'a school'));
-          validChildren = false;
-        }
-        return 1;
-      });
-      return validChildren;
-    },
-    validateAgreements() {
-      let isValid = true;
-      if (!this.noVisitAfterSick) {
-        this.inputError.push('Missing agreement to sick policy');
-        isValid = false;
-      }
-      if (!this.parentsRemain) {
-        this.inputError.push('Missing agreement to parent policy');
-        isValid = false;
-      }
-      if (!this.upToDateVaccination) {
-        this.inputError.push('Missing agreement to vaccination policy');
-        isValid = false;
-      }
-      if (!this.photoVideoReleaseConsent) {
-        this.inputError.push('Must consent to photo/video release');
-        isValid = false;
-      }
-      return isValid;
-    },
-    async signup() {
-      // TODO when backend routes are set up
-      // this is old code from the other sign up form. Must be adjusted.
-      this.serverError = '';
-      if (this.validate()) {
-        const user = {
-          firstName: this.firstName,
-          lastName: this.lastName,
-          email: this.email,
-          password: this.password[0],
-        };
-        try {
-          await authService.actions.signup(user);
-          this.$router.push(`/profile/${this.email}`);
-          this.resetInput();
-          this.setUser();
-        } catch (error) {
-          this.serverError = error.message;
-        }
-      }
-    },
-  },
-};
+  };
 </script>
 
 <style lang="less" scoped>
