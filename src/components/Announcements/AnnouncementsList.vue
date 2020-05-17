@@ -49,7 +49,7 @@ export default {
       return DateUtils.toStringDate(date);
     },
     showAnnouncement(a) {
-      this.$emit('on-open-announcement', a);
+      this.$emit('open-announcement', a);
     },
   },
   async created() {

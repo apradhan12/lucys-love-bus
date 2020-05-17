@@ -6,9 +6,10 @@
     <div class="flex-horizontal">
       <div class="announcements-list__container">
         <h4 class="dekko-label">Announcements</h4>
-        <announcements-list sitewide
-                            :count="announcementsCount"
-                            @on-open-announcement="openAnnouncementModal"/>
+        <announcements-list
+            sitewide
+            :count="announcementsCount"
+            @open-announcement="openAnnouncementModal"/>
       </div>
       <div class='flex-vertical'>
         <h4 class="dekko-label">Explore</h4>
@@ -29,9 +30,10 @@
         </router-link>
       </div>
       </div>
-      <AnnouncementModal :open="openModal"
-                         :announcement="modalAnnouncement"
-                         @on-close-announcement="closeAnnouncementModal"/>
+      <AnnouncementModal
+          :open="openModal"
+          :announcement="modalAnnouncement"
+          @close-announcement="closeAnnouncementModal"/>
     </div>
   </div>
 </template>

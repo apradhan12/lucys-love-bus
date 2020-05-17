@@ -4,7 +4,7 @@
       <div class="modal">
         <div class="announce-header">
           <div class="announce-title">{{announcement.title}}</div>
-          <div class="announce-date">{{ toStringDate(announcement.created) }}</div>
+          <div class="announce-date">{{ createdString }}</div>
         </div>
         <div class="announce-body">{{announcement.description}}</div>
         <div
@@ -32,9 +32,14 @@ export default {
       type: Object,
     },
   },
+  computed: {
+    createdString() {
+      return DateUtils.toStringDate(this.announcement.created);
+    },
+  },
   methods: {
     close() {
-      this.$emit('on-close-announcement');
+      this.$emit('close-announcement');
     },
     toStringDate(date) {
       return DateUtils.toStringDate(date);
