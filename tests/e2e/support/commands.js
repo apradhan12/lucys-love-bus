@@ -13,7 +13,7 @@ Cypress.Commands.add('login', () => {
   cy.get('input[placeholder="Email Address"]').type(userPF.email);
   cy.get('input[placeholder="Password"]').type(userPF.password);
 
-  cy.get('.auth-container > button').click();
+  cy.get('.login-btn').click();
 
   cy.wait(1000);
 });
