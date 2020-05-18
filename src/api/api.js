@@ -104,11 +104,20 @@ async function getUpcomingEvents() {
 
 async function getMyEvents(start) {
   try {
-    const { data } = await protectedResourceAxios.get(`/api/v1//protected/events/signed_up?start=${start}`);
+    const { data } = await protectedResourceAxios.get(`/api/v1/protected/events/signed_up?start=${start}`);
     return data.events;
   } catch (err) {
     return err;
   }
+}
+
+async function createAnnouncement(body, eventId) {
+  let path = '/api/v1/protected/announcements';
+  if (eventId !== null) {
+    path += `/${eventId}`;
+  }
+  const { data } = await protectedResourceAxios.post(path, body);
+  return data;
 }
 
 async function getSitewideAnnouncements(paramObj) {
@@ -142,4 +151,5 @@ export default {
   getMyEvents,
   getSitewideAnnouncements,
   getEventAnnouncements,
+  createAnnouncement,
 };
