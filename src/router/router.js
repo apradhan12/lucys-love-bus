@@ -4,7 +4,6 @@ import EventsView from '../views/EventsView.vue';
 import LoginView from '../views/LoginView.vue';
 import SignUpView from '../views/SignUpView.vue';
 import SignUpPFView from '../views/SignUpPFView.vue';
-import AccessControlDemonstration from '../components/AccessControl/AccessControlDemonstration.vue';
 import NotFoundView from '../views/NotFoundView.vue';
 import ProfileView from '../views/ProfileView.vue';
 import MyEventsView from '../views/MyEventsView.vue';
