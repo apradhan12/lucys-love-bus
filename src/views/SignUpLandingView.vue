@@ -1,15 +1,24 @@
 <template>
-  <!-- "sl" is for "signup landing" -->
   <div class="sl-container">
-    <div class="sl-wrapper">
-      <h1>Welcome to the Sajni Center!</h1>
-      <div class="sl-btn sl-container__pf-container">
-        <div class="sl-btn__img"></div>
-        <h4>Participating Family</h4>
-      </div>
-      <div class="sl-btn sl-container__gm-container">
-        <div class="sl-btn__img"></div>
-        <h4>General Member</h4>
+    <div>
+      <p class="header">Choose an account type & register your family!</p>
+      <div class="sign-up-container">
+        <div class="btn-container">
+          <div class="btn-image"></div>
+          <h4>General Member</h4>
+          <p>
+            General Members may navigate the event calendar and purchase
+            tickets once registration is open
+          </p>
+        </div>
+        <div class="btn-container">
+          <div class="btn-image"></div>
+          <h4>Participating Family</h4>
+          <p>
+            Participating Families have early access to view events and
+            are eligible to attend free of charge
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -22,47 +31,38 @@ export default {
 </script>
 
 <style scoped lang="less">
-@sl-btn-width: 12rem;
-@sl-btn-height: 12rem;
 
 .sl-container {
-  background-color: lightgrey;
+  background-color: #C4C4C4;
   position: absolute;
-  height: 40rem;
   left: 0;
   right: 0;
+}
+
+.header {
+  font-family: 'Dekko';
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.sign-up-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
-.sl-wrapper {
-  width: 35rem;
-  height: 25rem;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.sl-wrapper > h1 {
-  margin: 0;
-  width: 100%;
-}
-
-.sl-btn {
+.btn-container {
   cursor: pointer;
   display: flex;
   flex-wrap: wrap;
-  width: @sl-btn-width;
-  height: @sl-btn-height;
+  width: 15rem;
   justify-content: center;
 }
 
-.sl-btn__img {
+.btn-image {
   background-color: white;
-  border-radius: 5px;
-  width: @sl-btn-width;
-  height: @sl-btn-width;
+  border-radius: 50%;
+  width: 12rem;
+  height: 12rem;
 }
 </style>
