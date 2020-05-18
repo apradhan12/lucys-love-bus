@@ -24,7 +24,7 @@
         placeholder="Password"
       />
       <button @click="submit" class="login-btn btn--tertiary">Login</button>
-      <router-link class="forgot-password" to="request-password" tag="a">
+      <router-link class="forgot-password" to="forgot-password-request" tag="a">
         Forgot your password?
       </router-link>
       <router-link to="sign-up-landing" tag="a">
@@ -79,7 +79,6 @@ export default {
         };
         try {
           await authService.actions.login(user);
-          // switch this to the profile component once it's made.
           this.$router.push('/profile');
           this.resetInput();
           this.setUser();
