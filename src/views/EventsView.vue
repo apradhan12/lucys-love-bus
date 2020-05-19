@@ -1,36 +1,61 @@
 <template>
-<div>
-  <h1>Our Upcoming Events</h1>
-  <events-list :events="upcomingEvents">
-    <template v-slot:NoEventsMsg>
-      <h3>Sorry, there are no currently available events!</h3>
-    </template>
-    <template v-slot:eventBtn1="slotProps">
-      <button
-        v-on:click="register({event: slotProps.event})"
-        class="event-btn" >
-        Register
-      </button>
-    </template>
-    <template v-slot:eventBtn2="slotProps">
-      <router-link
-        :to="{ name: 'single-event', params: { eventId: slotProps.event.id}}"
-        class="event-btn btn--secondary" tag="button">
-        Learn More
-      </router-link>
-    </template>
-  </events-list>
+  <div>
+    <p class="title">Our Upcoming Events</p>
+    <events-list :events="upcomingEvents">
+      <template v-slot:NoEventsMsg>
+        <h3>Sorry, there are currently no available events!</h3>
+      </template>
+      <template v-slot:eventBtns="slotProps">
+        <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
+          <button
+            v-on:click="register({event: slotProps.event})"
+            class="event-btn" >
+            Register
+          </button>
+        </access-control>
+        <access-control :roles="[USER[ROLE.ADMIN]]">
+          <router-link
+              :to="{ name: 'edit-event', params: { eventId: slotProps.event.id}}"
+              class="event-btn" tag="button">
+            Edit
+          </router-link>
+        </access-control>
+        <access-control :roles="[USER[ROLE.ADMIN]]">
+          <router-link
+              :to="{ name: 'create-announcement', params: { eventName: slotProps.event.name}}"
+              class="event-btn" tag="button">
+            Announce
+          </router-link>
+        </access-control>
+        <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF], USER[ROLE.ADMIN]]">
+          <router-link
+            :to="{ name: 'single-event', params: { eventId: slotProps.event.id}}"
+            class="event-btn btn--secondary" tag="button">
+            Learn More
+          </router-link>
+        </access-control>
+      </template>
+    </events-list>
   </div>
 </template>
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex';
 import EventsList from '../components/Events/EventsList.vue';
+import AccessControl from '../components/AccessControl/AccessControl.vue';
+import { ROLE, USER } from '../utils/constants/user';
 
 export default {
   name: 'EventsView',
   components: {
     EventsList,
+    AccessControl,
+  },
+  data() {
+    return {
+      USER,
+      ROLE,
+    };
   },
   async created() {
     await this.setUpcomingEvents();
@@ -57,5 +82,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import '../../assets/global-classes.less';
+  @import '../../assets/global-classes.less';
+
+  .title {
+    text-align: left;
+    font-size: 2.3rem;
+  }
 </style>
