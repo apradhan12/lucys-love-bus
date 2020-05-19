@@ -237,6 +237,7 @@ export default {
   justify-content: space-between;
   align-content: baseline;
   margin-top: 6px;
+  margin-bottom: 20px;
 }
 .single-event-btn {
   border-radius: 4px;
