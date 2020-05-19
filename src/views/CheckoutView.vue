@@ -8,14 +8,12 @@
           <template v-slot:NoEventsMsg>
             <h3>You have no events in your cart!</h3>
           </template>
-          <template v-slot:eventBtn1="slotProps">
+          <template v-slot:eventBtns="slotProps">
             <router-link
               :to="{ name: 'single-event', params: { eventId: slotProps.event.id}}"
               class="event-btn" tag="button">
               Event Page
             </router-link>
-          </template>
-          <template v-slot:eventBtn2="slotProps">
             <button
               v-on:click="cancelRegistration({event: slotProps.event})"
               class="event-btn btn--secondary">
@@ -79,6 +77,7 @@ export default {
 
 <style lang="less">
 @import '../../assets/color-constants.less';
+@import '../../assets/global-classes.less';
   .component-container {
     margin: 0 auto;
     display: grid;
