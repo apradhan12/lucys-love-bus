@@ -41,6 +41,7 @@ export default new Router({
       path: '/create-announcement',
       name: 'create-announcement',
       component: CreateAnnouncementView,
+      props: true,
     },
     {
       path: '/edit-event/:eventId',
