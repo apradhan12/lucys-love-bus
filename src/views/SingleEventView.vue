@@ -208,6 +208,7 @@ export default {
 }
 .event-img > img {
   float: left;
+  width: 90%;
 }
 
 .event-info {

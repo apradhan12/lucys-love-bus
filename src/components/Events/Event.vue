@@ -1,7 +1,7 @@
 <template>
   <div class="event-container">
       <div class="event-img">
-        <div class="img-box">
+        <div class="img-box-thumbnail">
           <img :src="event.thumbnail" />
           <span class="start-date">{{ toStringDate(event.details.start) }}</span>
         </div>
@@ -42,7 +42,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   @import '../../../assets/global-classes.less';
 
   .event-container {
@@ -57,12 +57,19 @@ export default {
   .event-img {
     grid-area: img;
   }
-  .img-box {
+  .img-box-thumbnail {
     position: relative;
     width: 100%;
     height: 100%;
     background-color: #E5E5E5;
+    overflow: hidden;
     border-radius: 4px;
+  }
+  .img-box-thumbnail > img {
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
   }
   .start-date {
     font-family: Raleway;
