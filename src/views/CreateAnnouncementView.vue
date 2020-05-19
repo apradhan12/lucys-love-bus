@@ -8,7 +8,7 @@
             </span>
             <span v-else>
                 This announcement will be shown to anyone that has signed up or will sign up for
-                {{ this.eventName }}.
+                <span class="event-title">{{ this.eventName }}</span>.
             </span>
         </div>
         <div class="form">
@@ -113,6 +113,9 @@ export default {
     font-size: 11pt;
     font-weight: bold;
     font-family: 'Quicksand';
+}
+.event-title {
+    text-decoration: underline;
 }
 
 .form {
