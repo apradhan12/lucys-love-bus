@@ -25,7 +25,7 @@ describe('Testing Navigation', () => {
 
     // checkout
     cy.visit(checkoutPath);
-    cy.contains('p', 'My Cart');
+    cy.contains('h1', 'My Cart');
 
     // profile
     cy.visit(profilePath);
@@ -33,7 +33,7 @@ describe('Testing Navigation', () => {
 
     // registrations
     cy.visit(registrationsPath);
-    cy.contains('h1', 'My Events');
+    cy.contains('p', 'My Upcoming Events');
   });
 
   // it('Visits all pages from landing page', () => {
