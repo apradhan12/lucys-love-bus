@@ -5,22 +5,18 @@
         <div class="modal-title">
           Sign Up for {{ event.title }}!
         </div>
+        <div class="modal-subheader">
+          There are {{ event.spotsAvailable }} tickets available.
+        </div>
         <div class="modal-body">
           <div>
             How many tickets would you like to reserve?
           </div>
           <select v-model="tickets" class="ticket-select">
             <option disabled value="0">-- Select --</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-            <option value="4">Four</option>
-            <option value="5">Five</option>
-            <option value="6">Six</option>
-            <option value="7">Seven</option>
-            <option value="8">Eight</option>
-            <option value="9">Nine</option>
-            <option value="10">Ten</option>
+            <option v-for="ticket in ticketOptions"
+                    :value="ticket.value"
+                    v-bind:key="ticket.value">{{ticket.text}}</option>
           </select>
         </div>
         <div class="btn-bar">
@@ -65,6 +61,20 @@ export default {
     createdString() {
       return DateUtils.toStringDate(this.announcement.created);
     },
+    ticketOptions() {
+      return [
+        { value: 1, text: 'One' },
+        { value: 2, text: 'Two' },
+        { value: 3, text: 'Three' },
+        { value: 4, text: 'Four' },
+        { value: 5, text: 'Five' },
+        { value: 6, text: 'Six' },
+        { value: 7, text: 'Seven' },
+        { value: 8, text: 'Eight' },
+        { value: 9, text: 'Nine' },
+        { value: 10, text: 'Ten' },
+      ].slice(0, this.event.spotsAvailable);
+    },
   },
   methods: {
     cancel() {
@@ -108,7 +118,7 @@ export default {
 
   .modal {
     position: fixed;
-    top: 25%;
+    top: 22.5%;
     background: white;
     border: solid 12px rgba(248, 134, 52, 0.5);
     width: 50%;
@@ -126,8 +136,16 @@ export default {
     text-align: left;
   }
 
-  .modal-body {
+  .modal-subheader {
     margin-top: 16px;
+    font-size: 1.3rem;
+    font-weight: lighter;
+    text-align: left;
+    color: #333;
+  }
+
+  .modal-body {
+    margin-top: 8px;
     margin-bottom: 16px;
     display: flex;
     flex-direction: row;

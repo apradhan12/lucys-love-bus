@@ -9,9 +9,14 @@
           <div v-if="isRegistered" class="signed-up-message">
             You're signed up!
           </div>
-          <button v-else class="register-button" @click="openEventModal">
+          <button v-else-if="singleEvent.spotsAvailable > 0"
+                  class="register-button"
+                  @click="openEventModal">
             Sign Up!
           </button>
+          <div v-else class="sold-out-message">
+            Sold Out!
+          </div>
         </access-control>
       </div>
     </div>
@@ -30,7 +35,7 @@
           <span class="spotsAvailable">{{ singleEvent.spotsAvailable }}</span>
           open spots of
           <span class="capacity">{{ singleEvent.capacity }}</span>
-          total.
+          total
         </div>
         <div class="info-block">
           <p class="subheader">When</p>
@@ -206,8 +211,14 @@ export default {
   font-size: 2.3rem;
 }
 .signed-up-message {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   color: green;
+  font-weight: bold;
+}
+.sold-out-message {
+  font-size: 1.5rem;
+  color: red;
+  font-weight: bold;
 }
 .register-button {
   background-color: @tangerine;

@@ -22,6 +22,9 @@ export default {
     cancelRegistration(state, { event }) {
       state.cartEvents = state.cartEvents.filter(cartEvent => cartEvent.id !== event.id);
     },
+    clearCart(state) {
+      state.cartEvents = [];
+    },
   },
   actions: {
 

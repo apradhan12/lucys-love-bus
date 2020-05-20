@@ -27,12 +27,24 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
 export default {
   name: 'EventRegistrationConfirmation',
   computed: {
     isSuccess() {
       return this.$route.params.success === 'success';
     },
+  },
+  methods: {
+    ...mapMutations('cart', {
+      clearCart: 'clearCart',
+    }),
+  },
+  mounted() {
+    if (this.isSuccess) {
+      this.clearCart();
+    }
   },
 };
 </script>

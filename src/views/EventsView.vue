@@ -8,9 +8,16 @@
       <template v-slot:eventBtns="slotProps">
         <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
           <button
+            v-if="slotProps.event.spotsAvailable > 0"
             v-on:click="openEventModal(slotProps.event)"
             class="event-btn" >
             Register
+          </button>
+          <button
+            v-else
+            class="event-btn sold-out"
+            disabled>
+            Sold Out
           </button>
         </access-control>
         <access-control :roles="[USER[ROLE.ADMIN]]">
@@ -104,5 +111,11 @@ export default {
   .title {
     text-align: left;
     font-size: 2.3rem;
+  }
+
+  .sold-out {
+    background-color: #AAA;
+    border: 1px solid #777;
+    cursor: not-allowed;
   }
 </style>
