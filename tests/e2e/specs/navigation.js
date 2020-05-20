@@ -25,7 +25,7 @@ describe('Testing Navigation', () => {
 
     // checkout
     cy.visit(checkoutPath);
-    cy.contains('h1', 'My Cart');
+    cy.contains('p', 'My Cart');
 
     // profile
     cy.visit(profilePath);
