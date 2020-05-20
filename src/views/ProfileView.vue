@@ -15,13 +15,21 @@
         <router-link class="explore-btn top" tag="button" to='/events'>
             Our Events
         </router-link>
-        <router-link class="explore-btn" tag="button" to='/my-events'>
-            My Events
-        </router-link>
+        <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
+          <router-link class="explore-btn" tag="button" to='/my-events'>
+              My Events
+          </router-link>
+        </access-control>
         <access-control :roles="[USER[ROLE.ADMIN]]">
           <router-link class="explore-btn" tag="button"
           :to='{name: "create-announcement", params: {eventName: "sitewide"}}'>
             Make Announcement
+          </router-link>
+        </access-control>
+        <access-control :roles="[USER[ROLE.ADMIN]]">
+          <router-link class="explore-btn" tag="button"
+                       :to='{name: "family-requests"}'>
+            View Account Requests
           </router-link>
         </access-control>
         <router-link class="explore-btn" tag="button" to='/account'>
