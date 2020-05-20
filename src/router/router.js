@@ -7,6 +7,7 @@ import NotFoundView from '../views/NotFoundView.vue';
 import ProfileView from '../views/ProfileView.vue';
 import MyEventsView from '../views/MyEventsView.vue';
 import CheckoutView from '../views/CheckoutView.vue';
+import EventRegistrationConfirmation from '../views/EventRegistrationConfirmation.vue';
 import SingleEventView from '../views/SingleEventView.vue';
 import SignUpLandingView from '../views/SignUpLandingView.vue';
 import CreateEventView from '../views/CreateEventView.vue';
@@ -64,6 +65,11 @@ export default new Router({
       path: '/checkout',
       name: 'checkout',
       component: CheckoutView,
+    },
+    {
+      path: '/event-registration-confirmation/:success',
+      name: 'event-registration-confirmation',
+      component: EventRegistrationConfirmation,
     },
     {
       path: '/login',
