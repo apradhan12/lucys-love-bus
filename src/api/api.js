@@ -142,6 +142,34 @@ async function getEventAnnouncements(id) {
   }
 }
 
+async function getPfRequests() {
+  try {
+    const path = '/api/v1/protected/requests';
+    const { data } = await protectedResourceAxios.get(path);
+    return data;
+  } catch (err) {
+    return err;
+  }
+}
+
+async function approveRequest(requestId) {
+  try {
+    const path = `/api/v1/protected/requests/${requestId}/approve`;
+    return await protectedResourceAxios.post(path);
+  } catch (err) {
+    return err;
+  }
+}
+
+async function rejectRequest(requestId) {
+  try {
+    const path = `/api/v1/protected/requests/${requestId}/reject`;
+    return await protectedResourceAxios.post(path);
+  } catch (err) {
+    return err;
+  }
+}
+
 export default {
   createEvent,
   editEvent,
@@ -154,4 +182,7 @@ export default {
   getSitewideAnnouncements,
   getEventAnnouncements,
   createAnnouncement,
+  getPfRequests,
+  approveRequest,
+  rejectRequest,
 };

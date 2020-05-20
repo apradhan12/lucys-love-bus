@@ -17,6 +17,7 @@ import VerifyEmailView from '../views/VerifyEmailView.vue';
 import ForgotPasswordRequest from '../views/ForgotPasswordRequest.vue';
 import ForgotPasswordReset from '../views/ForgotPasswordReset.vue';
 import ForgotPasswordConfirmation from '../views/ForgotPasswordConfirmation.vue';
+import FamilyRequests from '../views/FamilyRequests.vue';
 
 Vue.use(Router);
 
@@ -90,6 +91,11 @@ export default new Router({
       path: '/profile',
       name: 'profile',
       component: ProfileView,
+    },
+    {
+      path: '/family-requests',
+      name: 'family-requests',
+      component: FamilyRequests,
     },
     {
       path: '/my-events',
