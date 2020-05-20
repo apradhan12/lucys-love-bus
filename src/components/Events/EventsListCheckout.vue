@@ -15,7 +15,7 @@
 import Event from './Event.vue';
 
 export default {
-  name: 'EventsListScroll',
+  name: 'EventsListCheckout',
   components: {
     Event,
   },

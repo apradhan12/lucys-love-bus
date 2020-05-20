@@ -8,7 +8,7 @@
       <template v-slot:eventBtns="slotProps">
         <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
           <button
-            v-on:click="register({event: slotProps.event})"
+            v-on:click="openEventModal(slotProps.event)"
             class="event-btn" >
             Register
           </button>
@@ -36,6 +36,11 @@
         </access-control>
       </template>
     </events-list>
+    <EventModal :open="openModal"
+                :event="modalEvent"
+                @close-event-modal="closeEventModal"
+                @add-to-cart="addEventToCart"
+    />
   </div>
 </template>
 
@@ -44,10 +49,12 @@ import { mapState, mapMutations, mapActions } from 'vuex';
 import EventsList from '../components/Events/EventsList.vue';
 import AccessControl from '../components/AccessControl/AccessControl.vue';
 import { ROLE, USER } from '../utils/constants/user';
+import EventModal from '../components/Events/EventModal.vue';
 
 export default {
   name: 'EventsView',
   components: {
+    EventModal,
     EventsList,
     AccessControl,
   },
@@ -55,6 +62,8 @@ export default {
     return {
       USER,
       ROLE,
+      openModal: false,
+      modalEvent: {},
     };
   },
   async created() {
@@ -72,10 +81,18 @@ export default {
     ...mapMutations('cart', {
       registerForEvent: 'registerForEvent',
     }),
-    register(payload) {
+    openEventModal(event) {
+      this.openModal = true;
+      this.modalEvent = event;
+    },
+    closeEventModal() {
+      this.openModal = false;
+    },
+    addEventToCart(payload) {
+      this.openModal = false;
       this.registerForEvent(payload);
       // eslint-disable-next-line no-alert
-      alert(`You have signed up for ${payload.event.title}.`);
+      alert(`You have added ${payload.tickets} tickets for ${payload.event.title} to your cart.`);
     },
   },
 };
