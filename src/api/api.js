@@ -21,7 +21,9 @@ async function objToParams(obj) {
 
 async function createEvent(event) {
   try {
-    return await protectedResourceAxios.post('/api/v1/protected/events/', event);
+    return await protectedResourceAxios.post('/api/v1/protected/events/', event, {
+      timeout: 10000, // Allow 10 seconds for sending the image
+    });
   } catch (err) {
     return err;
   }
