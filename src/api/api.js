@@ -71,7 +71,7 @@ async function createEventRegistrationAndCheckoutSession(registeredEvents) {
       currency: 'usd',
       quantity: 1,
     })),
-    successUrl: 'http://localhost:8080/my-events',
+    successUrl: 'http://localhost:8080/event-registration-confirmation/success',
     cancelUrl: 'http://localhost:8080/checkout',
   };
   try {

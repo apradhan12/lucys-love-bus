@@ -9,9 +9,14 @@
           <div v-if="isRegistered" class="signed-up-message">
             You're signed up!
           </div>
-          <button v-else class="register-button">
+          <button v-else-if="singleEvent.spotsAvailable > 0"
+                  class="register-button"
+                  @click="openEventModal">
             Sign Up!
           </button>
+          <div v-else class="sold-out-message">
+            Sold Out!
+          </div>
         </access-control>
       </div>
     </div>
@@ -30,7 +35,7 @@
           <span class="spotsAvailable">{{ singleEvent.spotsAvailable }}</span>
           open spots of
           <span class="capacity">{{ singleEvent.capacity }}</span>
-          total.
+          total
         </div>
         <div class="info-block">
           <p class="subheader">When</p>
@@ -89,15 +94,21 @@
         </access-control>
       </div>
     </div>
+    <EventModal :open="openModal"
+                :event="singleEvent"
+                @close-event-modal="closeEventModal"
+                @add-to-cart="addEventToCart"
+    />
   </div>
 </template>
 
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import moment from 'moment';
 import api from '../api/api';
 import AccessControl from '../components/AccessControl/AccessControl.vue';
+import EventModal from '../components/Events/EventModal.vue';
 import {
   USER, ROLE,
 } from '../utils/constants/user';
@@ -106,6 +117,7 @@ export default {
   name: 'SingleEvent',
   components: {
     AccessControl,
+    EventModal,
   },
   props: {
     eventId: { // id is a number, but props are always passed as strings
@@ -120,6 +132,7 @@ export default {
       },
       USER,
       ROLE,
+      openModal: false,
     };
   },
   computed: {
@@ -145,6 +158,21 @@ export default {
     ...mapActions('events', {
       deleteEvent: 'deleteEvent',
     }),
+    ...mapMutations('cart', {
+      registerForEvent: 'registerForEvent',
+    }),
+    openEventModal() {
+      this.openModal = true;
+    },
+    closeEventModal() {
+      this.openModal = false;
+    },
+    addEventToCart(payload) {
+      this.openModal = false;
+      this.registerForEvent(payload);
+      // eslint-disable-next-line no-alert
+      alert(`You have added ${payload.tickets} tickets for ${payload.event.title} to your cart.`);
+    },
     async getSingleEvent() {
       const res = await api.getEvent(this.eventId);
       return res;
@@ -183,8 +211,14 @@ export default {
   font-size: 2.3rem;
 }
 .signed-up-message {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   color: green;
+  font-weight: bold;
+}
+.sold-out-message {
+  font-size: 1.5rem;
+  color: red;
+  font-weight: bold;
 }
 .register-button {
   background-color: @tangerine;
